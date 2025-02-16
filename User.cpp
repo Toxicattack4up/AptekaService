@@ -18,6 +18,7 @@ User::User(UserRole Role,
         Login(Login),
         PasswordHash(PasswordHash),
         FullName(FullName),
-        Email(Email)
-{}
+        Email(Email) {}
+
+
 
