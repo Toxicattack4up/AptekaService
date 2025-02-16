@@ -9,12 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Admin.cpp \
+    JsonMeneger.cpp \
     User.cpp \
     UserRoleHelper.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Admin.h \
+    JsonMeneger.h \
     User.h \
     UserRoleHelper.h \
     mainwindow.h

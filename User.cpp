@@ -57,6 +57,10 @@ void User::setRole(UserRole _role)
 
 void User::setLogin(const QString& _login)
 {
+    if (_login.isEmpty())
+    {
+        throw std::invalid_argument("Имя не может быть пустым");
+    }
     Login = _login;
 }
 
