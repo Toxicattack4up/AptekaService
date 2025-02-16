@@ -64,7 +64,7 @@ void User::setPasswordHash(const QString& _passwordHash)
 {
     if (_passwordHash.length() < 8)
     {
-        std::cout << "Пароль должен быть не менее 8 символов" << std::endl;
+        throw std::invalid_argument("Пароль должен быть не менее 8 символов");
     } else {
         std::cout << "Пароль надежный" << std::endl;
     }
@@ -82,15 +82,9 @@ void User::setFullName(const QString& _fullName)
 
 void User::setEmail(const QString& _email)
 {
-    for(int i = 0; i < _email.length(); i++)
+    if (_email.isEmpty())
     {
-        int At = -1, Dot = -1;
-        if(_email[i] == '@'){
-            At = i;
-        } else if (_email[i] == '.')
-        {
-            Dot = i;
-        }
+        throw std::invalid_argument("Почта не может быть пустой");
     }
     Email = _email;
 }
