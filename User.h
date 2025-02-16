@@ -3,6 +3,7 @@
 
 #include "UserRoleHelper.h"
 #include <QDateTime>
+#include <QString>
 
 
 class User : public UserRoleHelper
@@ -36,12 +37,14 @@ public:
     QDateTime getRegistrationDate() const;
 
     // Сеттеры
-    void setRole(UserRole Role);
-    void setLogin(const QString& Login);
-    void setPasswordHash(const QString& PasswordHash);
-    void setFullName(const QString& FullName);
-    void setEmail(const QString& Email);
-    void setRegistrationDate(const QDateTime& RegistationDate);
+    void setRole(UserRole _role);
+    void setLogin(const QString& _login);
+    void setPasswordHash(const QString& _passwordHash);
+    void setFullName(const QString& _fullName);
+    void setEmail(const QString& _email);
+    void setRegistrationDate(const QDateTime& _registationDate);
+
+
 };
 
 #endif // USER_H
