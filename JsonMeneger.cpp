@@ -36,3 +36,13 @@ QString JsonMeneger::HashPassword(const QString &password)
 }
 
 // _____Сотрудники_____
+void JsonMeneger::AddEmployee(const QString &_name,
+                 const QString &_login,
+                 const QString &_password,
+                 const QString &_fullName,
+                 const QString &_role,
+                 const QString &_email,
+                 const QDateTime &_registrationDate)
+{
+
+}

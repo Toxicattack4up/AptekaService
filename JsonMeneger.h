@@ -12,14 +12,20 @@
 #include <QCoreApplication>
 #include <QDateTime>
 
+#include "User.h"
+
 class JsonMeneger
 {
 public:
     JsonMeneger();
 
 private:
+    //_____Доп функции_____
     // Загрузка файла JSON
     QJsonObject LoadJSON(const QString &filePath);
+
+    // Сохранение в файл JSON
+    QJsonObject SaveToJSON();
 
     // Хеширование пароля
     QString HashPassword(const QString &password);
@@ -29,6 +35,8 @@ private:
                       const QString &password,
                       const QJsonObject &users);
 
+
+
     // _____Сотрудники_____
     // Добавление сотрудника
     void AddEmployee(const QString &_name,
@@ -36,24 +44,34 @@ private:
                      const QString &_password,
                      const QString &_fullName,
                      const QString &_role,
-                     const QString &_email,
-                     const QDateTime &_registrationDate);
+                     const QString &_email);
 
     // Удаление сотрудика
     void RemoveEmployee(const QString &login);
 
     // Поиск сотрудника
+    void SearchEmployee(const QString &_name,
+                        const QString &_login,
+                        const QString &_fullName,
+                        const QString &_role,
+                        const QString &_email);
+
+
 
     //_____Склад_____
+    // Нужно добавить класс, который будет отвечать за препараты
     // Добавление лекарства
-
+    void AddMedicine();
 
     //Удаление лекарства
-
+    void RemoveMedicine();
 
     // Поиск лекарства
+    void SearchEmployee();
 
 
+
+    //_____
 
 };
 
