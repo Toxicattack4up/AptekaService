@@ -54,6 +54,8 @@ QString JsonMeneger::HashPassword(const QString &password)
 }
 
 // _____Сотрудники_____
+
+// Добавление сотрудника
 void JsonMeneger::AddEmployee(const QString &_role,
                               const QString &_login,
                               const QString &_password,
@@ -114,4 +116,50 @@ void JsonMeneger::AddEmployee(const QString &_role,
     // Загружаем массив обратно в файл и сохраняем
     json["employees"] = employees;
     SaveToJSON("Base.json", json);
+}
+
+// Удаление сотрудика
+void JsonMeneger::RemoveEmployee(const QString &login)
+{
+    // Переменная искомого логина
+    QString EmployeeLogin = login;
+    // Если пуст, то завершить
+    if(EmployeeLogin.isEmpty())
+    {
+        qDebug() << "Ошибка: логин не может быть пустым";
+        return;
+    }
+    // Загрузка файла с категориями сотрудника
+    QJsonObject json = LoadJSON("Base.json");
+    QJsonArray employees = json["Employees"].toArray();
+
+    // Флаг остановки
+    bool found = false;
+
+    // Проходим мо массиву сотрудников, после заглядываем, что находится
+    // внутри массива, если там есть искомый логин
+    // то останавливаем выполенние и удаляем сотрудника
+    for(int i = 0; i < employees.size(); ++i)
+    {
+        QJsonObject employeeObj = employees[i].toObject();
+
+        if(employeeObj["login"].toString() == EmployeeLogin)
+        {
+            employees.removeAt(i);
+            found = true;
+            break;
+        }
+    }
+
+    if(!found)
+    {
+        qDebug() << "Сотрудник " << EmployeeLogin << " не найден";
+        return;
+    }
+
+    // Загружаем данные обратно в файл
+    json["Base.json"] = employees;
+    SaveToJSON("Base.json", json);
+
+    qDebug() << "Сотрудник " << EmployeeLogin <<" успешно удален";
 }

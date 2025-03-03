@@ -25,7 +25,7 @@ private:
     QJsonObject LoadJSON(const QString &filePath);
 
     // Сохранение в файл JSON
-    QJsonObject SaveToJSON();
+    void SaveToJSON(const QString &filePath, const QJsonObject &json);
 
     // Хеширование пароля
     QString HashPassword(const QString &password);
@@ -39,11 +39,10 @@ private:
 
     // _____Сотрудники_____
     // Добавление сотрудника
-    void AddEmployee(const QString &_name,
+    void AddEmployee(const QString &_role,
                      const QString &_login,
                      const QString &_password,
                      const QString &_fullName,
-                     const QString &_role,
                      const QString &_email);
 
     // Удаление сотрудика
