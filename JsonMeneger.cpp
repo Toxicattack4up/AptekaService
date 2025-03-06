@@ -172,8 +172,6 @@ void JsonMeneger::RemoveEmployee(const QString &login)
 
     for(int i = 0; i < employees.size(); ++i)
     {
-        QJsonObject employeeObj = employees[i].toObject();
-
         if(employees[i].getLogin() == login)
         {
             employees.removeAt(i);
