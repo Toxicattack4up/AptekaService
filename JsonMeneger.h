@@ -16,11 +16,22 @@
 
 class JsonMeneger
 {
+private:
+    QList<User> employees;
 public:
     JsonMeneger();
 
 private:
     //_____Доп функции_____
+    // Загрузка данных в память
+    QList<User> LoadEmployees();
+
+    // Преобразование списка в JSON
+    QJsonArray EmployeesToJsonArray() const;
+
+    // Сохранение в файл
+    void SaveEmployees();
+
     // Загрузка файла JSON
     QJsonObject LoadJSON(const QString &filePath);
 
@@ -49,10 +60,10 @@ private:
     void RemoveEmployee(const QString &login);
 
     // Поиск сотрудника
-    void SearchEmployee(const QString &_name,
+    void SearchEmployee(const QString &_role,
                         const QString &_login,
+                        const QString &_password,
                         const QString &_fullName,
-                        const QString &_role,
                         const QString &_email);
 
 

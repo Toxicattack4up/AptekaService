@@ -1,6 +1,66 @@
 #include "JsonMeneger.h"
 
-JsonMeneger::JsonMeneger() {}
+JsonMeneger::JsonMeneger()
+{
+    employees = LoadEmployees();
+}
+
+// Загрузка данных в память
+QList<User> JsonMeneger::LoadEmployees()
+{
+    QJsonObject json = LoadJSON("Base.json");
+    if(json.isEmpty())
+    {
+        qDebug() << "Не удалось загрузить данные сотрудников из файла";
+        return QList<User>();
+    }
+    QJsonArray employeesArray = json["Employees"].toArray();
+    QList<User> employees;
+
+    for(const QJsonValue &value : employeesArray)
+    {
+        QJsonObject obj = value.toObject();
+        User user;
+        user.setRole(UserRoleHelper::fromString(obj["role"].toString()));
+        user.setLogin(obj["login"].toString());
+        user.setPasswordHash(obj["passwordHash"].toString());
+        user.setFullName(obj["fullName"].toString());
+        user.setEmail(obj["email"].toString());
+        user.setRegistrationDate(QDateTime::fromString(obj["registrationDate"].toString(), Qt::ISODate));
+        employees.append(user);
+    }
+    return employees;
+}
+
+// Преобразование списка в JSON
+QJsonArray JsonMeneger::EmployeesToJsonArray() const
+{
+    QJsonArray employeesArray;
+
+    const QMap<UserRole, QString>& roleNames = UserRoleHelper::getRoleNames();
+
+    for(const User &user : employees)
+    {
+        QJsonObject employeeObj;
+        employeeObj["role"] = roleNames.value(user.getRole());
+        employeeObj["login"] = user.getLogin();
+        employeeObj["passwordHash"] = user.getPasswordHash();
+        employeeObj["fullName"] = user.getFullName();
+        employeeObj["email"] = user.getEmail();
+        employeeObj["registrationDate"] = user.getRegistrationDate().toString(Qt::ISODate);
+        employeesArray.append(employeeObj);
+    }
+    return employeesArray;
+}
+
+// Сохранение списка в файл
+void JsonMeneger::SaveEmployees()
+{
+    QJsonObject json;
+    json["Employees"] = EmployeesToJsonArray();
+    SaveToJSON("Base.json", json);
+}
+
 
 // Загрузка файла JSON
 QJsonObject JsonMeneger::LoadJSON(const QString &filePath)
@@ -31,8 +91,7 @@ QJsonObject JsonMeneger::LoadJSON(const QString &filePath)
 // Сохранение в файл JSON
 void JsonMeneger::SaveToJSON(const QString &filePath, const QJsonObject &json)
 {
-    QString fullPath = QCoreApplication::applicationFilePath() + "/" + filePath;
-
+    QString fullPath = QCoreApplication::applicationDirPath() + "/" + filePath;
     QFile file(fullPath);
 
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -64,20 +123,24 @@ void JsonMeneger::AddEmployee(const QString &_role,
 {
     // После добавления окон необходимо сделать обработку вывода операций (ошибка или правильность выполенения)
 
-    // Присваиваем стандартную роль
-    UserRole role = UserRole::Unknown;
-    const QMap<UserRole, QString>& roleNames = UserRoleHelper::getRoleNames();
 
-    // Проверка роли и преобразование ее
-    for(auto i = roleNames.begin(); i != roleNames.end(); ++i)
+    UserRole role = UserRoleHelper::fromString(_role);
+    if(role == UserRole::Unknown)
     {
-        if(i.value() == _role)
+        qDebug() << "Ошибка: неизвестная роль";
+        return;
+    }
+
+    // Проверка на дубль логина
+    for(const User &user : employees)
+    {
+        if(user.getLogin() == _login)
         {
-            role = i.key();
-            break;
+            qDebug() << "Логин " << _login << " уже существует";
+            return;
         }
     }
-    //Нужно добавить проверку для почты, чтобы она была отображалась нормально
+
     // Хеширование
     QString passwordHash = HashPassword(_password);
 
@@ -87,79 +150,57 @@ void JsonMeneger::AddEmployee(const QString &_role,
     // Дата регистрации
     newUser.setRegistrationDate(QDateTime::currentDateTime());
 
-    // Формирование структуры для дальнейшей загрузки данных в файл
-    QJsonObject employeeObj;
-    employeeObj["role"] = roleNames.value(newUser.getRole());
-    employeeObj["login"] = newUser.getLogin();
-    employeeObj["passwordHash"] = newUser.getPasswordHash();
-    employeeObj["fullName"] = newUser.getFullName();
-    employeeObj["email"] = newUser.getEmail();
-    employeeObj["registrationDate"] = newUser.getRegistrationDate().toString(Qt::ISODate);
-
-    // Загрука файла с определенными категориями
-    QJsonObject json = LoadJSON("Base.json");
-    QJsonArray employees = json["Employees"].toArray();
-
-    // Проверка на дубль логина
-    for(const QJsonValue &value : employees)
-    {
-        if(value.toObject()["login"] == _login)
-        {
-            qDebug() << "Логин уже существует";
-            return;
-        }
-    }
-
     // Добавление нового сотрудника в массив
-    employees.append(employeeObj);
-
-    // Загружаем массив обратно в файл и сохраняем
-    json["employees"] = employees;
-    SaveToJSON("Base.json", json);
+    employees.append(newUser);
 }
 
 // Удаление сотрудика
 void JsonMeneger::RemoveEmployee(const QString &login)
 {
-    // Переменная искомого логина
-    QString EmployeeLogin = login;
     // Если пуст, то завершить
-    if(EmployeeLogin.isEmpty())
+    if(login.isEmpty())
     {
         qDebug() << "Ошибка: логин не может быть пустым";
         return;
     }
-    // Загрузка файла с категориями сотрудника
-    QJsonObject json = LoadJSON("Base.json");
-    QJsonArray employees = json["Employees"].toArray();
 
-    // Флаг остановки
-    bool found = false;
-
-    // Проходим мо массиву сотрудников, после заглядываем, что находится
-    // внутри массива, если там есть искомый логин
-    // то останавливаем выполенние и удаляем сотрудника
     for(int i = 0; i < employees.size(); ++i)
     {
         QJsonObject employeeObj = employees[i].toObject();
 
-        if(employeeObj["login"].toString() == EmployeeLogin)
+        if(employees[i].getLogin() == login)
         {
             employees.removeAt(i);
-            found = true;
-            break;
+            return;
         }
     }
 
-    if(!found)
+    qDebug() << "Сотрудник " << login << " не найден";
+}
+
+// Поиск сотрудника
+void JsonMeneger::SearchEmployee(const QString &_role,
+                                 const QString &_login,
+                                 const QString &_password,
+                                 const QString &_fullName,
+                                 const QString &_email)
+{
+    QList<User> result;
+    UserRole role = UserRoleHelper::fromString(_login);
+
+    for(const User &user : employees)
     {
-        qDebug() << "Сотрудник " << EmployeeLogin << " не найден";
-        return;
+        bool match = true;
+        if(!_role.isEmpty() && user.getRole() != role) match = false;
+        if(!_login.isEmpty() && user.getLogin() != _login) match = false;
+        if(!_password.isEmpty() && user.getPasswordHash() != HashPassword(_password)) match = false;
+        if(!_fullName.isEmpty() && user.getFullName() != _fullName) match = false;
+        if(!_email.isEmpty() && user.getEmail() != _email) match = false;
+
+
+        if(match){
+            result.append(user);;
+        }
+        return result;
     }
-
-    // Загружаем данные обратно в файл
-    json["Base.json"] = employees;
-    SaveToJSON("Base.json", json);
-
-    qDebug() << "Сотрудник " << EmployeeLogin <<" успешно удален";
 }

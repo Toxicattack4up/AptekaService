@@ -16,6 +16,7 @@ class UserRoleHelper
 {
 public:
     static const QMap<UserRole, QString>& getRoleNames();
+    static const UserRole fromString(const QString &roleStr);
 };
 
 #endif // USERROLEHELPER_H
