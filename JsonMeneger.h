@@ -60,11 +60,11 @@ private:
     void RemoveEmployee(const QString &login);
 
     // Поиск сотрудника
-    void SearchEmployee(const QString &_role,
-                        const QString &_login,
-                        const QString &_password,
-                        const QString &_fullName,
-                        const QString &_email);
+    QList<User> SearchEmployee(const QString &_role,
+                               const QString &_login,
+                               const QString &_password,
+                               const QString &_fullName,
+                               const QString &_email);
 
 
     //_____Склад_____

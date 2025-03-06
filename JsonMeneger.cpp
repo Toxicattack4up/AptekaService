@@ -3,6 +3,12 @@
 JsonMeneger::JsonMeneger()
 {
     employees = LoadEmployees();
+    if (employees.isEmpty() && LoadJSON("Base.json").isEmpty())
+    {
+        QJsonObject json;
+        json["Employees"] = QJsonArray();
+        SaveToJSON("Base.json", json);
+    }
 }
 
 // Загрузка данных в память
@@ -179,11 +185,11 @@ void JsonMeneger::RemoveEmployee(const QString &login)
 }
 
 // Поиск сотрудника
-void JsonMeneger::SearchEmployee(const QString &_role,
-                                 const QString &_login,
-                                 const QString &_password,
-                                 const QString &_fullName,
-                                 const QString &_email)
+QList<User> JsonMeneger::SearchEmployee(const QString &_role,
+                                        const QString &_login,
+                                        const QString &_password,
+                                        const QString &_fullName,
+                                        const QString &_email)
 {
     QList<User> result;
     UserRole role = UserRoleHelper::fromString(_login);
