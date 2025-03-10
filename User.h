@@ -5,9 +5,7 @@
 #include <QDateTime>
 #include <QString>
 
-
-class User : public UserRoleHelper
-{
+class User {
 protected:
     UserRole Role;
     QString Login;
@@ -17,9 +15,7 @@ protected:
     QDateTime RegistrationDate;
 
 public:
-
     User();
-
     User(UserRole Role,
          const QString& Login,
          const QString& PasswordHash,
@@ -44,7 +40,8 @@ public:
     void setEmail(const QString& _email);
     void setRegistrationDate(const QDateTime& _registationDate);
 
-
+    // Виртуальный метод для доступа к функционалу (переопределяется в наследниках)
+    virtual void accessSystem() const = 0;
 };
 
 #endif // USER_H

@@ -1,99 +1,89 @@
 #include "User.h"
-#include <iostream>
-#include <QString>
+#include <QDebug>
 
+// Конструкторы
 User::User()
     : Role(UserRole::Unknown),
     Login(""),
     PasswordHash(""),
     FullName(""),
     Email(""),
-    RegistrationDate(QDateTime::currentDateTime())
-{}
+    RegistrationDate(QDateTime::currentDateTime()) {}
 
 User::User(UserRole Role,
-         const QString& Login,
-         const QString& PasswordHash,
-         const QString& FullName,
-         const QString& Email)
-        : Role(Role),
-        Login(Login),
-        PasswordHash(PasswordHash),
-        FullName(FullName),
-        Email(Email) {}
+           const QString& Login,
+           const QString& PasswordHash,
+           const QString& FullName,
+           const QString& Email)
+    : Role(Role),
+    Login(Login),
+    PasswordHash(PasswordHash),
+    FullName(FullName),
+    Email(Email),
+    RegistrationDate(QDateTime::currentDateTime()) {}
 
 // Геттеры
-UserRole User::getRole() const
-{
+UserRole User::getRole() const {
     return Role;
 }
-QString User::getLogin() const
-{
+
+QString User::getLogin() const {
     return Login;
 }
-QString User::getPasswordHash() const
-{
+
+QString User::getPasswordHash() const {
     return PasswordHash;
 }
-QString User::getFullName() const
-{
+
+QString User::getFullName() const {
     return FullName;
 }
-QString User::getEmail() const
-{
+
+QString User::getEmail() const {
     return Email;
 }
-QDateTime User::getRegistrationDate() const
-{
+
+QDateTime User::getRegistrationDate() const {
     return RegistrationDate;
 }
 
-
 // Сеттеры
-void User::setRole(UserRole _role)
-{
+void User::setRole(UserRole _role) {
     Role = _role;
 }
 
-void User::setLogin(const QString& _login)
-{
-    if (_login.isEmpty())
-    {
-        throw std::invalid_argument("Имя не может быть пустым");
+void User::setLogin(const QString& _login) {
+    if (_login.isEmpty()) {
+        qDebug() << "Ошибка: Логин не может быть пустым!";
+        return;
     }
     Login = _login;
 }
 
-void User::setPasswordHash(const QString& _passwordHash)
-{
-    if (_passwordHash.length() < 8)
-    {
-        throw std::invalid_argument("Пароль должен быть не менее 8 символов");
-    } else {
-        std::cout << "Пароль надежный" << std::endl;
+void User::setPasswordHash(const QString& _passwordHash) {
+    if (_passwordHash.length() < 8) {
+        qDebug() << "Ошибка: Пароль должен быть не менее 8 символов!";
+        return;
     }
     PasswordHash = _passwordHash;
 }
 
-void User::setFullName(const QString& _fullName)
-{
-    if (_fullName.isEmpty())
-    {
-        throw std::invalid_argument("Имя не может быть пустым");
+void User::setFullName(const QString& _fullName) {
+    if (_fullName.isEmpty()) {
+        qDebug() << "Ошибка: Полное имя не может быть пустым!";
+        return;
     }
     FullName = _fullName;
 }
 
-void User::setEmail(const QString& _email)
-{
-    if (_email.isEmpty())
-    {
-        throw std::invalid_argument("Почта не может быть пустой");
+void User::setEmail(const QString& _email) {
+    if (_email.isEmpty()) {
+        qDebug() << "Ошибка: Почта не может быть пустой!";
+        return;
     }
     Email = _email;
 }
 
-void User::setRegistrationDate(const QDateTime& _registationDate)
-{
-    RegistrationDate = _registationDate;
+void User::setRegistrationDate(const QDateTime& _registrationDate) {
+    RegistrationDate = _registrationDate;
 }
