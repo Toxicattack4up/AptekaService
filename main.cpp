@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "JsonMeneger.h"
+#include "JsonManager.h"
 #include "User.h"
 
 

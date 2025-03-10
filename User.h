@@ -22,7 +22,7 @@ public:
          const QString& FullName,
          const QString& Email);
 
-    virtual ~User() = default;
+    virtual ~User() = default; // Можно оставить виртуальный деструктор для корректного удаления
 
     // Геттеры
     UserRole getRole() const;
@@ -39,9 +39,6 @@ public:
     void setFullName(const QString& _fullName);
     void setEmail(const QString& _email);
     void setRegistrationDate(const QDateTime& _registationDate);
-
-    // Виртуальный метод для доступа к функционалу (переопределяется в наследниках)
-    virtual void accessSystem() const = 0;
 };
 
 #endif // USER_H

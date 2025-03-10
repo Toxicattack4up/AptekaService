@@ -1,5 +1,5 @@
-#ifndef JSONMENEGER_H
-#define JSONMENEGER_H
+#ifndef JSONMANAGER_H
+#define JSONMANAGER_H
 
 #include <QString>
 #include <QFile>
@@ -84,4 +84,4 @@ private:
 
 };
 
-#endif // JSONMENEGER_H
+#endif // JSONMANAGER_H

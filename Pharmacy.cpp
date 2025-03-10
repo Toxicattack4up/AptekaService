@@ -1,51 +1,45 @@
 #include "Pharmacy.h"
+#include <QDebug>
 
 // Конструктор
-Pharmacy::Pharmacy(const QString& title, double price, bool recipe, const QDate& expiration_date, int quantity)
-    : title(title), price(price), recipe(recipe), expiration_date(expiration_date), quantity(quantity) {}
+Pharmacy::Pharmacy(int id, const QString& address, double size, int maxCapacity)
+    : id(id), address(address), size(size), maxCapacity(maxCapacity) {}
 
 // Геттеры
-QString Pharmacy::getTitle() const {
-    return title;
+int Pharmacy::getId() const {
+    return id;
 }
 
-double Pharmacy::getPrice() const {
-    return price;
+QString Pharmacy::getAddress() const {
+    return address;
 }
 
-bool Pharmacy::isRecipeRequired() const {
-    return recipe;
+double Pharmacy::getSize() const {
+    return size;
 }
 
-QDate Pharmacy::getExpirationDate() const {
-    return expiration_date;
-}
-
-int Pharmacy::getQuantity() const {
-    return quantity;
+int Pharmacy::getMaxCapacity() const {
+    return maxCapacity;
 }
 
 // Сеттеры
-void Pharmacy::setTitle(const QString& newTitle) {
-    title = newTitle;
-}
-
-void Pharmacy::setPrice(double newPrice) {
-    if (newPrice >= 0) { // Проверяем, чтобы цена была неотрицательной
-        price = newPrice;
+void Pharmacy::setAddress(const QString& newAddress) {
+    if (newAddress.isEmpty()) {
+        qDebug() << "Адрес не может быть пустым";
     }
+    address = newAddress;
 }
 
-void Pharmacy::setRecipeRequired(bool newRecipe) {
-    recipe = newRecipe;
-}
-
-void Pharmacy::setExpirationDate(const QDate& newExpirationDate) {
-    expiration_date = newExpirationDate;
-}
-
-void Pharmacy::setQuantity(int newQuantity) {
-    if (newQuantity >= 0) { // Проверяем, чтобы количество не было отрицательным
-        quantity = newQuantity;
+void Pharmacy::setSize(double newSize) {
+    if (newSize <= 0) {
+        qDebug() << "Размер аптеки должен быть больше 0";
     }
+    size = newSize;
+}
+
+void Pharmacy::setMaxCapacity(int newMaxCapacity) {
+    if (newMaxCapacity <= 0) {
+        qDebug() << "Максимальная вместимость должна быть больше 0";
+    }
+    maxCapacity = newMaxCapacity;
 }

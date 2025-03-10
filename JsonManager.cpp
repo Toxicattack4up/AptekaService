@@ -1,4 +1,4 @@
-#include "JsonMeneger.h"
+#include "JsonManager.h"
 
 JsonMeneger::JsonMeneger()
 {
@@ -208,14 +208,3 @@ QList<User> JsonMeneger::SearchEmployee(const QString &_role,
         return result;
     }
 }
-
-
-//_____Склад_____
-// Добавление лекарства
-void JsonMeneger::AddMedicine();
-
-//Удаление лекарства
-void JsonMeneger::RemoveMedicine();
-
-// Поиск лекарства
-void JsonMeneger::SearchEmployee();
