@@ -13,6 +13,8 @@
 #include <QDateTime>
 
 #include "User.h"
+#include "Pharmacy.h"
+#include "PharmacyItem.h"
 
 class JsonManager
 {
@@ -21,6 +23,7 @@ protected:
 public:
     JsonManager();
 
+    //_____Доп функции_____
     // Загрузка данных в память
     QList<User> LoadEmployees();
 
@@ -45,25 +48,41 @@ public:
                       const QJsonObject &users);
 
     // _____Сотрудники_____
+    // Добавление сотрудника
     void AddEmployee(const QString &_role,
                      const QString &_login,
                      const QString &_password,
                      const QString &_fullName,
                      const QString &_email);
 
+    // Удаление сотрудника
     void RemoveEmployee(const QString &login);
 
+    // Поиск сотрудника
     QList<User> SearchEmployee(const QString &_role,
                                const QString &_login,
                                const QString &_password,
                                const QString &_fullName,
                                const QString &_email);
 
-    // _____Склад_____
-    // Методы для работы с лекарствами (заглушки)
+    // _____Склад (Медикаменты)_____
+    // Заглушки для медикаментов (будут дополнены аналогично)
     void AddMedicine();
     void RemoveMedicine();
-    void SearchMedicine();
+
+    // _____Новые методы для аптек и медикаментов_____
+    // Для аптек
+    QList<Pharmacy> LoadPharmacies();
+    QJsonArray PharmaciesToJsonArray() const;
+    void SavePharmacies(const QList<Pharmacy>& pharmacies);
+
+    // Для медикаментов
+    QList<PharmacyItem> LoadMedicines();
+    QJsonArray MedicinesToJsonArray() const;
+    void SaveMedicines(const QList<PharmacyItem>& medicines);
+
+    // Замечание: все данные будут храниться в одном файле Base.json, где ключи:
+    // "Employees", "Pharmacies" и "Medicines" содержат соответствующие массивы.
 };
 
 #endif // JSONMANAGER_H
