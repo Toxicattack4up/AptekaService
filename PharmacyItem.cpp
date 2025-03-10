@@ -29,18 +29,15 @@ int PharmacyItem::getQuantity() const {
 // Сеттеры
 void PharmacyItem::setTitle(const QString& newTitle) {
     if(newTitle.isEmpty())
-    {
         qDebug() << "Название лекарства не может быть пустым!";
-    }
     title = newTitle;
 }
 
 void PharmacyItem::setPrice(double newPrice) {
-    if (newPrice >= 0) {
+    if (newPrice >= 0)
         price = newPrice;
-    } else {
+    else
         qDebug() << "Цена не может быть отрицательной!";
-    }
 }
 
 void PharmacyItem::setRecipeRequired(bool newRecipe) {
@@ -52,9 +49,8 @@ void PharmacyItem::setExpirationDate(const QDate& newExpirationDate) {
 }
 
 void PharmacyItem::setQuantity(int newQuantity) {
-    if (newQuantity >= 0) { // Проверяем, чтобы количество не было отрицательным
+    if (newQuantity >= 0)
         quantity = newQuantity;
-    } else {
+    else
         qDebug() << "Количество не может быть отрицательным!";
-    }
 }

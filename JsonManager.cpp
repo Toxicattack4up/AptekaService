@@ -42,7 +42,6 @@ QList<User> JsonManager::LoadEmployees()
 QJsonArray JsonManager::EmployeesToJsonArray() const
 {
     QJsonArray employeesArray;
-
     const QMap<UserRole, QString>& roleNames = UserRoleHelper::getRoleNames();
 
     for(const User &user : employees)
@@ -77,7 +76,6 @@ QJsonObject JsonManager::LoadJSON(const QString &filePath)
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug() << "Ошибка при открытии файла: " << file.errorString();
-        //qDebug() << "Путь к файлу: " << fullPath;
         return QJsonObject();
     }
 
@@ -90,7 +88,6 @@ QJsonObject JsonManager::LoadJSON(const QString &filePath)
         qDebug() << "Ошибка: Некорректный JSON.";
         return QJsonObject();
     }
-
     return doc.object();
 }
 
@@ -118,6 +115,15 @@ QString JsonManager::HashPassword(const QString &password)
     return QString(hashed.toHex());
 }
 
+// Проверка пользователя
+bool JsonManager::ValidateUser(const QString &login,
+                               const QString &password,
+                               const QJsonObject &users)
+{
+    // Заглушка для проверки пользователя
+    return false;
+}
+
 // _____Сотрудники_____
 
 // Добавление сотрудника
@@ -127,9 +133,6 @@ void JsonManager::AddEmployee(const QString &_role,
                               const QString &_fullName,
                               const QString &_email)
 {
-    // После добавления окон необходимо сделать обработку вывода операций (ошибка или правильность выполенения)
-
-
     UserRole role = UserRoleHelper::fromString(_role);
     if(role == UserRole::Unknown)
     {
@@ -149,13 +152,10 @@ void JsonManager::AddEmployee(const QString &_role,
 
     // Хеширование
     QString passwordHash = HashPassword(_password);
-
     // Создание сотрудника
     User newUser(role, _login, passwordHash, _fullName, _email);
-
     // Дата регистрации
     newUser.setRegistrationDate(QDateTime::currentDateTime());
-
     // Добавление нового сотрудника в массив
     employees.append(newUser);
 }
@@ -200,7 +200,6 @@ QList<User> JsonManager::SearchEmployee(const QString &_role,
         if(!_password.isEmpty() && user.getPasswordHash() != HashPassword(_password)) match = false;
         if(!_fullName.isEmpty() && user.getFullName() != _fullName) match = false;
         if(!_email.isEmpty() && user.getEmail() != _email) match = false;
-
 
         if(match){
             result.append(user);;

@@ -22,7 +22,7 @@ public:
          const QString& FullName,
          const QString& Email);
 
-    virtual ~User() = default; // Можно оставить виртуальный деструктор для корректного удаления
+    virtual ~User() = default;
 
     // Геттеры
     UserRole getRole() const;

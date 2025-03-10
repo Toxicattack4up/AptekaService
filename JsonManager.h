@@ -14,15 +14,13 @@
 
 #include "User.h"
 
-class JsonMeneger
+class JsonManager
 {
-private:
+protected:
     QList<User> employees;
 public:
-    JsonMeneger();
+    JsonManager();
 
-private:
-    //_____Доп функции_____
     // Загрузка данных в память
     QList<User> LoadEmployees();
 
@@ -46,42 +44,26 @@ private:
                       const QString &password,
                       const QJsonObject &users);
 
-
-
     // _____Сотрудники_____
-    // Добавление сотрудника
     void AddEmployee(const QString &_role,
                      const QString &_login,
                      const QString &_password,
                      const QString &_fullName,
                      const QString &_email);
 
-    // Удаление сотрудика
     void RemoveEmployee(const QString &login);
 
-    // Поиск сотрудника
     QList<User> SearchEmployee(const QString &_role,
                                const QString &_login,
                                const QString &_password,
                                const QString &_fullName,
                                const QString &_email);
 
-
-    //_____Склад_____
-    // Нужно добавить класс, который будет отвечать за препараты
-    // Добавление лекарства
+    // _____Склад_____
+    // Методы для работы с лекарствами (заглушки)
     void AddMedicine();
-
-    //Удаление лекарства
     void RemoveMedicine();
-
-    // Поиск лекарства
-    void SearchEmployee();
-
-
-
-    //_____
-
+    void SearchMedicine();
 };
 
 #endif // JSONMANAGER_H

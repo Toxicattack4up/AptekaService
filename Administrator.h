@@ -8,7 +8,7 @@
 #include "Pharmacy.h"
 #include "JsonManager.h"
 
-class Administrator : public User {
+class Administrator : public User, protected JsonManager {
 private:
     QVector<User> users;               // Список пользователей
     QVector<Pharmacy> pharmacies;       // Список аптек
