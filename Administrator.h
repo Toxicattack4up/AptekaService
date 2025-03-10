@@ -6,7 +6,7 @@
 #include "User.h"
 #include "PharmacyItem.h"
 #include "Pharmacy.h"
-//#include "JsonManager.h"
+#include "JsonManager.h"
 
 class Administrator : public User {
 private:
