@@ -1,0 +1,34 @@
+#ifndef PHARMACY_H
+#define PHARMACY_H
+
+#include <QString>
+#include <QDate>
+
+class Pharmacy {
+private:
+    QString title;         // Название лекарства
+    double price;          // Цена
+    bool recipe;           // Требуется ли рецепт
+    QDate expiration_date; // Дата окончания срока годности
+    int quantity;          // Количество на складе
+
+public:
+    // Конструктор
+    Pharmacy(const QString& title, double price, bool recipe, const QDate& expiration_date, int quantity);
+
+    // Геттеры
+    QString getTitle() const;
+    double getPrice() const;
+    bool isRecipeRequired() const;
+    QDate getExpirationDate() const;
+    int getQuantity() const;
+
+    // Сеттеры
+    void setTitle(const QString& newTitle);
+    void setPrice(double newPrice);
+    void setRecipeRequired(bool newRecipe);
+    void setExpirationDate(const QDate& newExpirationDate);
+    void setQuantity(int newQuantity);
+};
+
+#endif // PHARMACY_H

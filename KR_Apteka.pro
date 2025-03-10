@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Admin.cpp \
     JsonMeneger.cpp \
+    Pharmacy.cpp \
     User.cpp \
     UserRoleHelper.cpp \
     main.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     Admin.h \
     JsonMeneger.h \
+    Pharmacy.h \
     User.h \
     UserRoleHelper.h \
     mainwindow.h
