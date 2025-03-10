@@ -1,6 +1,6 @@
 #include "JsonManager.h"
 
-JsonMeneger::JsonMeneger()
+JsonManager::JsonManager()
 {
     employees = LoadEmployees();
     if (employees.isEmpty() && LoadJSON("Base.json").isEmpty())
@@ -12,7 +12,7 @@ JsonMeneger::JsonMeneger()
 }
 
 // Загрузка данных в память
-QList<User> JsonMeneger::LoadEmployees()
+QList<User> JsonManager::LoadEmployees()
 {
     QJsonObject json = LoadJSON("Base.json");
     if(json.isEmpty())
@@ -39,7 +39,7 @@ QList<User> JsonMeneger::LoadEmployees()
 }
 
 // Преобразование списка в JSON
-QJsonArray JsonMeneger::EmployeesToJsonArray() const
+QJsonArray JsonManager::EmployeesToJsonArray() const
 {
     QJsonArray employeesArray;
 
@@ -60,7 +60,7 @@ QJsonArray JsonMeneger::EmployeesToJsonArray() const
 }
 
 // Сохранение списка в файл
-void JsonMeneger::SaveEmployees()
+void JsonManager::SaveEmployees()
 {
     QJsonObject json;
     json["Employees"] = EmployeesToJsonArray();
@@ -69,7 +69,7 @@ void JsonMeneger::SaveEmployees()
 
 
 // Загрузка файла JSON
-QJsonObject JsonMeneger::LoadJSON(const QString &filePath)
+QJsonObject JsonManager::LoadJSON(const QString &filePath)
 {
     QString fullPath = QCoreApplication::applicationDirPath() + "/" + filePath;
     QFile file(fullPath);
@@ -95,7 +95,7 @@ QJsonObject JsonMeneger::LoadJSON(const QString &filePath)
 }
 
 // Сохранение в файл JSON
-void JsonMeneger::SaveToJSON(const QString &filePath, const QJsonObject &json)
+void JsonManager::SaveToJSON(const QString &filePath, const QJsonObject &json)
 {
     QString fullPath = QCoreApplication::applicationDirPath() + "/" + filePath;
     QFile file(fullPath);
@@ -112,7 +112,7 @@ void JsonMeneger::SaveToJSON(const QString &filePath, const QJsonObject &json)
 }
 
 // Хеширование пароля
-QString JsonMeneger::HashPassword(const QString &password)
+QString JsonManager::HashPassword(const QString &password)
 {
     QByteArray hashed = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
     return QString(hashed.toHex());
@@ -121,7 +121,7 @@ QString JsonMeneger::HashPassword(const QString &password)
 // _____Сотрудники_____
 
 // Добавление сотрудника
-void JsonMeneger::AddEmployee(const QString &_role,
+void JsonManager::AddEmployee(const QString &_role,
                               const QString &_login,
                               const QString &_password,
                               const QString &_fullName,
@@ -161,7 +161,7 @@ void JsonMeneger::AddEmployee(const QString &_role,
 }
 
 // Удаление сотрудика
-void JsonMeneger::RemoveEmployee(const QString &login)
+void JsonManager::RemoveEmployee(const QString &login)
 {
     // Если пуст, то завершить
     if(login.isEmpty())
@@ -183,7 +183,7 @@ void JsonMeneger::RemoveEmployee(const QString &login)
 }
 
 // Поиск сотрудника
-QList<User> JsonMeneger::SearchEmployee(const QString &_role,
+QList<User> JsonManager::SearchEmployee(const QString &_role,
                                         const QString &_login,
                                         const QString &_password,
                                         const QString &_fullName,

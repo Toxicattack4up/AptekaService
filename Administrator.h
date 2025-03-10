@@ -13,7 +13,7 @@ private:
     QVector<User> users;               // Список пользователей
     QVector<Pharmacy> pharmacies;       // Список аптек
     QVector<PharmacyItem> medicines;    // Список лекарств
-    //JsonManager jsonManager;            // Класс для работы с файлами
+    JsonManager jsonManager;            // Класс для работы с файлами
 
 public:
     // Конструктор
