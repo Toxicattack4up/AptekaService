@@ -3,12 +3,13 @@
 
 #include <QString>
 #include <QVector>
+
 #include "User.h"
 #include "PharmacyItem.h"
 #include "Pharmacy.h"
 #include "JsonManager.h"
 
-class Administrator : public User, protected JsonManager {
+class Administrator : public User {
 private:
     QVector<User> users;               // Список пользователей
     QVector<Pharmacy> pharmacies;       // Список аптек
@@ -28,14 +29,13 @@ public:
     void createPharmacy(const Pharmacy& pharmacy);
     bool removePharmacy(int id);
     Pharmacy* findPharmacy(int id);
+    QList<Pharmacy> searchPharmacy(int id, const QString& address);
 
     // Управление складом аптек
     void addMedicine(const PharmacyItem& item);
     bool removeMedicine(const QString& title);
     PharmacyItem* findMedicine(const QString& title);
-
-    // Сохранение данных
-    void saveData();
+    QList<PharmacyItem> searchMedicine(const QString& title);
 };
 
 #endif // ADMINISTRATOR_H

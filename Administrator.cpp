@@ -7,7 +7,8 @@ Administrator::Administrator(const QString& login, const QString& passwordHash, 
     : User(UserRole::Administrator, login, passwordHash, fullName, email) {
 }
 
-// Работа с пользователями
+
+// _____Работа с пользователями_____
 void Administrator::addUser(const User& user) {
     users.append(user);
     jsonManager.AddEmployee(UserRoleHelper::getRoleNames().value(user.getRole()),
@@ -37,16 +38,18 @@ User* Administrator::findUser(const QString& login) {
     return nullptr;
 }
 
-// Работа с аптечными помещениями
+
+// _____Работа с аптекой_____
 void Administrator::createPharmacy(const Pharmacy& pharmacy) {
     pharmacies.append(pharmacy);
-    // В будущем добавим сохранение данных аптек
+    jsonManager.AddPharmacy(pharmacy);
 }
 
 bool Administrator::removePharmacy(int id) {
     for (int i = 0; i < pharmacies.size(); ++i) {
         if (pharmacies[i].getId() == id) {
             pharmacies.remove(i);
+            jsonManager.RemovePharmacy(id);
             return true;
         }
     }
@@ -62,16 +65,22 @@ Pharmacy* Administrator::findPharmacy(int id) {
     return nullptr;
 }
 
-// Управление складом аптек
+QList<Pharmacy> Administrator::searchPharmacy(int id, const QString& address) {
+    return jsonManager.SearchPharmacy(id, address);
+}
+
+
+// _____Управление складом_____
 void Administrator::addMedicine(const PharmacyItem& item) {
     medicines.append(item);
-    // В будущем добавим сохранение данных медикаментов
+    jsonManager.AddMedicine(item);
 }
 
 bool Administrator::removeMedicine(const QString& title) {
     for (int i = 0; i < medicines.size(); ++i) {
         if (medicines[i].getTitle() == title) {
             medicines.remove(i);
+            jsonManager.RemoveMedicine(title);
             return true;
         }
     }
@@ -87,8 +96,6 @@ PharmacyItem* Administrator::findMedicine(const QString& title) {
     return nullptr;
 }
 
-// Сохранение данных
-void Administrator::saveData() {
-    jsonManager.SaveEmployees();
-    // Сохранение аптек и медикаментов можно добавить по аналогии в будущем.
+QList<PharmacyItem> Administrator::searchMedicine(const QString& title) {
+    return jsonManager.SearchMedicine(title);
 }
