@@ -10,6 +10,9 @@ CONFIG += c++17
 
 SOURCES += \
     Administrator.cpp \
+    Buyer.cpp \
+    Courier.cpp \
+    Employee.cpp \
     JsonManager.cpp \
     Pharmacy.cpp \
     PharmacyItem.cpp \
@@ -20,6 +23,9 @@ SOURCES += \
 
 HEADERS += \
     Administrator.h \
+    Buyer.h \
+    Courier.h \
+    Employee.h \
     JsonManager.h \
     Pharmacy.h \
     PharmacyItem.h \

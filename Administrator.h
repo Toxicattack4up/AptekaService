@@ -5,6 +5,8 @@
 #include <QVector>
 
 #include "User.h"
+#include "Employee.h"
+#include "Courier.h"
 #include "PharmacyItem.h"
 #include "Pharmacy.h"
 #include "JsonManager.h"
@@ -21,7 +23,11 @@ public:
     Administrator(const QString& login, const QString& passwordHash, const QString& fullName, const QString& email);
 
     // Работа с пользователями
-    void addUser(const User& user);
+    void addUser(const QString& role,
+                 const QString& login,
+                 const QString& passwordHash,
+                 const QString& fullName,
+                 const QString& email);
     bool removeUser(const QString& login);
     User* findUser(const QString& login);
 

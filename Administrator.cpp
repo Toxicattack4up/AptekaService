@@ -9,13 +9,25 @@ Administrator::Administrator(const QString& login, const QString& passwordHash, 
 
 
 // _____Работа с пользователями_____
-void Administrator::addUser(const User& user) {
-    users.append(user);
-    jsonManager.AddEmployee(UserRoleHelper::getRoleNames().value(user.getRole()),
-                            user.getLogin(),
-                            user.getPasswordHash(),
-                            user.getFullName(),
-                            user.getEmail());
+void Administrator::addUser(const QString& role, const QString& login, const QString& passwordHash, const QString& fullName, const QString& email) {
+    UserRole userRole = UserRoleHelper::fromString(role);
+    if (userRole == UserRole::Seller)
+    { // Сотрудник аптеки
+        Employee employee(login, passwordHash, fullName, email);
+        users.append(employee);
+        jsonManager.AddEmployee(role, login, passwordHash, fullName, email);
+    }
+    else if (userRole == UserRole::Courier)
+    { // Курьер
+        Courier courier(login, passwordHash, fullName, email);
+        users.append(courier);
+        jsonManager.AddEmployee(role, login, passwordHash, fullName, email);
+    }
+    else
+    {
+        qDebug() << "Администратор может создавать только сотрудников или курьеров!";
+        return;
+    }
 }
 
 bool Administrator::removeUser(const QString& login) {
