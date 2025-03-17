@@ -24,22 +24,19 @@ int Pharmacy::getMaxCapacity() const {
 
 // Сеттеры
 void Pharmacy::setAddress(const QString& newAddress) {
-    if (newAddress.isEmpty()) {
+    if (newAddress.isEmpty())
         qDebug() << "Адрес не может быть пустым";
-    }
     address = newAddress;
 }
 
 void Pharmacy::setSize(double newSize) {
-    if (newSize <= 0) {
+    if (newSize <= 0)
         qDebug() << "Размер аптеки должен быть больше 0";
-    }
     size = newSize;
 }
 
 void Pharmacy::setMaxCapacity(int newMaxCapacity) {
-    if (newMaxCapacity <= 0) {
+    if (newMaxCapacity <= 0)
         qDebug() << "Максимальная вместимость должна быть больше 0";
-    }
     maxCapacity = newMaxCapacity;
 }
