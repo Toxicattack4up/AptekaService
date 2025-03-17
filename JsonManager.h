@@ -18,71 +18,60 @@
 
 class JsonManager
 {
-protected:
-    QList<User> employees;
 public:
     JsonManager();
 
-    //_____Доп функции_____
-    // Загрузка данных в память
+    //_____Управление сотрудниками_____
     QList<User> LoadEmployees();
-
-    // Преобразование списка в JSON
-    QJsonArray EmployeesToJsonArray() const;
-
-    // Сохранение в файл
     void SaveEmployees();
-
-    // Загрузка файла JSON
-    QJsonObject LoadJSON(const QString &filePath);
-
-    // Сохранение в файл JSON
-    void SaveToJSON(const QString &filePath, const QJsonObject &json);
-
-    // Хеширование пароля
-    QString HashPassword(const QString &password);
-
-    // Проверка пароля и логина
-    bool ValidateUser(const QString &login,
-                      const QString &password,
-                      const QJsonObject &users);
-
-    // _____Сотрудники_____
-    // Добавление сотрудника
     void AddEmployee(const QString &_role,
                      const QString &_login,
                      const QString &_password,
                      const QString &_fullName,
                      const QString &_email);
-
-    // Удаление сотрудника
     void RemoveEmployee(const QString &login);
-
-    // Поиск сотрудника
     QList<User> SearchEmployee(const QString &_role,
                                const QString &_login,
                                const QString &_password,
                                const QString &_fullName,
                                const QString &_email);
 
-    // _____Склад (Медикаменты)_____
-    // Заглушки для медикаментов (будут дополнены аналогично)
-    void AddMedicine();
-    void RemoveMedicine();
 
-    // _____Новые методы для аптек и медикаментов_____
-    // Для аптек
+
+    // _____Аптеки_____
     QList<Pharmacy> LoadPharmacies();
-    QJsonArray PharmaciesToJsonArray() const;
     void SavePharmacies(const QList<Pharmacy>& pharmacies);
+    void AddPharmacy(const Pharmacy& pharmacy);
+    void RemovePharmacy(int id);
+    QList<Pharmacy> SearchPharmacy(int id, const QString& address);
 
-    // Для медикаментов
+
+    // _____Медикаменты_____
     QList<PharmacyItem> LoadMedicines();
-    QJsonArray MedicinesToJsonArray() const;
     void SaveMedicines(const QList<PharmacyItem>& medicines);
+    void AddMedicine(const PharmacyItem& item);
+    void RemoveMedicine(const QString& title);
+    QList<PharmacyItem> SearchMedicine(const QString& title);
 
-    // Замечание: все данные будут храниться в одном файле Base.json, где ключи:
-    // "Employees", "Pharmacies" и "Medicines" содержат соответствующие массивы.
+
+    // _____Остальные функции_____
+    QJsonObject LoadJSON(const QString &filePath);
+    void SaveToJSON(const QString &filePath, const QJsonObject &json);
+    QString HashPassword(const QString &password);
+    bool ValidateUser(const QString &login,
+                      const QString &password,
+                      const QJsonObject &users);
+
+private:
+    QList<User> employees;
+    QList<Pharmacy> pharmacies;
+    QList<PharmacyItem> medicines;
+
+    // Преобразование списка в JSON
+    QJsonArray EmployeesToJsonArray() const;
+    QJsonArray PharmaciesToJsonArray() const;
+    QJsonArray MedicinesToJsonArray() const;
+
 };
 
 #endif // JSONMANAGER_H
