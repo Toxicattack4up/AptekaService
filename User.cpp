@@ -26,23 +26,19 @@ User::User(UserRole Role,
 UserRole User::getRole() const {
     return Role;
 }
-
-QString User::getLogin() const {
+QString User::getLogin() const
+{
     return Login;
 }
-
 QString User::getPasswordHash() const {
     return PasswordHash;
 }
-
 QString User::getFullName() const {
     return FullName;
 }
-
 QString User::getEmail() const {
     return Email;
 }
-
 QDateTime User::getRegistrationDate() const {
     return RegistrationDate;
 }
@@ -51,7 +47,6 @@ QDateTime User::getRegistrationDate() const {
 void User::setRole(UserRole _role) {
     Role = _role;
 }
-
 void User::setLogin(const QString& _login) {
     if (_login.isEmpty()) {
         qDebug() << "Ошибка: Логин не может быть пустым!";
@@ -59,7 +54,6 @@ void User::setLogin(const QString& _login) {
     }
     Login = _login;
 }
-
 void User::setPasswordHash(const QString& _passwordHash) {
     if (_passwordHash.length() < 8) {
         qDebug() << "Ошибка: Пароль должен быть не менее 8 символов!";
@@ -67,7 +61,6 @@ void User::setPasswordHash(const QString& _passwordHash) {
     }
     PasswordHash = _passwordHash;
 }
-
 void User::setFullName(const QString& _fullName) {
     if (_fullName.isEmpty()) {
         qDebug() << "Ошибка: Полное имя не может быть пустым!";
@@ -75,7 +68,6 @@ void User::setFullName(const QString& _fullName) {
     }
     FullName = _fullName;
 }
-
 void User::setEmail(const QString& _email) {
     if (_email.isEmpty()) {
         qDebug() << "Ошибка: Почта не может быть пустой!";
@@ -83,7 +75,6 @@ void User::setEmail(const QString& _email) {
     }
     Email = _email;
 }
-
 void User::setRegistrationDate(const QDateTime& _registrationDate) {
     RegistrationDate = _registrationDate;
 }

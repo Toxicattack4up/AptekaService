@@ -36,8 +36,6 @@ public:
                                const QString &_fullName,
                                const QString &_email);
 
-
-
     // _____Аптеки_____
     QList<Pharmacy> LoadPharmacies();
     void SavePharmacies(const QList<Pharmacy>& pharmacies);
