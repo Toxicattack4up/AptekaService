@@ -39,7 +39,7 @@ QList<User> JsonManager::LoadEmployees()
         User user;
         user.setRole(UserRoleHelper::fromString(obj["role"].toString()));
         user.setLogin(obj["login"].toString());
-        user.setPasswordHash(obj["passwordHash"].toString());
+        user.setPassword(obj["Password"].toString());
         user.setFullName(obj["fullName"].toString());
         user.setEmail(obj["email"].toString());
         user.setRegistrationDate(QDateTime::fromString(obj["registrationDate"].toString(), Qt::ISODate));
@@ -77,8 +77,8 @@ void JsonManager::AddEmployee(const QString &_role,
         }
     }
 
-    QString passwordHash = HashPassword(_password);
-    User newUser(role, _login, passwordHash, _fullName, _email);
+    QString Password = HashPassword(_password);
+    User newUser(role, _login, Password, _fullName, _email);
     newUser.setRegistrationDate(QDateTime::currentDateTime());
     employees.append(newUser);
 }
@@ -115,7 +115,7 @@ QList<User> JsonManager::SearchEmployee(const QString &_role,
         bool match = true;
         if(!_role.isEmpty() && user.getRole() != role) match = false;
         if(!_login.isEmpty() && user.getLogin() != _login) match = false;
-        if(!_password.isEmpty() && user.getPasswordHash() != HashPassword(_password)) match = false;
+        if(!_password.isEmpty() && user.getPassword() != HashPassword(_password)) match = false;
         if(!_fullName.isEmpty() && user.getFullName() != _fullName) match = false;
         if(!_email.isEmpty() && user.getEmail() != _email) match = false;
 
@@ -354,17 +354,21 @@ bool JsonManager::ValidateUser(const QString &login, const QString &password)
     if(login.isEmpty() || password.isEmpty())
     {
         qDebug() << "Ошибка: логин и пароль не могут быть пустыми";
+        return false;
     }
 
-    QString passwordHash = HashPassword(password);
+    QString Password = HashPassword(password);
 
     for(const User &user : employees)
     {
-        if(user.getLogin() == login && user.getPasswordHash() == passwordHash)
+        if(user.getLogin() == login && user.getPassword() == Password)
         {
             return true;
         }
     }
+
+    qDebug() << "Такого пользователя не существует";
+
     return false;
 }
 
@@ -379,7 +383,7 @@ QJsonArray JsonManager::EmployeesToJsonArray() const
         QJsonObject employeeObj;
         employeeObj["role"] = roleNames.value(user.getRole());
         employeeObj["login"] = user.getLogin();
-        employeeObj["passwordHash"] = user.getPasswordHash();
+        employeeObj["Password"] = user.getPassword();
         employeeObj["fullName"] = user.getFullName();
         employeeObj["email"] = user.getEmail();
         employeeObj["registrationDate"] = user.getRegistrationDate().toString(Qt::ISODate);

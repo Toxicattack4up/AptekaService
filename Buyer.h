@@ -6,7 +6,7 @@
 class Buyer : public User {
 public:
     Buyer(); // Для самостоятельной регистрации
-    Buyer(const QString& login, const QString& passwordHash, const QString& fullName, const QString& email);
+    Buyer(const QString& login, const QString& Password, const QString& fullName, const QString& email);
 };
 
 #endif // BUYER_H

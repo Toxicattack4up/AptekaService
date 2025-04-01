@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "JsonManager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +20,9 @@ void MainWindow::on_login_button_clicked()
 {
     QString login = ui->lineEdit_login->text();
     QString pass = ui->lineEdit_pass->text();
+    JsonManager json;
+    json.ValidateUser(login, pass);
+
 
 
 }

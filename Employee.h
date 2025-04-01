@@ -5,7 +5,7 @@
 
 class Employee : public User {
 public:
-    Employee(const QString& login, const QString& passwordHash, const QString& fullName, const QString& email);
+    Employee(const QString& login, const QString& Password, const QString& fullName, const QString& email);
 
 };
 

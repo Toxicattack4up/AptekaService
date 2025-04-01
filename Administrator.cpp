@@ -3,29 +3,29 @@
 #include "UserRoleHelper.h"
 
 // Конструктор
-Administrator::Administrator(const QString& login, const QString& passwordHash, const QString& fullName, const QString& email)
-    : User(UserRole::Administrator, login, passwordHash, fullName, email) {
+Administrator::Administrator(const QString& login, const QString& Password, const QString& fullName, const QString& email)
+    : User(UserRole::Administrator, login, Password, fullName, email) {
 }
 
 
 // _____Работа с пользователями_____
-void Administrator::addUser(const QString& role, const QString& login, const QString& passwordHash, const QString& fullName, const QString& email) {
+void Administrator::addUser(const QString& role, const QString& login, const QString& password, const QString& fullName, const QString& email) {
     UserRole userRole = UserRoleHelper::fromString(role);
     if (userRole == UserRole::Seller)
     { // Сотрудник аптеки
-        Employee employee(login, passwordHash, fullName, email);
+        Employee employee(login, password, fullName, email);
         users.append(employee);
-        jsonManager.AddEmployee(role, login, passwordHash, fullName, email);
+        jsonManager.AddEmployee(role, login, password, fullName, email);
     }
     else if (userRole == UserRole::Courier)
     { // Курьер
-        Courier courier(login, passwordHash, fullName, email);
+        Courier courier(login, password, fullName, email);
         users.append(courier);
-        jsonManager.AddEmployee(role, login, passwordHash, fullName, email);
+        jsonManager.AddEmployee(role, login, password, fullName, email);
     }
     else
     {
-        qDebug() << "Администратор может создавать только сотрудников или курьеров!";
+        qDebug() << "Администратор может создавать только продавцов или курьеров!";
         return;
     }
 }

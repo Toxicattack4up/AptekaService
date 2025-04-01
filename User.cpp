@@ -5,19 +5,19 @@
 User::User()
     : Role(UserRole::Unknown),
     Login(""),
-    PasswordHash(""),
+    Password(""),
     FullName(""),
     Email(""),
     RegistrationDate(QDateTime::currentDateTime()) {}
 
 User::User(UserRole Role,
            const QString& Login,
-           const QString& PasswordHash,
+           const QString& Password,
            const QString& FullName,
            const QString& Email)
     : Role(Role),
     Login(Login),
-    PasswordHash(PasswordHash),
+    Password(Password),
     FullName(FullName),
     Email(Email),
     RegistrationDate(QDateTime::currentDateTime()) {}
@@ -30,8 +30,8 @@ QString User::getLogin() const
 {
     return Login;
 }
-QString User::getPasswordHash() const {
-    return PasswordHash;
+QString User::getPassword() const {
+    return Password;
 }
 QString User::getFullName() const {
     return FullName;
@@ -54,12 +54,12 @@ void User::setLogin(const QString& _login) {
     }
     Login = _login;
 }
-void User::setPasswordHash(const QString& _passwordHash) {
-    if (_passwordHash.length() < 8) {
+void User::setPassword(const QString& _Password) {
+    if (_Password.length() < 8) {
         qDebug() << "Ошибка: Пароль должен быть не менее 8 символов!";
         return;
     }
-    PasswordHash = _passwordHash;
+    Password = _Password;
 }
 void User::setFullName(const QString& _fullName) {
     if (_fullName.isEmpty()) {

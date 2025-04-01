@@ -9,7 +9,7 @@ class User {
 protected:
     UserRole Role;
     QString Login;
-    QString PasswordHash;
+    QString Password;
     QString FullName;
     QString Email;
     QDateTime RegistrationDate;
@@ -18,7 +18,7 @@ public:
     User();
     User(UserRole Role,
          const QString& Login,
-         const QString& PasswordHash,
+         const QString& Password,
          const QString& FullName,
          const QString& Email);
 
@@ -27,7 +27,7 @@ public:
     // Геттеры
     UserRole getRole() const;
     QString getLogin() const;
-    QString getPasswordHash() const;
+    QString getPassword() const;
     QString getFullName() const;
     QString getEmail() const;
     QDateTime getRegistrationDate() const;
@@ -35,7 +35,7 @@ public:
     // Сеттеры
     void setRole(UserRole _role);
     void setLogin(const QString& _login);
-    void setPasswordHash(const QString& _passwordHash);
+    void setPassword(const QString& _Password);
     void setFullName(const QString& _fullName);
     void setEmail(const QString& _email);
     void setRegistrationDate(const QDateTime& _registationDate);

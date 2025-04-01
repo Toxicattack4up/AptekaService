@@ -20,12 +20,12 @@ private:
 
 public:
     // Конструктор
-    Administrator(const QString& login, const QString& passwordHash, const QString& fullName, const QString& email);
+    Administrator(const QString& login, const QString& Password, const QString& fullName, const QString& email);
 
     // Работа с пользователями
     void addUser(const QString& role,
                  const QString& login,
-                 const QString& passwordHash,
+                 const QString& Password,
                  const QString& fullName,
                  const QString& email);
     bool removeUser(const QString& login);
