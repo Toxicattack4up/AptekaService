@@ -349,11 +349,22 @@ QString JsonManager::HashPassword(const QString &password)
     return QString(hashed.toHex());
 }
 
-bool JsonManager::ValidateUser(const QString &login,
-                               const QString &password,
-                               const QJsonObject &users)
+bool JsonManager::ValidateUser(const QString &login, const QString &password)
 {
-    // Заглушка для проверки пользователя
+    if(login.isEmpty() || password.isEmpty())
+    {
+        qDebug() << "Ошибка: логин и пароль не могут быть пустыми";
+    }
+
+    QString passwordHash = HashPassword(password);
+
+    for(const User &user : employees)
+    {
+        if(user.getLogin() == login && user.getPasswordHash() == passwordHash)
+        {
+            return true;
+        }
+    }
     return false;
 }
 
