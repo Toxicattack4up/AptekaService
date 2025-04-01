@@ -1,4 +1,5 @@
 #include "JsonManager.h"
+#include <QMessageBox>
 
 JsonManager::JsonManager()
 {
@@ -353,6 +354,7 @@ bool JsonManager::ValidateUser(const QString &login, const QString &password)
 {
     if(login.isEmpty() || password.isEmpty())
     {
+        QMessageBox::warning(nullptr, "Ошибка", "Логин и пароль не могут быть пустыми");
         qDebug() << "Ошибка: логин и пароль не могут быть пустыми";
         return false;
     }
@@ -366,8 +368,8 @@ bool JsonManager::ValidateUser(const QString &login, const QString &password)
             return true;
         }
     }
-
-    qDebug() << "Такого пользователя не существует";
+    QMessageBox::warning(nullptr, "Ошибка", "Такого пользователя не существует");
+    qDebug() << "Ошибка: такого пользователя не существует";
 
     return false;
 }
