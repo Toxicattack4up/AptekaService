@@ -22,6 +22,10 @@ private slots:
 
     void on_registr_button_clicked();
 
+    void on_cancelToMain_Button_clicked();
+
+    void on_Registration_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -21,6 +21,9 @@ class JsonManager
 public:
     JsonManager();
 
+    //_____Покупатели_____
+
+
     //_____Управление сотрудниками_____
     QList<User> LoadEmployees();
     void SaveEmployees();
@@ -59,6 +62,7 @@ public:
     QString ValidateUser(const QString &login, const QString &password);
 
 private:
+    QList<User> buyers;
     QList<User> employees;
     QList<Pharmacy> pharmacies;
     QList<PharmacyItem> medicines;

@@ -7,20 +7,25 @@ JsonManager::JsonManager()
     employees = LoadEmployees();
     pharmacies = LoadPharmacies();
     medicines = LoadMedicines();
+
     QJsonObject json = LoadJSON("Base.json");
     // Если файл пуст или отсутствуют данные по аптекам и медикаментам – создаём базовую структуру
     if (json.isEmpty() ||
         !json.contains("Employees") ||
         !json.contains("Pharmacies") ||
-        !json.contains("Medicines"))
+        !json.contains("Medicines") ||
+        !json.contains("Buyers"))
     {
         QJsonObject newJson;
         newJson["Employees"] = QJsonArray();
         newJson["Pharmacies"] = QJsonArray();
         newJson["Medicines"] = QJsonArray();
+        newJson["Buyers"] = QJsonArray();
         SaveToJSON("Base.json", newJson);
     }
 }
+
+// _____________ Методы для покупателей (Buyers) _____________
 
 // _____________ Методы для сотрудников (Employees) _____________
 
