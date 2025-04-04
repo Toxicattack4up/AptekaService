@@ -56,7 +56,7 @@ public:
     QJsonObject LoadJSON(const QString &filePath);
     void SaveToJSON(const QString &filePath, const QJsonObject &json);
     QString HashPassword(const QString &password);
-    bool ValidateUser(const QString &login, const QString &password);
+    QString ValidateUser(const QString &login, const QString &password);
 
 private:
     QList<User> employees;

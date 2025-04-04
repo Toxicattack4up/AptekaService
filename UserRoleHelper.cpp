@@ -12,7 +12,7 @@ const QMap<UserRole, QString>& UserRoleHelper::getRoleNames()
     return roleNames;
 }
 
-const UserRole UserRoleHelper::fromString(const QString &roleStr)
+UserRole UserRoleHelper::fromString(const QString &roleStr)
 {
     static const QMap<QString, UserRole> roleMap = {
         {"Посетитель", UserRole::Unknown},
@@ -22,4 +22,15 @@ const UserRole UserRoleHelper::fromString(const QString &roleStr)
         {"Курьер", UserRole::Courier}
     };
     return roleMap.value(roleStr, UserRole::Unknown);
+}
+
+QString UserRoleHelper::toString(UserRole role)
+{
+    switch(role)
+    {
+    case UserRole::Administrator: return "Администратор";
+    case UserRole::Seller: return "Продавец";
+    case UserRole::Courier: return "Курьер";
+    default: return "Посетитель";
+    }
 }

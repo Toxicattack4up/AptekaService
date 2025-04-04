@@ -97,6 +97,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="echoMode">
+             <enum>QLineEdit::EchoMode::Password</enum>
+            </property>
            </widget>
           </item>
           <item row="4" column="0">
@@ -132,6 +135,7 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_2"/>
      </widget>
     </item>
    </layout>

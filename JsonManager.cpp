@@ -1,4 +1,5 @@
 #include "JsonManager.h"
+#include "UserRoleHelper.h"
 #include <QMessageBox>
 
 JsonManager::JsonManager()
@@ -350,28 +351,29 @@ QString JsonManager::HashPassword(const QString &password)
     return QString(hashed.toHex());
 }
 
-bool JsonManager::ValidateUser(const QString &login, const QString &password)
+QString JsonManager::ValidateUser(const QString &login, const QString &password)
 {
-    if(login.isEmpty() || password.isEmpty())
+    if (login.isEmpty() || password.isEmpty())
     {
         QMessageBox::warning(nullptr, "Ошибка", "Логин и пароль не могут быть пустыми");
         qDebug() << "Ошибка: логин и пароль не могут быть пустыми";
-        return false;
+        return "";
     }
 
-    QString Password = HashPassword(password);
+    QString hashedPassword = HashPassword(password);
 
-    for(const User &user : employees)
+    for (const User &user : employees)
     {
-        if(user.getLogin() == login && user.getPassword() == Password)
+        if (user.getLogin() == login && user.getPassword() == hashedPassword)
         {
-            return true;
+            return UserRoleHelper::toString(user.getRole());  // Возвращаем роль пользователя
         }
     }
+
     QMessageBox::warning(nullptr, "Ошибка", "Такого пользователя не существует");
     qDebug() << "Ошибка: такого пользователя не существует";
 
-    return false;
+    return "";
 }
 
 
