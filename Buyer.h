@@ -6,15 +6,13 @@
 
 class Buyer : public User {
 public:
-    Buyer(); // Для самостоятельной регистрации
+    // Конструктор: создаёт покупателя с заданными данными
     Buyer(const QString& login, const QString& password, const QString& fullName, const QString& email);
 
-    // Возвращает true, если регистрация прошла успешно, и false в противном случае.
-    static bool registerBuyer(const QString& login,
-                              const QString& password,
-                              const QString& fullName,
-                              const QString& email,
-                              JsonManager &jsonManager);
+    // Регистрирует нового покупателя, возвращает true при успехе
+    static bool registerBuyer(const QString& login, const QString& password,
+                              const QString& fullName, const QString& email,
+                              JsonManager& jsonManager);
 };
 
 #endif // BUYER_H

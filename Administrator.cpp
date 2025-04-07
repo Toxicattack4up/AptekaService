@@ -1,113 +1,79 @@
 #include "Administrator.h"
-#include "JsonManager.h"
 #include "UserRoleHelper.h"
+#include <QDebug>
 
-// Конструктор
-Administrator::Administrator(const QString& login, const QString& Password, const QString& fullName, const QString& email)
-    : User(UserRole::Administrator, login, Password, fullName, email) {
+// Конструктор: инициализирует администратора с ролью Administrator
+Administrator::Administrator(const QString& login, const QString& password, const QString& fullName,
+                             const QString& email, JsonManager& manager)
+    : User(UserRole::Administrator, login, password, fullName, email), jsonManager(manager) {
 }
 
-
-// _____Работа с пользователями_____
-void Administrator::addUser(const QString& role, const QString& login, const QString& password, const QString& fullName, const QString& email) {
+// Добавление пользователя (продавца или курьера)
+void Administrator::addUser(const QString& role, const QString& login, const QString& password,
+                            const QString& fullName, const QString& email) {
     UserRole userRole = UserRoleHelper::fromString(role);
-    if (userRole == UserRole::Seller)
-    { // Сотрудник аптеки
-        Employee employee(login, password, fullName, email);
-        users.append(employee);
-        jsonManager.AddEmployee(role, login, password, fullName, email);
-    }
-    else if (userRole == UserRole::Courier)
-    { // Курьер
-        Courier courier(login, password, fullName, email);
-        users.append(courier);
-        jsonManager.AddEmployee(role, login, password, fullName, email);
-    }
-    else
-    {
-        qDebug() << "Администратор может создавать только продавцов или курьеров!";
-        return;
+    if (userRole == UserRole::Seller || userRole == UserRole::Courier) {
+        jsonManager.addEmployee(role, login, password, fullName, email);
+        qDebug() << "Пользователь" << login << "успешно добавлен!";
+    } else {
+        qDebug() << "Ошибка: Администратор может создавать только продавцов или курьеров!";
     }
 }
 
+// Удаление пользователя по логину
 bool Administrator::removeUser(const QString& login) {
-    for (int i = 0; i < users.size(); ++i) {
-        if (users[i].getLogin() == login) {
-            users.remove(i);
-            jsonManager.RemoveEmployee(login);
-            return true;
-        }
-    }
-    return false;
+    jsonManager.removeEmployee(login);
+    return true; // Предполагаем, что JsonManager обработает ошибки
 }
 
-User* Administrator::findUser(const QString& login) {
-    for (auto& user : users) {
-        if (user.getLogin() == login) {
-            return &user;
-        }
-    }
-    return nullptr;
+// Поиск пользователя по логину (возвращает копию)
+User Administrator::findUser(const QString& login) {
+    QList<User> found = jsonManager.searchEmployee("", login, "", "", "");
+    return found.isEmpty() ? User() : found.first();
 }
 
-
-// _____Работа с аптекой_____
+// Создание аптеки
 void Administrator::createPharmacy(const Pharmacy& pharmacy) {
-    pharmacies.append(pharmacy);
-    jsonManager.AddPharmacy(pharmacy);
+    jsonManager.addPharmacy(pharmacy);
+    qDebug() << "Аптека с ID" << pharmacy.getId() << "успешно создана!";
 }
 
+// Удаление аптеки по ID
 bool Administrator::removePharmacy(int id) {
-    for (int i = 0; i < pharmacies.size(); ++i) {
-        if (pharmacies[i].getId() == id) {
-            pharmacies.remove(i);
-            jsonManager.RemovePharmacy(id);
-            return true;
-        }
-    }
-    return false;
+    jsonManager.removePharmacy(id);
+    return true; // Предполагаем, что JsonManager обработает ошибки
 }
 
-Pharmacy* Administrator::findPharmacy(int id) {
-    for (auto& pharmacy : pharmacies) {
-        if (pharmacy.getId() == id) {
-            return &pharmacy;
-        }
-    }
-    return nullptr;
+// Поиск аптеки по ID (возвращает копию)
+Pharmacy Administrator::findPharmacy(int id) {
+    QList<Pharmacy> found = jsonManager.searchPharmacy(id, "");
+    return found.isEmpty() ? Pharmacy(0, "", 0, 0) : found.first();
 }
 
+// Поиск аптек по ID и адресу
 QList<Pharmacy> Administrator::searchPharmacy(int id, const QString& address) {
-    return jsonManager.SearchPharmacy(id, address);
+    return jsonManager.searchPharmacy(id, address);
 }
 
-
-// _____Управление складом_____
+// Добавление медикамента
 void Administrator::addMedicine(const PharmacyItem& item) {
-    medicines.append(item);
-    jsonManager.AddMedicine(item);
+    jsonManager.addMedicine(item);
+    qDebug() << "Медикамент" << item.getTitle() << "успешно добавлен!";
 }
 
+// Удаление медикамента по названию
 bool Administrator::removeMedicine(const QString& title) {
-    for (int i = 0; i < medicines.size(); ++i) {
-        if (medicines[i].getTitle() == title) {
-            medicines.remove(i);
-            jsonManager.RemoveMedicine(title);
-            return true;
-        }
-    }
-    return false;
+    jsonManager.removeMedicine(title);
+    return true; // Предполагаем, что JsonManager обработает ошибки
 }
 
-PharmacyItem* Administrator::findMedicine(const QString& title) {
-    for (auto& medicine : medicines) {
-        if (medicine.getTitle() == title) {
-            return &medicine;
-        }
-    }
-    return nullptr;
+// Поиск медикамента по названию (возвращает копию)
+PharmacyItem Administrator::findMedicine(const QString& title) {
+    QList<PharmacyItem> found = jsonManager.searchMedicine(title);
+    return found.isEmpty() ? PharmacyItem("", 0, false, QDate(), 0) : found.first();
 }
 
+// Поиск медикаментов по названию
 QList<PharmacyItem> Administrator::searchMedicine(const QString& title) {
-    return jsonManager.SearchMedicine(title);
+    return jsonManager.searchMedicine(title);
 }

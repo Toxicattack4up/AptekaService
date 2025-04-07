@@ -5,9 +5,8 @@
 
 class Courier : public User {
 public:
-    Courier() = default;
-    Courier(const QString& login, const QString& Password, const QString& fullName, const QString& email);
-
+    // Конструктор: создаёт курьера с заданными данными
+    Courier(const QString& login, const QString& password, const QString& fullName, const QString& email);
 };
 
 #endif // COURIER_H

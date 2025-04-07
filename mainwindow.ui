@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>261</width>
+    <width>589</width>
     <height>182</height>
    </rect>
   </property>
@@ -24,12 +24,12 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_2">
+         <layout class="QGridLayout" name="Welcome">
           <item row="1" column="1">
            <widget class="QLineEdit" name="lineEdit_login">
             <property name="sizePolicy">
@@ -135,10 +135,96 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_2">
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Administrator_menu">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="Admin_users">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::FocusPolicy::StrongFocus</enum>
+            </property>
+            <property name="text">
+             <string>Администрирование пользователей</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="Admin_Item">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Администрирование лекарств</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="Admin_pharmacy">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Администрирование аптек</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="Cancel_Admin_menu">
+            <property name="text">
+             <string>Выход из аккаунта</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Seller_menu">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="Sell_button">
+            <property name="text">
+             <string>Сделать продажу</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="Warehouse">
+            <property name="text">
+             <string>Просмотрел наличие на складе</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="Cancel_seller_menu">
+            <property name="text">
+             <string>Выход</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="page_1">
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="1" column="0">
-         <layout class="QGridLayout" name="gridLayout_4">
+         <layout class="QGridLayout" name="Registration">
           <item row="4" column="0">
            <widget class="QPushButton" name="cancelToMain_Button">
             <property name="sizePolicy">
@@ -245,6 +331,25 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_login</tabstop>
+  <tabstop>lineEdit_pass</tabstop>
+  <tabstop>login_button</tabstop>
+  <tabstop>registr_button</tabstop>
+  <tabstop>reglog_lineEdit</tabstop>
+  <tabstop>regpass_lineEdit</tabstop>
+  <tabstop>FIO_lineEdit</tabstop>
+  <tabstop>email_lineEdit</tabstop>
+  <tabstop>Registration_Button</tabstop>
+  <tabstop>cancelToMain_Button</tabstop>
+  <tabstop>Admin_users</tabstop>
+  <tabstop>Admin_pharmacy</tabstop>
+  <tabstop>Admin_Item</tabstop>
+  <tabstop>Cancel_Admin_menu</tabstop>
+  <tabstop>Sell_button</tabstop>
+  <tabstop>Warehouse</tabstop>
+  <tabstop>Cancel_seller_menu</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -1,46 +1,36 @@
 #ifndef ADMINISTRATOR_H
 #define ADMINISTRATOR_H
 
-#include <QString>
-#include <QVector>
-
 #include "User.h"
-#include "Employee.h"
-#include "Courier.h"
-#include "PharmacyItem.h"
 #include "Pharmacy.h"
+#include "PharmacyItem.h"
 #include "JsonManager.h"
 
 class Administrator : public User {
 private:
-    QVector<User> users;               // Список пользователей
-    QVector<Pharmacy> pharmacies;       // Список аптек
-    QVector<PharmacyItem> medicines;    // Список лекарств
-    JsonManager jsonManager;            // Класс для работы с файлами
+    JsonManager& jsonManager; // Ссылка на JsonManager для работы с данными
 
 public:
-    // Конструктор
-    Administrator(const QString& login, const QString& Password, const QString& fullName, const QString& email);
+    // Конструктор: создаёт администратора с заданными данными
+    Administrator(const QString& login, const QString& password, const QString& fullName,
+                  const QString& email, JsonManager& manager);
 
     // Работа с пользователями
-    void addUser(const QString& role,
-                 const QString& login,
-                 const QString& Password,
-                 const QString& fullName,
-                 const QString& email);
+    void addUser(const QString& role, const QString& login, const QString& password,
+                 const QString& fullName, const QString& email);
     bool removeUser(const QString& login);
-    User* findUser(const QString& login);
+    User findUser(const QString& login); // Возвращает копию пользователя
 
-    // Работа с аптечными помещениями
+    // Работа с аптеками
     void createPharmacy(const Pharmacy& pharmacy);
     bool removePharmacy(int id);
-    Pharmacy* findPharmacy(int id);
+    Pharmacy findPharmacy(int id); // Возвращает копию аптеки
     QList<Pharmacy> searchPharmacy(int id, const QString& address);
 
-    // Управление складом аптек
+    // Работа с медикаментами
     void addMedicine(const PharmacyItem& item);
     bool removeMedicine(const QString& title);
-    PharmacyItem* findMedicine(const QString& title);
+    PharmacyItem findMedicine(const QString& title); // Возвращает копию медикамента
     QList<PharmacyItem> searchMedicine(const QString& title);
 };
 

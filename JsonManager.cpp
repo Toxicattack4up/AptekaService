@@ -1,323 +1,59 @@
 #include "JsonManager.h"
-#include "UserRoleHelper.h"
-#include <QMessageBox>
 
-JsonManager::JsonManager()
-{
-    employees = LoadEmployees();
-    pharmacies = LoadPharmacies();
-    medicines = LoadMedicines();
+JsonManager::JsonManager() {
+    QJsonObject json = loadJson();
 
-    QJsonObject json = LoadJSON("Base.json");
-    // Если файл пуст или отсутствуют данные по аптекам и медикаментам – создаём базовую структуру
-    if (json.isEmpty() ||
-        !json.contains("Employees") ||
-        !json.contains("Pharmacies") ||
-        !json.contains("Medicines") ||
-        !json.contains("Buyers"))
-    {
-        QJsonObject newJson;
-        newJson["Employees"] = QJsonArray();
-        newJson["Pharmacies"] = QJsonArray();
-        newJson["Medicines"] = QJsonArray();
-        newJson["Buyers"] = QJsonArray();
-        SaveToJSON("Base.json", newJson);
-    }
-}
-
-// _____________ Методы для покупателей (Buyers) _____________
-
-// _____________ Методы для сотрудников (Employees) _____________
-
-QList<User> JsonManager::LoadEmployees()
-{
-    QJsonObject json = LoadJSON("Base.json");
-    if(json.isEmpty())
-    {
-        qDebug() << "Не удалось загрузить данные сотрудников из файла";
-        return QList<User>();
-    }
-    QJsonArray employeesArray = json["Employees"].toArray();
-    QList<User> employees;
-
-    for(const QJsonValue &value : employeesArray)
-    {
-        QJsonObject obj = value.toObject();
-        User user;
-        user.setRole(UserRoleHelper::fromString(obj["role"].toString()));
-        user.setLogin(obj["login"].toString());
-        user.setPassword(obj["Password"].toString());
-        user.setFullName(obj["fullName"].toString());
-        user.setEmail(obj["email"].toString());
-        user.setRegistrationDate(QDateTime::fromString(obj["registrationDate"].toString(), Qt::ISODate));
-        employees.append(user);
-    }
-    return employees;
-}
-
-void JsonManager::SaveEmployees()
-{
-    QJsonObject json = LoadJSON("Base.json");
-    json["Employees"] = EmployeesToJsonArray();
-    SaveToJSON("Base.json", json);
-}
-
-void JsonManager::AddEmployee(const QString &_role,
-                              const QString &_login,
-                              const QString &_password,
-                              const QString &_fullName,
-                              const QString &_email)
-{
-    UserRole role = UserRoleHelper::fromString(_role);
-    if(role == UserRole::Unknown)
-    {
-        qDebug() << "Ошибка: неизвестная роль";
+    // Если файл пуст, добавляем администратора
+    if (json.isEmpty() || !json.contains("Users") || !json.contains("Pharmacies") || !json.contains("Medicines")) {
+        User admin;
+        admin.setRole(UserRole::Administrator);
+        admin.setLogin("admin");
+        admin.setPassword(hashPassword("admin123"));
+        admin.setFullName("Админ Админович");
+        admin.setEmail("admin@example.com");
+        admin.setRegistrationDate(QDateTime::currentDateTime());
+        employees.append(admin);
+        saveAllToJson(); // Сохраняем с администратором
         return;
     }
 
-    for(const User &user : employees)
-    {
-        if(user.getLogin() == _login)
-        {
-            qDebug() << "Логин" << _login << "уже существует";
-            return;
-        }
-    }
-
-    QString Password = HashPassword(_password);
-    User newUser(role, _login, Password, _fullName, _email);
-    newUser.setRegistrationDate(QDateTime::currentDateTime());
-    employees.append(newUser);
-}
-
-void JsonManager::RemoveEmployee(const QString &login)
-{
-    if(login.isEmpty())
-    {
-        qDebug() << "Ошибка: логин не может быть пустым";
-        return;
-    }
-
-    for(int i = 0; i < employees.size(); ++i)
-    {
-        if(employees[i].getLogin() == login)
-        {
-            employees.removeAt(i);
-            return;
-        }
-    }
-    qDebug() << "Сотрудник" << login << "не найден";
-}
-
-QList<User> JsonManager::SearchEmployee(const QString &_role,
-                                        const QString &_login,
-                                        const QString &_password,
-                                        const QString &_fullName,
-                                        const QString &_email)
-{
-    QList<User> result;
-    UserRole role = UserRoleHelper::fromString(_role);
-    for(const User &user : employees)
-    {
-        bool match = true;
-        if(!_role.isEmpty() && user.getRole() != role) match = false;
-        if(!_login.isEmpty() && user.getLogin() != _login) match = false;
-        if(!_password.isEmpty() && user.getPassword() != HashPassword(_password)) match = false;
-        if(!_fullName.isEmpty() && user.getFullName() != _fullName) match = false;
-        if(!_email.isEmpty() && user.getEmail() != _email) match = false;
-
-        if(match)
-            result.append(user);
-    }
-    return result;
-}
-
-// _____________ Методы для аптек (Pharmacies) _____________
-
-QList<Pharmacy> JsonManager::LoadPharmacies()
-{
-    QJsonObject json = LoadJSON("Base.json");
-    QList<Pharmacy> list;
-    if(json.isEmpty())
-    {
-        qDebug() << "Не удалось загрузить данные аптек из файла";
-        return list;
-    }
-
-    QJsonArray arr = json["Pharmacies"].toArray();
-
-    for(const QJsonValue &value : arr)
-    {
+    // Загружаем аптеки
+    QJsonArray pharmaciesArray = json["Pharmacies"].toArray();
+    for (const QJsonValue &value : pharmaciesArray) {
         QJsonObject obj = value.toObject();
-        int id = obj["id"].toInt();
-        QString address = obj["address"].toString();
-        double size = obj["size"].toDouble();
-        int maxCapacity = obj["maxCapacity"].toInt();
-        Pharmacy ph(id, address, size, maxCapacity);
-        list.append(ph);
+        Pharmacy ph(obj["id"].toInt(),
+                    obj["address"].toString(),
+                    obj["size"].toDouble(),
+                    obj["maxCapacity"].toInt());
+        pharmacies.append(ph);
     }
-    return list;
-}
 
-void JsonManager::SavePharmacies(const QList<Pharmacy>& pharmacies)
-{
-    QJsonArray arr;
-    for(const Pharmacy &ph : pharmacies)
-    {
-        QJsonObject obj;
-        obj["id"] = ph.getId();
-        obj["address"] = ph.getAddress();
-        obj["size"] = ph.getSize();
-        obj["maxCapacity"] = ph.getMaxCapacity();
-        arr.append(obj);
-    }
-    QJsonObject json = LoadJSON("Base.json");
-    json["Pharmacies"] = arr;
-    SaveToJSON("Base.json", json);
-}
-
-void JsonManager::AddPharmacy(const Pharmacy& pharmacy)
-{
-    for (const Pharmacy& ph : pharmacies)
-    {
-        if (ph.getId() == pharmacy.getId())
-        {
-            qDebug() << "Аптека с ID" << pharmacy.getId() << "уже существует";
-            return;
-        }
-    }
-    pharmacies.append(pharmacy);
-    SavePharmacies(pharmacies);
-}
-
-void JsonManager::RemovePharmacy(int id)
-{
-    for (int i = 0; i < pharmacies.size(); ++i)
-    {
-        if (pharmacies[i].getId() == id)
-        {
-            pharmacies.removeAt(i);
-            SavePharmacies(pharmacies);
-            return;
-        }
-    }
-    qDebug() << "Аптека с ID" << id << "не найдена";
-}
-
-QList<Pharmacy> JsonManager::SearchPharmacy(int id, const QString& address)
-{
-    QList<Pharmacy> result;
-    for (const Pharmacy& ph : pharmacies)
-    {
-        bool match = true;
-        if (id != -1 && ph.getId() != id) match = false; // -1 означает "игнорировать ID"
-        if (!address.isEmpty() && ph.getAddress() != address) match = false;
-        if (match)
-            result.append(ph);
-    }
-    return result;
-}
-
-
-// _____________ Методы для медикаментов (Medicines) _____________
-
-QList<PharmacyItem> JsonManager::LoadMedicines()
-{
-    QJsonObject json = LoadJSON("Base.json");
-    QList<PharmacyItem> list;
-    if(json.isEmpty())
-    {
-        qDebug() << "Не удалось загрузить данные медикаментов из файла";
-        return list;
-    }
-    QJsonArray arr = json["Medicines"].toArray();
-    for(const QJsonValue &value : arr)
-    {
+    // Загружаем медикаменты
+    QJsonArray medicinesArray = json["Medicines"].toArray();
+    for (const QJsonValue &value : medicinesArray) {
         QJsonObject obj = value.toObject();
-        QString title = obj["title"].toString();
-        double price = obj["price"].toDouble();
-        bool recipe = obj["recipe"].toBool();
-        QDate expiration = QDate::fromString(obj["expiration_date"].toString(), Qt::ISODate);
-        int quantity = obj["quantity"].toInt();
-        PharmacyItem item(title, price, recipe, expiration, quantity);
-        list.append(item);
+        PharmacyItem item(obj["title"].toString(),
+                          obj["price"].toDouble(),
+                          obj["recipe"].toBool(),
+                          QDate::fromString(obj["expiration_date"].toString(), Qt::ISODate),
+                          obj["quantity"].toInt());
+        medicines.append(item);
     }
-    return list;
 }
 
-void JsonManager::SaveMedicines(const QList<PharmacyItem>& medicines)
-{
-    QJsonArray arr;
-    for(const PharmacyItem &item : medicines)
-    {
-        QJsonObject obj;
-        obj["title"] = item.getTitle();
-        obj["price"] = item.getPrice();
-        obj["recipe"] = item.isRecipeRequired();
-        obj["expiration_date"] = item.getExpirationDate().toString(Qt::ISODate);
-        obj["quantity"] = item.getQuantity();
-        arr.append(obj);
-    }
-    QJsonObject json = LoadJSON("Base.json");
-    json["Medicines"] = arr;
-    SaveToJSON("Base.json", json);
+// Хеширование пароля
+QString JsonManager::hashPassword(const QString &password) {
+    QByteArray hashed = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
+    return QString(hashed.toHex());
 }
 
-void JsonManager::AddMedicine(const PharmacyItem& item)
-{
-    for (const PharmacyItem& med : medicines)
-    {
-        if (med.getTitle() == item.getTitle())
-        {
-            qDebug() << "Медикамент" << item.getTitle() << "уже существует";
-            return;
-        }
-    }
-    medicines.append(item);
-    SaveMedicines(medicines);
-}
-
-void JsonManager::RemoveMedicine(const QString& title)
-{
-    if (title.isEmpty())
-    {
-        qDebug() << "Ошибка: название медикамента не может быть пустым";
-        return;
-    }
-    for (int i = 0; i < medicines.size(); ++i)
-    {
-        if (medicines[i].getTitle() == title)
-        {
-            medicines.removeAt(i);
-            SaveMedicines(medicines);
-            return;
-        }
-    }
-    qDebug() << "Медикамент" << title << "не найден";
-}
-
-QList<PharmacyItem> JsonManager::SearchMedicine(const QString& title)
-{
-    QList<PharmacyItem> result;
-    for (const PharmacyItem& item : medicines)
-    {
-        if (!title.isEmpty() && item.getTitle() == title)
-            result.append(item);
-    }
-    return result;
-}
-
-
-// _____________ Остальные методы JsonManager _____________
-
-QJsonObject JsonManager::LoadJSON(const QString &filePath)
-{
+// Загрузка JSON из файла
+QJsonObject JsonManager::loadJson() {
     QString fullPath = QCoreApplication::applicationDirPath() + "/" + filePath;
     QFile file(fullPath);
 
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qDebug() << "Ошибка при открытии файла:" << file.errorString();
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Ошибка: Не удалось открыть файл:" << file.errorString();
         return QJsonObject();
     }
 
@@ -325,8 +61,7 @@ QJsonObject JsonManager::LoadJSON(const QString &filePath)
     file.close();
 
     QJsonDocument doc = QJsonDocument::fromJson(fileData);
-    if (doc.isNull() || !doc.isObject())
-    {
+    if (doc.isNull() || !doc.isObject()) {
         qDebug() << "Ошибка: Некорректный JSON.";
         return QJsonObject();
     }
@@ -334,85 +69,217 @@ QJsonObject JsonManager::LoadJSON(const QString &filePath)
     return doc.object();
 }
 
-void JsonManager::SaveToJSON(const QString &filePath, const QJsonObject &json)
-{
+// Сохранение всех данных в JSON
+void JsonManager::saveAllToJson() {
+    QJsonObject json;
+
+    // Сохраняем пользователей
+    QJsonArray usersArray;
+    for (const User &user : employees) {
+        QJsonObject userObject;
+        userObject["role"] = UserRoleHelper::toString(user.getRole());
+        userObject["login"] = user.getLogin();
+        userObject["password"] = user.getPassword();
+        userObject["fullName"] = user.getFullName();
+        userObject["email"] = user.getEmail();
+        userObject["registrationDate"] = user.getRegistrationDate().toString(Qt::ISODate);
+        usersArray.append(userObject);
+    }
+    json["Users"] = usersArray;
+
+    // Сохраняем аптеки
+    QJsonArray pharmaciesArray;
+    for (const Pharmacy &ph : pharmacies) {
+        QJsonObject phObject;
+        phObject["id"] = ph.getId();
+        phObject["address"] = ph.getAddress();
+        phObject["size"] = ph.getSize();
+        phObject["maxCapacity"] = ph.getMaxCapacity();
+        pharmaciesArray.append(phObject);
+    }
+    json["Pharmacies"] = pharmaciesArray;
+
+    // Сохраняем медикаменты
+    QJsonArray medicinesArray;
+    for (const PharmacyItem &item : medicines) {
+        QJsonObject itemObject;
+        itemObject["title"] = item.getTitle();
+        itemObject["price"] = item.getPrice();
+        itemObject["recipe"] = item.isRecipeRequired();
+        itemObject["expiration_date"] = item.getExpirationDate().toString(Qt::ISODate);
+        itemObject["quantity"] = item.getQuantity();
+        medicinesArray.append(itemObject);
+    }
+    json["Medicines"] = medicinesArray;
+
+    // Записываем данные в файл
     QString fullPath = QCoreApplication::applicationDirPath() + "/" + filePath;
     QFile file(fullPath);
-
-    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        qDebug() << "Ошибка при записи файла:" << file.errorString();
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "Ошибка: Не удалось записать файл:" << file.errorString();
         return;
     }
-
     QJsonDocument doc(json);
     file.write(doc.toJson(QJsonDocument::Indented));
     file.close();
 }
 
-QString JsonManager::HashPassword(const QString &password)
-{
-    QByteArray hashed = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
-    return QString(hashed.toHex());
+// Добавление пользователя
+void JsonManager::addEmployee(const QString &_role, const QString &_login, const QString &_password,
+                              const QString &_fullName, const QString &_email) {
+    UserRole role = UserRoleHelper::fromString(_role);
+    if (role == UserRole::Unknown) {
+        qDebug() << "Ошибка: Неизвестная роль";
+        return;
+    }
+
+    for (const User &user : employees) {
+        if (user.getLogin() == _login) {
+            qDebug() << "Ошибка: Логин" << _login << "уже существует";
+            return;
+        }
+    }
+
+    User newUser;
+    newUser.setRole(role);
+    newUser.setLogin(_login);
+    newUser.setPassword(hashPassword(_password));
+    newUser.setFullName(_fullName);
+    newUser.setEmail(_email);
+    newUser.setRegistrationDate(QDateTime::currentDateTime());
+    employees.append(newUser);
+    saveAllToJson(); // Сохраняем все данные
 }
 
-QString JsonManager::ValidateUser(const QString &login, const QString &password)
-{
-    if (login.isEmpty() || password.isEmpty())
-    {
+// Удаление пользователя
+void JsonManager::removeEmployee(const QString &login) {
+    if (login.isEmpty()) {
+        qDebug() << "Ошибка: Логин не может быть пустым";
+        return;
+    }
+
+    for (int i = 0; i < employees.size(); ++i) {
+        if (employees[i].getLogin() == login) {
+            employees.removeAt(i);
+            saveAllToJson();
+            return;
+        }
+    }
+    qDebug() << "Ошибка: Пользователь" << login << "не найден";
+}
+
+// Поиск пользователей
+QList<User> JsonManager::searchEmployee(const QString &_role, const QString &_login, const QString &_password,
+                                        const QString &_fullName, const QString &_email) {
+    QList<User> result;
+    UserRole role = UserRoleHelper::fromString(_role);
+
+    for (const User &user : employees) {
+        bool match = true;
+        if (!_role.isEmpty() && user.getRole() != role) match = false;
+        if (!_login.isEmpty() && user.getLogin() != _login) match = false;
+        if (!_password.isEmpty() && user.getPassword() != hashPassword(_password)) match = false;
+        if (!_fullName.isEmpty() && user.getFullName() != _fullName) match = false;
+        if (!_email.isEmpty() && user.getEmail() != _email) match = false;
+
+        if (match) {
+            result.append(user);
+        }
+    }
+    return result;
+}
+
+// Проверка логина и пароля
+QString JsonManager::validateUser(const QString &login, const QString &password) {
+    if (login.isEmpty() || password.isEmpty()) {
         QMessageBox::warning(nullptr, "Ошибка", "Логин и пароль не могут быть пустыми");
-        qDebug() << "Ошибка: логин и пароль не могут быть пустыми";
         return "";
     }
 
-    QString hashedPassword = HashPassword(password);
-
-    for (const User &user : employees)
-    {
-        if (user.getLogin() == login && user.getPassword() == hashedPassword)
-        {
-            return UserRoleHelper::toString(user.getRole());  // Возвращаем роль пользователя
+    QString hashedPassword = hashPassword(password);
+    for (const User &user : employees) {
+        if (user.getLogin() == login && user.getPassword() == hashedPassword) {
+            return UserRoleHelper::toString(user.getRole());
         }
     }
 
     QMessageBox::warning(nullptr, "Ошибка", "Такого пользователя не существует");
-    qDebug() << "Ошибка: такого пользователя не существует";
-
     return "";
 }
 
-
-QJsonArray JsonManager::EmployeesToJsonArray() const
-{
-    QJsonArray employeesArray;
-    const QMap<UserRole, QString>& roleNames = UserRoleHelper::getRoleNames();
-
-    for(const User &user : employees)
-    {
-        QJsonObject employeeObj;
-        employeeObj["role"] = roleNames.value(user.getRole());
-        employeeObj["login"] = user.getLogin();
-        employeeObj["Password"] = user.getPassword();
-        employeeObj["fullName"] = user.getFullName();
-        employeeObj["email"] = user.getEmail();
-        employeeObj["registrationDate"] = user.getRegistrationDate().toString(Qt::ISODate);
-        employeesArray.append(employeeObj);
+// Добавление аптеки
+void JsonManager::addPharmacy(const Pharmacy &pharmacy) {
+    for (const Pharmacy &ph : pharmacies) {
+        if (ph.getId() == pharmacy.getId()) {
+            qDebug() << "Ошибка: Аптека с ID" << pharmacy.getId() << "уже существует";
+            return;
+        }
     }
-    return employeesArray;
+    pharmacies.append(pharmacy);
+    saveAllToJson();
 }
 
-QJsonArray JsonManager::PharmaciesToJsonArray() const
-{
-    QJsonArray arr;
-    // Предполагаем, что аптечные данные уже загружены в файл (или их передадут в метод SavePharmacies)
-    // Для каждого объекта Pharmacy создаём JSON-объект
-    // Здесь мы не используем внутреннюю переменную, а ожидаем, что список аптек передается как параметр в SavePharmacies.
-    return arr;
+// Удаление аптеки
+void JsonManager::removePharmacy(int id) {
+    for (int i = 0; i < pharmacies.size(); ++i) {
+        if (pharmacies[i].getId() == id) {
+            pharmacies.removeAt(i);
+            saveAllToJson();
+            return;
+        }
+    }
+    qDebug() << "Ошибка: Аптека с ID" << id << "не найдена";
 }
 
-QJsonArray JsonManager::MedicinesToJsonArray() const
-{
-    QJsonArray arr;
-    // Аналогично с аптеками – список медикаментов передаётся в метод SaveMedicines.
-    return arr;
+// Поиск аптек
+QList<Pharmacy> JsonManager::searchPharmacy(int id, const QString &address) {
+    QList<Pharmacy> result;
+    for (const Pharmacy &ph : pharmacies) {
+        bool match = true;
+        if (id != -1 && ph.getId() != id) match = false;
+        if (!address.isEmpty() && ph.getAddress() != address) match = false;
+        if (match) {
+            result.append(ph);
+        }
+    }
+    return result;
+}
+
+// Добавление медикамента
+void JsonManager::addMedicine(const PharmacyItem &item) {
+    for (const PharmacyItem &med : medicines) {
+        if (med.getTitle() == item.getTitle()) {
+            qDebug() << "Ошибка: Медикамент" << item.getTitle() << "уже существует";
+            return;
+        }
+    }
+    medicines.append(item);
+    saveAllToJson();
+}
+
+// Удаление медикамента
+void JsonManager::removeMedicine(const QString &title) {
+    if (title.isEmpty()) {
+        qDebug() << "Ошибка: Название медикамента не может быть пустым";
+        return;
+    }
+    for (int i = 0; i < medicines.size(); ++i) {
+        if (medicines[i].getTitle() == title) {
+            medicines.removeAt(i);
+            saveAllToJson();
+            return;
+        }
+    }
+    qDebug() << "Ошибка: Медикамент" << title << "не найден";
+}
+
+// Поиск медикаментов
+QList<PharmacyItem> JsonManager::searchMedicine(const QString &title) {
+    QList<PharmacyItem> result;
+    for (const PharmacyItem &item : medicines) {
+        if (!title.isEmpty() && item.getTitle() == title) {
+            result.append(item);
+        }
+    }
+    return result;
 }

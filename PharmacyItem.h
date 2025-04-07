@@ -7,23 +7,23 @@
 class PharmacyItem {
 private:
     QString title;         // Название лекарства
-    double price;          // Цена
+    double price;          // Цена лекарства
     bool recipe;           // Требуется ли рецепт
     QDate expiration_date; // Дата окончания срока годности
     int quantity;          // Количество на складе
 
 public:
-    // Конструктор
+    // Конструктор: создаёт медикамент с заданными параметрами
     PharmacyItem(const QString& title, double price, bool recipe, const QDate& expiration_date, int quantity);
 
-    // Геттеры
+    // Геттеры: возвращают значения полей
     QString getTitle() const;
     double getPrice() const;
     bool isRecipeRequired() const;
     QDate getExpirationDate() const;
     int getQuantity() const;
 
-    // Сеттеры
+    // Сеттеры: устанавливают новые значения с проверкой корректности
     void setTitle(const QString& newTitle);
     void setPrice(double newPrice);
     void setRecipeRequired(bool newRecipe);

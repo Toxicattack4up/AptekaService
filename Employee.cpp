@@ -1,5 +1,6 @@
 #include "Employee.h"
 
-Employee::Employee(const QString& login, const QString& Password, const QString& fullName, const QString& email)
-    : User(UserRole::Seller, login, Password, fullName, email) { // Предполагаем роль Seller для сотрудника аптеки
+// Конструктор: инициализирует сотрудника с ролью Seller
+Employee::Employee(const QString& login, const QString& password, const QString& fullName, const QString& email)
+    : User(UserRole::Seller, login, password, fullName, email) {
 }
