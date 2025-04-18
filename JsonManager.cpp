@@ -197,6 +197,10 @@ QString JsonManager::validateUser(const QString &login, const QString &password)
     }
 
     QString hashedPassword = hashPassword(password);
+    qDebug() << "Введенный логин:" << login;
+    qDebug() << "Введенный пароль:" << password;
+    qDebug() << "Хешированный пароль:" << hashedPassword;
+
     for (const User &user : employees) {
         if (user.getLogin() == login && user.getPassword() == hashedPassword) {
             return UserRoleHelper::toString(user.getRole());

@@ -232,7 +232,7 @@ void MainWindow::on_add_pharmacy_pushButton_clicked()
 void MainWindow::on_add_employee_pushButton_clicked()
 {
     QString role = ui->role_comboBox_employee->currentText().trimmed();
-    QString login = ui->lineEdit_login->text().trimmed();
+    QString login = ui->login_lineEdit_employee->text().trimmed();
     QString pass = ui->password_lineEdit_employee->text().trimmed();
     QString FIO = ui->FIO_lineEdit_employee->text();
     QString email = ui->email_lineEdit_employee->text().trimmed();
@@ -244,5 +244,6 @@ void MainWindow::on_add_employee_pushButton_clicked()
 
     JsonManager json;
     json.addEmployee(role, login, pass, FIO, email);
+    QMessageBox::warning(this, "Успешно", "Пользователь успешно добавлен");
 }
 
