@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>744</width>
-    <height>301</height>
+    <width>674</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>13</number>
       </property>
       <widget class="QWidget" name="page_login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -384,6 +384,84 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_buyer_menu">
+       <layout class="QGridLayout" name="gridLayout_15">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Buyer_menu">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="back_to_menu_login_pushButton">
+            <property name="text">
+             <string>Выйти</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="Buy_pharmacy_item_pushButton">
+            <property name="text">
+             <string>Купить лекарство</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="buye_items_menu">
+       <layout class="QGridLayout" name="gridLayout_16">
+        <item row="0" column="1">
+         <layout class="QGridLayout" name="Buy_items_menu">
+          <item row="3" column="0">
+           <widget class="QPushButton" name="back_to_menu_buyer_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QScrollBar" name="pharmacy_items_verticalScrollBar">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="buy_pharmacy_item_pushButton">
+            <property name="text">
+             <string>Купить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="table_pharmacy_items">
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <column>
+             <property name="text">
+              <string>Лекартсво</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Количество</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Стоимость</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="page_view_pharmacy">
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
@@ -444,7 +522,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="countItems_">
+           <widget class="QLineEdit" name="countItems_lineEdit">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -481,16 +559,222 @@
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QPushButton" name="back_pushButton_3">
+           <widget class="QPushButton" name="back_to_pushButton">
             <property name="text">
              <string>Назад</string>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="add_pharmacy_pushButton">
             <property name="text">
              <string>Сохранить</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_view_items_pharmacy">
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Seller_menu_2">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="remove_pharmacy_item_pushButton">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="add_pharmac_item_pushButton">
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="3">
+           <widget class="QTableWidget" name="items_table">
+            <column>
+             <property name="text">
+              <string>Название</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Цена</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Количество</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Рецепт</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Срок годности</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_add_items">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="1">
+         <layout class="QGridLayout" name="Admin_menu_add_item">
+          <item row="4" column="3">
+           <widget class="QPushButton" name="add_item_pushButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLineEdit" name="item_quantity_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="item_quantity_label">
+            <property name="text">
+             <string>Количество</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QPushButton" name="back_to_view_pharmacy_pushButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLineEdit" name="item_price_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLineEdit" name="item_name_input">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="item_price_label">
+            <property name="text">
+             <string>Цена</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="Item_name_label">
+            <property name="text">
+             <string>Название</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBox">
+            <property name="text">
+             <string>Нужен ли рецепт?</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QDateEdit" name="dateEdit">
+            <property name="dateTime">
+             <datetime>
+              <hour>15</hour>
+              <minute>0</minute>
+              <second>0</second>
+              <year>2025</year>
+              <month>4</month>
+              <day>15</day>
+             </datetime>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_remove_pharmacy_item">
+       <layout class="QGridLayout" name="gridLayout_14">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="remove_pharmacy_item">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_mune_items_pharmacy_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="remove_pharmacy_item_pushButton_2">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="name_pharmacy_item_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="name_pharmacy_item_label">
+            <property name="text">
+             <string>Введите название удаляемого лекарства:</string>
             </property>
            </widget>
           </item>
@@ -524,6 +808,13 @@
            </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page">
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_2"/>
         </item>
        </layout>
       </widget>
@@ -626,173 +917,6 @@
             <property name="text">
              <string>Введите пароль:</string>
             </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_add_items">
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="1">
-         <layout class="QGridLayout" name="Admin_menu_add_item">
-          <item row="4" column="3">
-           <widget class="QPushButton" name="add_item_pushButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Добавить</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QLineEdit" name="item_quantity_lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="item_quantity_label">
-            <property name="text">
-             <string>Количество</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QPushButton" name="back_to_menu_pushButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Назад</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLineEdit" name="item_price_lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLineEdit" name="item_name_input">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="item_price_label">
-            <property name="text">
-             <string>Цена</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="Item_name_label">
-            <property name="text">
-             <string>Название</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="checkBox">
-            <property name="text">
-             <string>Нужен ли рецепт?</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3">
-           <widget class="QDateEdit" name="dateEdit">
-            <property name="dateTime">
-             <datetime>
-              <hour>18</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>2025</year>
-              <month>4</month>
-              <day>15</day>
-             </datetime>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_view_items_pharmacy">
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="Seller_menu_2">
-          <item row="1" column="0">
-           <widget class="QPushButton" name="back_pushButton">
-            <property name="text">
-             <string>Назад</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="remove_pharmacy_item_pushButton">
-            <property name="text">
-             <string>Удалить</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="add_pharmac_item_pushButton">
-            <property name="text">
-             <string>Добавить</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QTableWidget" name="items_table">
-            <column>
-             <property name="text">
-              <string>Название</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Цена</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Количество</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Рецепт</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Срок годности</string>
-             </property>
-            </column>
            </widget>
           </item>
          </layout>
