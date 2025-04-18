@@ -24,9 +24,9 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>10</number>
       </property>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="page_login">
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Welcome">
@@ -135,7 +135,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2">
+      <widget class="QWidget" name="page_admin_menu">
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Administrator_menu">
@@ -196,13 +196,6 @@
        <layout class="QGridLayout" name="gridLayout_13">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_employees">
-          <item row="2" column="0">
-           <widget class="QPushButton" name="back_menu_admin_pushButton">
-            <property name="text">
-             <string>Назад</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="1">
            <widget class="QPushButton" name="delete_employees_pushButton">
             <property name="text">
@@ -210,8 +203,22 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="2">
-           <widget class="QTableWidget" name="table_mployees">
+          <item row="2" column="0">
+           <widget class="QPushButton" name="back_menu_admin_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="add_employees_pushButton">
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="3">
+           <widget class="QTableWidget" name="table_employees">
             <column>
              <property name="text">
               <string>Роль</string>
@@ -238,7 +245,107 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="Remove_employees">
+      <widget class="QWidget" name="page_add_employee">
+       <layout class="QGridLayout" name="gridLayout_12">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Admin_menu_add_employee">
+          <item row="5" column="1">
+           <widget class="QPushButton" name="add_employee_pushButton">
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QPushButton" name="back_to_view_employee_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="login_label_employee">
+            <property name="text">
+             <string>Введите логин сотрудника:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="password_label_employee">
+            <property name="text">
+             <string>Введите пароль:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="FIO_label_employee">
+            <property name="text">
+             <string>Введите ФИО:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="role_label_employee">
+            <property name="text">
+             <string>Добавьте роль сотруднику:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="email_label_employee">
+            <property name="text">
+             <string>Введите email:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="role_comboBox_employee"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="login_lineEdit_employee">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="password_lineEdit_employee">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="FIO_lineEdit_employee">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="email_lineEdit_employee">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_remove_employees">
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_remove_emoloyees">
@@ -391,7 +498,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_3">
+      <widget class="QWidget" name="page_seller_menu">
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu">
@@ -420,7 +527,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_1">
+      <widget class="QWidget" name="page_registration">
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="1" column="0">
          <layout class="QGridLayout" name="Registration">
@@ -617,7 +724,7 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>21</hour>
+              <hour>18</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
@@ -634,11 +741,32 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_view_items">
+      <widget class="QWidget" name="page_view_items_pharmacy">
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu_2">
           <item row="1" column="0">
+           <widget class="QPushButton" name="back_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="remove_pharmacy_item_pushButton">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="add_pharmac_item_pushButton">
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="3">
            <widget class="QTableWidget" name="items_table">
             <column>
              <property name="text">
@@ -665,26 +793,6 @@
               <string>Срок годности</string>
              </property>
             </column>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="back_pushButton">
-            <property name="text">
-             <string>Назад</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="layoutDirection">
-             <enum>Qt::LayoutDirection::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>Просмотр лекарств на складе</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignCenter</set>
-            </property>
            </widget>
           </item>
          </layout>
