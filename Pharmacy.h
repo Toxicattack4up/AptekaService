@@ -12,7 +12,7 @@ private:
 
 public:
     // Конструктор: создаёт аптеку с заданными параметрами
-    Pharmacy(const QString& address, double size, int maxCapacity);
+    Pharmacy(int id, const QString& address, double size, int maxCapacity);
 
     // Геттеры: возвращают значения полей
     int getId() const;

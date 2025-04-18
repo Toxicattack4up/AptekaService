@@ -59,6 +59,12 @@ private slots:
 
     void on_Admin_Item_clicked();
 
+    void on_add_item_pushButton_clicked();
+
+    void on_add_pharmacy_pushButton_clicked();
+
+    void on_add_employee_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     JsonManager jsonManager; // Объект для работы с данными

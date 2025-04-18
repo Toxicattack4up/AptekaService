@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Pharmacy.h"
+#include "PharmacyItem.h"
+#include "Employee.h"
 #include "Buyer.h"
+#include "Administrator.h"
 #include <QMessageBox>
 #include <QRegularExpression>
 
@@ -208,6 +212,7 @@ void MainWindow::on_add_item_pushButton_clicked()
 
 void MainWindow::on_add_pharmacy_pushButton_clicked()
 {
+    int id = ui->Id_pharmacy_lineEdit->text().toInt();
     QString adress = ui->adress_lineEdit->text().trimmed();
     double square = ui->square_lineEdit->text().toDouble();
     int cout = ui->countItems_lineEdit->text().toInt();
@@ -217,9 +222,27 @@ void MainWindow::on_add_pharmacy_pushButton_clicked()
         QMessageBox::warning(this, "Ошибка", "Проверьте данные");
     }
 
-    Pharmacy pharma(adress, square, cout);
+    Pharmacy pharma(id, adress, square, cout);
 
     JsonManager json;
     json.addPharmacy(pharma);
+}
+
+
+void MainWindow::on_add_employee_pushButton_clicked()
+{
+    QString role = ui->role_comboBox_employee->currentText().trimmed();
+    QString login = ui->lineEdit_login->text().trimmed();
+    QString pass = ui->password_lineEdit_employee->text().trimmed();
+    QString FIO = ui->FIO_lineEdit_employee->text();
+    QString email = ui->email_lineEdit_employee->text().trimmed();
+
+    if(role.isEmpty() || login.isEmpty() || pass.isEmpty() || FIO.isEmpty() || email.isEmpty())
+    {
+        QMessageBox::warning(this, "Ошибка", "Проверьте данные");
+    }
+
+    JsonManager json;
+    json.addEmployee(role, login, pass, FIO, email);
 }
 

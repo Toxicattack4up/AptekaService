@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="page_login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -539,20 +539,13 @@
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_add_pharmacy">
           <item row="2" column="0">
-           <widget class="QLabel" name="coutItems_label">
+           <widget class="QLabel" name="square_label">
             <property name="text">
-             <string>Вместимость лекарств</string>
+             <string>Размер в квадратных метрах</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="adress_label">
-            <property name="text">
-             <string>Адрес</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QLineEdit" name="countItems_lineEdit">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -562,14 +555,35 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="square_label">
+          <item row="4" column="1">
+           <widget class="QPushButton" name="add_pharmacy_pushButton">
             <property name="text">
-             <string>Размер в квадратных метрах</string>
+             <string>Добавить</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="3" column="0">
+           <widget class="QLabel" name="coutItems_label">
+            <property name="text">
+             <string>Вместимость лекарств</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QPushButton" name="back_to_view_items_pharmacy_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="adress_label">
+            <property name="text">
+             <string>Адрес</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
            <widget class="QLineEdit" name="adress_lineEdit">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -579,7 +593,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QLineEdit" name="square_lineEdit">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -589,17 +603,20 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QPushButton" name="back_to_view_items_pharmacy_pushButton">
-            <property name="text">
-             <string>Назад</string>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="Id_pharmacy_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="add_pharmacy_pushButton">
+          <item row="0" column="0">
+           <widget class="QLabel" name="Id_pharmacy_label">
             <property name="text">
-             <string>Сохранить</string>
+             <string>ID</string>
             </property>
            </widget>
           </item>
@@ -723,7 +740,7 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QLineEdit" name="item_name_input">
+           <widget class="QLineEdit" name="item_name_lineEdit">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -757,7 +774,7 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>12</hour>
+              <hour>9</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
