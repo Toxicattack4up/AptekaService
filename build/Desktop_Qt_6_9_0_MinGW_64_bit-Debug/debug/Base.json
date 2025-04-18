@@ -5,12 +5,12 @@
     ],
     "Users": [
         {
-            "email": "admin@example.com",
-            "fullName": "Админ Админович",
+            "email": "123@mail.ru",
+            "fullName": "admin",
             "login": "admin",
-            "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
-            "registrationDate": "2025-04-16T20:57:02",
-            "role": "Администратор"
+            "password": "94a19016b9262a98bebf4c7b2150d480a87873a099c5b57f30bc775479d668c7",
+            "registrationDate": "2025-04-18T14:52:59",
+            "role": "Покупатель"
         }
     ]
 }

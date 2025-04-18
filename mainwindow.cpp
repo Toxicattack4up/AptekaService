@@ -28,9 +28,9 @@ void MainWindow::on_login_button_clicked() {
     if (role == "Администратор") {
         ui->stackedWidget->setCurrentIndex(1); // Переход на страницу администратора
     } else if (role == "Продавец") {
-        ui->stackedWidget->setCurrentIndex(2); // Переход на страницу продавца
+        ui->stackedWidget->setCurrentIndex(12); // Переход на страницу продавца
     } else if (role == "Покупатель") {
-        ui->stackedWidget->setCurrentIndex(0); // Пока нет страницы для покупателя
+        ui->stackedWidget->setCurrentIndex(0); // Переход на страницы для покупателя
     } else {
         QMessageBox::warning(this, "Ошибка", "Неизвестная роль");
     }
@@ -38,7 +38,7 @@ void MainWindow::on_login_button_clicked() {
 
 // Переход на страницу регистрации
 void MainWindow::on_registr_button_clicked() {
-    ui->stackedWidget->setCurrentIndex(3); // Страница регистрации
+    ui->stackedWidget->setCurrentIndex(14); // Страница регистрации
 }
 
 // Возврат на главную страницу
@@ -71,3 +71,155 @@ void MainWindow::on_Registration_Button_clicked() {
     QMessageBox::information(this, "Успех", "Регистрация прошла успешно!");
     ui->stackedWidget->setCurrentIndex(0); // Возврат на главную
 }
+
+void MainWindow::on_back_to_view_employee_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_back_to_menu_buyer_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+
+void MainWindow::on_back_to_view_pharmacy_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_back_to_view_items_pharmacy_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_Back_to_login_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_back_to_menu_login_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_back_to_view_employees_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_back_to_menu_items_pharmacy_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(9);
+}
+
+
+void MainWindow::on_back_menu_admin_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_back_to_menu_login_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_back_to_admin_menu_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_Admin_users_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_add_employees_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+
+void MainWindow::on_delete_employees_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_add_pharmac_item_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(10);
+}
+
+
+void MainWindow::on_remove_pharmacy_item_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(11);
+}
+
+
+void MainWindow::on_add_pharmacy_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(8);
+}
+
+
+void MainWindow::on_Admin_pharmacy_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_Admin_Item_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(9);
+}
+
+
+void MainWindow::on_add_item_pushButton_clicked()
+{
+    QString name_pharmacy = ui->item_name_lineEdit->text().trimmed();
+    double price_pharmacy = ui->item_price_lineEdit->text().toDouble();
+    int quality_pharmacy = ui->item_quantity_lineEdit->text().toInt();
+    bool recipe = ui->checkBox->isChecked();
+    QDate expirationDate = QDate::fromString(ui->dateEdit->text(), "dd-MM-yyyy");
+
+    if(name_pharmacy.isEmpty() || price_pharmacy < 0 || quality_pharmacy < 0 || !expirationDate.isValid())
+    {
+        QMessageBox::warning(this, "Ошибка", "Проверьте правильность введенных данных");
+    }
+
+    PharmacyItem item(name_pharmacy, price_pharmacy, recipe, expirationDate, quality_pharmacy);
+
+    JsonManager json;
+    json.addMedicine(item);
+}
+
+
+void MainWindow::on_add_pharmacy_pushButton_clicked()
+{
+    QString adress = ui->adress_lineEdit->text().trimmed();
+    double square = ui->square_lineEdit->text().toDouble();
+    int cout = ui->countItems_lineEdit->text().toInt();
+
+    if(adress.isEmpty() || square < 1 || cout < 1)
+    {
+        QMessageBox::warning(this, "Ошибка", "Проверьте данные");
+    }
+
+    Pharmacy pharma(adress, square, cout);
+
+    JsonManager json;
+    json.addPharmacy(pharma);
+}
+
