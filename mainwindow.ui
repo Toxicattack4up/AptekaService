@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>465</height>
+    <width>744</width>
+    <height>301</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -182,9 +182,94 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="Cancel_Admin_menu">
+           <widget class="QPushButton" name="Back_to_login">
             <property name="text">
              <string>Выход из аккаунта</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_view_employees">
+       <layout class="QGridLayout" name="gridLayout_13">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Admin_menu_employees">
+          <item row="2" column="0">
+           <widget class="QPushButton" name="back_menu_admin_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="delete_employees_pushButton">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QTableWidget" name="table_mployees">
+            <column>
+             <property name="text">
+              <string>Роль</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Логин</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>ФИО</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Email</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Remove_employees">
+       <layout class="QGridLayout" name="gridLayout_10">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Admin_menu_remove_emoloyees">
+          <item row="0" column="0">
+           <widget class="QLabel" name="login_to_remove_label">
+            <property name="text">
+             <string>Введите логин для удаления:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="remove_employees_Button">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="remove_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_view_employees">
+            <property name="text">
+             <string>Назад</string>
             </property>
            </widget>
           </item>
@@ -195,18 +280,18 @@
       <widget class="QWidget" name="page_view_pharmacy">
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_2">
+         <layout class="QGridLayout" name="Admin_menu_pharmacy">
           <item row="1" column="0">
-           <widget class="QPushButton" name="add_pushButton">
+           <widget class="QPushButton" name="back_pushButton_2">
             <property name="text">
-             <string>Добавить</string>
+             <string>Назад</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="back_pushButton_2">
+           <widget class="QPushButton" name="add_pushButton_2">
             <property name="text">
-             <string>Назад</string>
+             <string>Добавить</string>
             </property>
            </widget>
           </item>
@@ -233,10 +318,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_4">
+      <widget class="QWidget" name="page_add_pharmacy">
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_10">
+         <layout class="QGridLayout" name="Admin_menu_add_pharmacy">
           <item row="2" column="0">
            <widget class="QLabel" name="coutItems_label">
             <property name="text">
@@ -298,7 +383,7 @@
           <item row="3" column="1">
            <widget class="QPushButton" name="pushButton_2">
             <property name="text">
-             <string>Добавить</string>
+             <string>Сохранить</string>
             </property>
            </widget>
           </item>
@@ -443,7 +528,7 @@
       <widget class="QWidget" name="page_add_items">
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="1">
-         <layout class="QGridLayout" name="grid">
+         <layout class="QGridLayout" name="Admin_menu_add_item">
           <item row="4" column="3">
            <widget class="QPushButton" name="add_item_pushButton">
             <property name="sizePolicy">
@@ -532,12 +617,12 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>0</hour>
+              <hour>21</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
               <month>4</month>
-              <day>16</day>
+              <day>15</day>
              </datetime>
             </property>
             <property name="calendarPopup">
@@ -552,8 +637,8 @@
       <widget class="QWidget" name="page_view_items">
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="grid_2">
-          <item row="0" column="0">
+         <layout class="QGridLayout" name="Seller_menu_2">
+          <item row="1" column="0">
            <widget class="QTableWidget" name="items_table">
             <column>
              <property name="text">
@@ -582,10 +667,23 @@
             </column>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QPushButton" name="back_pushButton">
             <property name="text">
              <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="layoutDirection">
+             <enum>Qt::LayoutDirection::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Просмотр лекарств на складе</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -612,7 +710,7 @@
   <tabstop>Admin_users</tabstop>
   <tabstop>Admin_pharmacy</tabstop>
   <tabstop>Admin_Item</tabstop>
-  <tabstop>Cancel_Admin_menu</tabstop>
+  <tabstop>Back_to_login</tabstop>
   <tabstop>Sell_button</tabstop>
   <tabstop>Warehouse</tabstop>
   <tabstop>Cancel_seller_menu</tabstop>
