@@ -190,6 +190,7 @@ void JsonManager::removeEmployee(const QString &login) {
     }
     qDebug() << "Ошибка: Пользователь" << login << "не найден";
     QMessageBox::warning(nullptr, "Ошибка", "Пользователь не найден");
+    QMessageBox::information(nullptr, "Успешно", "Пользователь успешно удален");
 }
 
 // Поиск пользователей

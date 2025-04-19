@@ -13,7 +13,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this); // Инициализация интерфейса
-    loadEmployeesToTable();
+    loadEmployeesToTable(); // Загрузка таблицы на старте
 }
 
 MainWindow::~MainWindow() {
@@ -127,6 +127,11 @@ void MainWindow::on_Registration_Button_clicked() {
     // Регистрация покупателя
     jsonManager.addEmployee("Покупатель", login, password, fullName, email);
     QMessageBox::information(this, "Успех", "Регистрация прошла успешно!");
+
+    ui->reglog_lineEdit->clear();
+    ui->regpass_lineEdit->clear();
+    ui->FIO_lineEdit->clear();
+    ui->email_lineEdit->clear();
     ui->stackedWidget->setCurrentIndex(0); // Возврат на главную
 }
 void MainWindow::on_back_to_view_employee_pushButton_clicked()
@@ -259,10 +264,19 @@ void MainWindow::on_add_employee_pushButton_clicked()
 
     JsonManager json;
     json.addEmployee(role, login, pass, FIO, email);
+
+    ui->role_comboBox_employee->clear();
+    ui->login_lineEdit_employee->clear();
+    ui->password_lineEdit_employee->clear();
+    ui->FIO_lineEdit_employee->clear();
+    ui->email_lineEdit_employee->clear();
+
 }
 void MainWindow::on_remove_employees_Button_clicked()
 {
     QString login = ui->remove_lineEdit->text().trimmed();
     JsonManager json;
     json.removeEmployee(login);
+    QMessageBox::information(nullptr, "Успешно", "Пользователь успешно удален");
+    ui->remove_lineEdit->clear();
 }
