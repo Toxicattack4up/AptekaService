@@ -55,6 +55,10 @@ JsonManager::JsonManager() {
     }
 }
 
+const QList<User> &JsonManager::getEmployee() const {
+    return employees;
+}
+
 // Хеширование пароля
 QString JsonManager::hashPassword(const QString &password) {
     QByteArray hashed = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
@@ -144,12 +148,14 @@ void JsonManager::addEmployee(const QString &_role, const QString &_login, const
     UserRole role = UserRoleHelper::fromString(_role);
     if (role == UserRole::Unknown) {
         qDebug() << "Ошибка: Неизвестная роль";
+        QMessageBox::warning(nullptr, "Ошибка", "Неизвестная роль");
         return;
     }
 
     for (const User &user : employees) {
         if (user.getLogin() == _login) {
             qDebug() << "Ошибка: Логин" << _login << "уже существует";
+            QMessageBox::warning(nullptr, "Ошибка", "Логин уже существует");
             return;
         }
     }
@@ -163,6 +169,7 @@ void JsonManager::addEmployee(const QString &_role, const QString &_login, const
     newUser.setRegistrationDate(QDateTime::currentDateTime());
     employees.append(newUser);
     saveAllToJson(); // Сохраняем все данные
+    QMessageBox::information(nullptr, "Успешно", "Пользователь успешно добавлен");
 }
 
 // Удаление пользователя

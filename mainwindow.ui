@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -218,28 +218,7 @@
            </widget>
           </item>
           <item row="0" column="0" colspan="3">
-           <widget class="QTableWidget" name="table_employees">
-            <column>
-             <property name="text">
-              <string>Роль</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Логин</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>ФИО</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Email</string>
-             </property>
-            </column>
-           </widget>
+           <widget class="QTableWidget" name="table_employees"/>
           </item>
          </layout>
         </item>

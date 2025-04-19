@@ -34,6 +34,7 @@ private:
 public:
     JsonManager(); // Конструктор, загружающий данные при запуске
 
+    const QList<User> &getEmployee() const;
     // Методы для работы с пользователями
     void addEmployee(const QString &_role, const QString &_login, const QString &_password,
                      const QString &_fullName, const QString &_email);

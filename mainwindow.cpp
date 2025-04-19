@@ -5,16 +5,73 @@
 #include "Employee.h"
 #include "Buyer.h"
 #include "Administrator.h"
+#include "JsonManager.h"
+#include "User.h"
 #include <QMessageBox>
 #include <QRegularExpression>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this); // Инициализация интерфейса
+    loadEmployeesToTable();
 }
 
 MainWindow::~MainWindow() {
     delete ui; // Освобождаем память
+}
+
+//Загрузка таблицы пользователями
+void MainWindow::loadEmployeesToTable() {
+    JsonManager json;
+    // Получаем указатель на QTableWidget (предполагается, что он добавлен в UI через дизайнер форм)
+    QTableWidget *table = ui->table_employees;
+
+    // Очищаем таблицу перед загрузкой новых данных
+    table->clearContents();
+    table->setRowCount(0);
+
+    // Устанавливаем количество столбцов
+    table->setColumnCount(5); // Логин, ФИО, Email, Дата регистрации, Роль
+
+    // Устанавливаем заголовки столбцов
+    table->setHorizontalHeaderLabels({
+        "Логин",
+        "ФИО",
+        "Email",
+        "Дата регистрации",
+        "Роль"
+    });
+
+    // Получаем список сотрудников из JsonManager
+    const QList<User> &employees = json.getEmployee(); // Предполагается, что есть метод getEmployees
+
+    // Устанавливаем количество строк (равно количеству сотрудников)
+    table->setRowCount(employees.size());
+
+    // Заполняем таблицу данными
+    for (int row = 0; row < employees.size(); ++row) {
+        const User &user = employees[row];
+
+        // Создаем элементы для каждой ячейки
+        table->setItem(row, 0, new QTableWidgetItem(user.getLogin()));
+        table->setItem(row, 1, new QTableWidgetItem(user.getFullName()));
+        table->setItem(row, 2, new QTableWidgetItem(user.getEmail()));
+        table->setItem(row, 3, new QTableWidgetItem(user.getRegistrationDate().toString("yyyy-MM-dd")));
+        table->setItem(row, 4, new QTableWidgetItem(UserRoleHelper::toString(user.getRole())));
+
+        // (Опционально) Делаем ячейки нередактируемыми
+        for (int col = 0; col < 5; ++col) {
+            if (table->item(row, col)) {
+                table->item(row, col)->setFlags(table->item(row, col)->flags() & ~Qt::ItemIsEditable);
+            }
+        }
+    }
+
+    // Настраиваем таблицу
+    table->resizeColumnsToContents(); // Автоматическая подстройка ширины столбцов
+    table->horizontalHeader()->setStretchLastSection(true); // Растягиваем последний столбец
+    table->setSelectionMode(QAbstractItemView::SingleSelection); // Выбор только одной строки
+    table->setSelectionBehavior(QAbstractItemView::SelectRows); // Выбираем целую строку
 }
 
 // Обработчик кнопки авторизации
@@ -39,17 +96,14 @@ void MainWindow::on_login_button_clicked() {
         QMessageBox::warning(this, "Ошибка", "Неизвестная роль");
     }
 }
-
 // Переход на страницу регистрации
 void MainWindow::on_registr_button_clicked() {
     ui->stackedWidget->setCurrentIndex(14); // Страница регистрации
 }
-
 // Возврат на главную страницу
 void MainWindow::on_cancelToMain_Button_clicked() {
     ui->stackedWidget->setCurrentIndex(0); // Главная страница
 }
-
 // Завершение регистрации
 void MainWindow::on_Registration_Button_clicked() {
     QString login = ui->reglog_lineEdit->text().trimmed();
@@ -75,121 +129,86 @@ void MainWindow::on_Registration_Button_clicked() {
     QMessageBox::information(this, "Успех", "Регистрация прошла успешно!");
     ui->stackedWidget->setCurrentIndex(0); // Возврат на главную
 }
-
 void MainWindow::on_back_to_view_employee_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    loadEmployeesToTable();
 }
-
-
 void MainWindow::on_back_to_menu_buyer_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
 }
-
-
 void MainWindow::on_back_to_view_pharmacy_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(7);
 }
-
-
 void MainWindow::on_back_to_view_items_pharmacy_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(7);
 }
-
-
 void MainWindow::on_Back_to_login_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-
-
 void MainWindow::on_back_to_menu_login_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-
-
 void MainWindow::on_back_to_view_employees_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    loadEmployeesToTable();
 }
-
-
 void MainWindow::on_back_to_menu_items_pharmacy_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(9);
 }
-
-
 void MainWindow::on_back_menu_admin_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
-
-
 void MainWindow::on_back_to_menu_login_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-
-
 void MainWindow::on_back_to_admin_menu_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    loadEmployeesToTable();
 }
-
-
 void MainWindow::on_Admin_users_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    loadEmployeesToTable();
 }
-
-
 void MainWindow::on_add_employees_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
 }
-
-
 void MainWindow::on_delete_employees_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
 }
-
-
 void MainWindow::on_add_pharmac_item_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(10);
 }
-
-
 void MainWindow::on_remove_pharmacy_item_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(11);
 }
-
-
 void MainWindow::on_add_pharmacy_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(8);
 }
-
-
 void MainWindow::on_Admin_pharmacy_clicked()
 {
     ui->stackedWidget->setCurrentIndex(7);
 }
-
-
 void MainWindow::on_Admin_Item_clicked()
 {
     ui->stackedWidget->setCurrentIndex(9);
 }
-
-
 void MainWindow::on_add_item_pushButton_clicked()
 {
     QString name_pharmacy = ui->item_name_lineEdit->text().trimmed();
@@ -208,8 +227,6 @@ void MainWindow::on_add_item_pushButton_clicked()
     JsonManager json;
     json.addMedicine(item);
 }
-
-
 void MainWindow::on_add_pharmacy_pushButton_clicked()
 {
     int id = ui->Id_pharmacy_lineEdit->text().toInt();
@@ -227,8 +244,6 @@ void MainWindow::on_add_pharmacy_pushButton_clicked()
     JsonManager json;
     json.addPharmacy(pharma);
 }
-
-
 void MainWindow::on_add_employee_pushButton_clicked()
 {
     QString role = ui->role_comboBox_employee->currentText().trimmed();
@@ -244,15 +259,10 @@ void MainWindow::on_add_employee_pushButton_clicked()
 
     JsonManager json;
     json.addEmployee(role, login, pass, FIO, email);
-
-    QMessageBox::information(this, "Успешно", "Пользователь успешно добавлен");
 }
-
-
 void MainWindow::on_remove_employees_Button_clicked()
 {
     QString login = ui->remove_lineEdit->text().trimmed();
     JsonManager json;
     json.removeEmployee(login);
 }
-
