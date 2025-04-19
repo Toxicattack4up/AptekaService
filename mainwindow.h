@@ -65,6 +65,8 @@ private slots:
 
     void on_add_employee_pushButton_clicked();
 
+    void on_remove_employees_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
     JsonManager jsonManager; // Объект для работы с данными

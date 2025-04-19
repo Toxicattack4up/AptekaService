@@ -244,6 +244,15 @@ void MainWindow::on_add_employee_pushButton_clicked()
 
     JsonManager json;
     json.addEmployee(role, login, pass, FIO, email);
-    QMessageBox::warning(this, "Успешно", "Пользователь успешно добавлен");
+
+    QMessageBox::information(this, "Успешно", "Пользователь успешно добавлен");
+}
+
+
+void MainWindow::on_remove_employees_Button_clicked()
+{
+    QString login = ui->remove_lineEdit->text().trimmed();
+    JsonManager json;
+    json.removeEmployee(login);
 }
 

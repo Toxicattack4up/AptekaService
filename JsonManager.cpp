@@ -169,6 +169,7 @@ void JsonManager::addEmployee(const QString &_role, const QString &_login, const
 void JsonManager::removeEmployee(const QString &login) {
     if (login.isEmpty()) {
         qDebug() << "Ошибка: Логин не может быть пустым";
+        QMessageBox::warning(nullptr, "Ошибка", "Логин не может быть пустым");
         return;
     }
 
@@ -177,9 +178,11 @@ void JsonManager::removeEmployee(const QString &login) {
             employees.removeAt(i);
             saveAllToJson();
             return;
+            QMessageBox::information(nullptr, "Успешно", "Пользователь успешно удален");
         }
     }
     qDebug() << "Ошибка: Пользователь" << login << "не найден";
+    QMessageBox::warning(nullptr, "Ошибка", "Пользователь не найден");
 }
 
 // Поиск пользователей

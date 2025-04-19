@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>744</width>
-    <height>310</height>
+    <width>589</width>
+    <height>290</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="page_login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -349,6 +349,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::EchoMode::Password</enum>
             </property>
            </widget>
           </item>
@@ -774,7 +777,7 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>6</hour>
+              <hour>3</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
@@ -977,23 +980,65 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>lineEdit_login</tabstop>
-  <tabstop>lineEdit_pass</tabstop>
-  <tabstop>login_button</tabstop>
-  <tabstop>registr_button</tabstop>
-  <tabstop>reglog_lineEdit</tabstop>
-  <tabstop>regpass_lineEdit</tabstop>
-  <tabstop>FIO_lineEdit</tabstop>
   <tabstop>email_lineEdit</tabstop>
   <tabstop>Registration_Button</tabstop>
   <tabstop>cancelToMain_Button</tabstop>
   <tabstop>Admin_users</tabstop>
   <tabstop>Admin_pharmacy</tabstop>
-  <tabstop>Admin_Item</tabstop>
   <tabstop>Back_to_login</tabstop>
+  <tabstop>Admin_Item</tabstop>
+  <tabstop>role_comboBox_employee</tabstop>
+  <tabstop>login_lineEdit_employee</tabstop>
+  <tabstop>password_lineEdit_employee</tabstop>
+  <tabstop>FIO_lineEdit_employee</tabstop>
+  <tabstop>email_lineEdit_employee</tabstop>
+  <tabstop>add_employee_pushButton</tabstop>
+  <tabstop>back_to_view_employee_pushButton</tabstop>
   <tabstop>Sell_button</tabstop>
   <tabstop>Warehouse</tabstop>
   <tabstop>Cancel_seller_menu</tabstop>
+  <tabstop>delete_employees_pushButton</tabstop>
+  <tabstop>back_menu_admin_pushButton</tabstop>
+  <tabstop>add_employees_pushButton</tabstop>
+  <tabstop>table_employees</tabstop>
+  <tabstop>FIO_lineEdit</tabstop>
+  <tabstop>regpass_lineEdit</tabstop>
+  <tabstop>lineEdit_login</tabstop>
+  <tabstop>lineEdit_pass</tabstop>
+  <tabstop>login_button</tabstop>
+  <tabstop>registr_button</tabstop>
+  <tabstop>reglog_lineEdit</tabstop>
+  <tabstop>remove_employees_Button</tabstop>
+  <tabstop>remove_lineEdit</tabstop>
+  <tabstop>back_to_view_employees</tabstop>
+  <tabstop>back_to_menu_login_pushButton</tabstop>
+  <tabstop>Buy_pharmacy_item_pushButton</tabstop>
+  <tabstop>back_to_menu_buyer_pushButton</tabstop>
+  <tabstop>buy_pharmacy_item_pushButton</tabstop>
+  <tabstop>table_pharmacy_items</tabstop>
+  <tabstop>back_to_admin_menu_pushButton</tabstop>
+  <tabstop>add_pharmacy_pushButton_2</tabstop>
+  <tabstop>pharmacy_table</tabstop>
+  <tabstop>countItems_lineEdit</tabstop>
+  <tabstop>add_pharmacy_pushButton</tabstop>
+  <tabstop>back_to_view_items_pharmacy_pushButton</tabstop>
+  <tabstop>adress_lineEdit</tabstop>
+  <tabstop>square_lineEdit</tabstop>
+  <tabstop>Id_pharmacy_lineEdit</tabstop>
+  <tabstop>back_to_menu_login_pushButton_2</tabstop>
+  <tabstop>remove_pharmacy_item_pushButton</tabstop>
+  <tabstop>add_pharmac_item_pushButton</tabstop>
+  <tabstop>items_table</tabstop>
+  <tabstop>add_item_pushButton</tabstop>
+  <tabstop>item_quantity_lineEdit</tabstop>
+  <tabstop>back_to_view_pharmacy_pushButton</tabstop>
+  <tabstop>item_price_lineEdit</tabstop>
+  <tabstop>item_name_lineEdit</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>back_to_menu_items_pharmacy_pushButton</tabstop>
+  <tabstop>remove_pharmacy_item_pushButton_2</tabstop>
+  <tabstop>name_pharmacy_item_lineEdit</tabstop>
  </tabstops>
  <resources/>
  <connections/>
