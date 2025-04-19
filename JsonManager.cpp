@@ -59,6 +59,13 @@ const QList<User> &JsonManager::getEmployee() const {
     return employees;
 }
 
+const QList<Pharmacy> &JsonManager::getPharmacy() const{
+    return pharmacies;
+}
+const QList<PharmacyItem> &JsonManager::getMedicine() const{
+    return medicines;
+}
+
 // Хеширование пароля
 QString JsonManager::hashPassword(const QString &password) {
     QByteArray hashed = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);

@@ -23,10 +23,10 @@ MainWindow::~MainWindow() {
 //Загрузка таблицы пользователями
 void MainWindow::loadEmployeesToTable() {
     JsonManager json;
-    // Получаем указатель на QTableWidget (предполагается, что он добавлен в UI через дизайнер форм)
+    // Получаем указатель на QTable
     QTableWidget *table = ui->table_employees;
 
-    // Очищаем таблицу перед загрузкой новых данных
+    // Очищаем таблицу
     table->clearContents();
     table->setRowCount(0);
 
@@ -43,9 +43,9 @@ void MainWindow::loadEmployeesToTable() {
     });
 
     // Получаем список сотрудников из JsonManager
-    const QList<User> &employees = json.getEmployee(); // Предполагается, что есть метод getEmployees
+    const QList<User> &employees = json.getEmployee();
 
-    // Устанавливаем количество строк (равно количеству сотрудников)
+    // Устанавливаем количество строк
     table->setRowCount(employees.size());
 
     // Заполняем таблицу данными
@@ -73,6 +73,8 @@ void MainWindow::loadEmployeesToTable() {
     table->setSelectionMode(QAbstractItemView::SingleSelection); // Выбор только одной строки
     table->setSelectionBehavior(QAbstractItemView::SelectRows); // Выбираем целую строку
 }
+
+
 
 // Обработчик кнопки авторизации
 void MainWindow::on_login_button_clicked() {

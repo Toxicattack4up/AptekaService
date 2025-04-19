@@ -34,7 +34,11 @@ private:
 public:
     JsonManager(); // Конструктор, загружающий данные при запуске
 
+    // Геттеры для передачи данный в таблицы
     const QList<User> &getEmployee() const;
+    const QList<Pharmacy> &getPharmacy() const;
+    const QList<PharmacyItem> &getMedicine() const;
+
     // Методы для работы с пользователями
     void addEmployee(const QString &_role, const QString &_login, const QString &_password,
                      const QString &_fullName, const QString &_email);
