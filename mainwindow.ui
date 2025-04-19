@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="page_login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -479,21 +479,14 @@
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_pharmacy">
-          <item row="1" column="0">
-           <widget class="QPushButton" name="back_to_admin_menu_pushButton">
-            <property name="text">
-             <string>Назад</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
+          <item row="1" column="2">
            <widget class="QPushButton" name="add_pharmacy_pushButton_2">
             <property name="text">
              <string>Добавить</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="2">
+          <item row="0" column="0" colspan="3">
            <widget class="QTableWidget" name="pharmacy_table">
             <column>
              <property name="text">
@@ -512,6 +505,59 @@
             </column>
            </widget>
           </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_admin_menu_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="remove_pharmacy_pushButton">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_remove_pharmacy">
+       <layout class="QGridLayout" name="gridLayout_19">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Remove_pharmacy">
+          <item row="1" column="1">
+           <widget class="QPushButton" name="remove_pharmacy_pushButton_2">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_view_pharmacy_pushButton_2">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="removeID_label">
+            <property name="text">
+             <string>Введите ID Аптеки для удаления:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="removeID_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
@@ -520,23 +566,6 @@
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_add_pharmacy">
-          <item row="2" column="0">
-           <widget class="QLabel" name="square_label">
-            <property name="text">
-             <string>Размер в квадратных метрах</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="countItems_lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
            <widget class="QPushButton" name="add_pharmacy_pushButton">
             <property name="text">
@@ -544,34 +573,17 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="coutItems_label">
+          <item row="2" column="0">
+           <widget class="QLabel" name="square_label">
             <property name="text">
-             <string>Вместимость лекарств</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QPushButton" name="back_to_view_items_pharmacy_pushButton">
-            <property name="text">
-             <string>Назад</string>
+             <string>Размер в квадратных метрах:</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="adress_label">
             <property name="text">
-             <string>Адрес</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="adress_lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+             <string>Адрес:</string>
             </property>
            </widget>
           </item>
@@ -585,6 +597,13 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="Id_pharmacy_label">
+            <property name="text">
+             <string>Число для рандомной генерации ID:</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="1">
            <widget class="QLineEdit" name="Id_pharmacy_lineEdit">
             <property name="sizePolicy">
@@ -595,10 +614,37 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="Id_pharmacy_label">
+          <item row="4" column="0">
+           <widget class="QPushButton" name="back_to_view_items_pharmacy_pushButton">
             <property name="text">
-             <string>ID</string>
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="adress_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="countItems_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="coutItems_label">
+            <property name="text">
+             <string>Вместимость лекарств:</string>
             </property>
            </widget>
           </item>
@@ -610,13 +656,6 @@
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu_2">
-          <item row="1" column="0">
-           <widget class="QPushButton" name="back_to_menu_login_pushButton_2">
-            <property name="text">
-             <string>Выход</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="1">
            <widget class="QPushButton" name="remove_pharmacy_item_pushButton">
             <property name="text">
@@ -658,6 +697,13 @@
               <string>Срок годности</string>
              </property>
             </column>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_view_menu_admin_pushButton_2">
+            <property name="text">
+             <string>Назад</string>
+            </property>
            </widget>
           </item>
          </layout>
@@ -959,13 +1005,13 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>delete_employees_pushButton</tabstop>
-  <tabstop>back_menu_admin_pushButton</tabstop>
-  <tabstop>add_employees_pushButton</tabstop>
-  <tabstop>Admin_users</tabstop>
-  <tabstop>Admin_pharmacy</tabstop>
-  <tabstop>Back_to_login</tabstop>
-  <tabstop>Admin_Item</tabstop>
+  <tabstop>pharmacy_table</tabstop>
+  <tabstop>add_pharmacy_pushButton_2</tabstop>
+  <tabstop>remove_pharmacy_pushButton</tabstop>
+  <tabstop>back_to_admin_menu_pushButton</tabstop>
+  <tabstop>buy_pharmacy_item_pushButton</tabstop>
+  <tabstop>back_to_menu_buyer_pushButton</tabstop>
+  <tabstop>table_pharmacy_items</tabstop>
   <tabstop>role_comboBox_employee</tabstop>
   <tabstop>login_lineEdit_employee</tabstop>
   <tabstop>password_lineEdit_employee</tabstop>
@@ -979,45 +1025,49 @@
   <tabstop>email_lineEdit</tabstop>
   <tabstop>Registration_Button</tabstop>
   <tabstop>cancelToMain_Button</tabstop>
-  <tabstop>table_employees</tabstop>
-  <tabstop>Cancel_seller_menu</tabstop>
-  <tabstop>Warehouse</tabstop>
+  <tabstop>Id_pharmacy_lineEdit</tabstop>
+  <tabstop>adress_lineEdit</tabstop>
+  <tabstop>square_lineEdit</tabstop>
+  <tabstop>countItems_lineEdit</tabstop>
+  <tabstop>add_pharmacy_pushButton</tabstop>
+  <tabstop>back_to_view_items_pharmacy_pushButton</tabstop>
+  <tabstop>removeID_lineEdit</tabstop>
+  <tabstop>remove_pharmacy_pushButton_2</tabstop>
+  <tabstop>back_to_view_pharmacy_pushButton_2</tabstop>
+  <tabstop>item_name_lineEdit</tabstop>
+  <tabstop>item_price_lineEdit</tabstop>
+  <tabstop>item_quantity_lineEdit</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>add_item_pushButton</tabstop>
+  <tabstop>back_to_view_pharmacy_pushButton</tabstop>
+  <tabstop>Admin_users</tabstop>
+  <tabstop>Admin_pharmacy</tabstop>
+  <tabstop>Admin_Item</tabstop>
+  <tabstop>Back_to_login</tabstop>
+  <tabstop>Buy_pharmacy_item_pushButton</tabstop>
+  <tabstop>back_to_menu_login_pushButton</tabstop>
   <tabstop>lineEdit_login</tabstop>
   <tabstop>lineEdit_pass</tabstop>
   <tabstop>login_button</tabstop>
   <tabstop>registr_button</tabstop>
-  <tabstop>Sell_button</tabstop>
-  <tabstop>remove_employees_Button</tabstop>
   <tabstop>remove_lineEdit</tabstop>
+  <tabstop>remove_employees_Button</tabstop>
   <tabstop>back_to_view_employees</tabstop>
-  <tabstop>back_to_menu_login_pushButton</tabstop>
-  <tabstop>Buy_pharmacy_item_pushButton</tabstop>
-  <tabstop>back_to_menu_buyer_pushButton</tabstop>
-  <tabstop>buy_pharmacy_item_pushButton</tabstop>
-  <tabstop>table_pharmacy_items</tabstop>
-  <tabstop>back_to_admin_menu_pushButton</tabstop>
-  <tabstop>add_pharmacy_pushButton_2</tabstop>
-  <tabstop>pharmacy_table</tabstop>
-  <tabstop>countItems_lineEdit</tabstop>
-  <tabstop>add_pharmacy_pushButton</tabstop>
-  <tabstop>back_to_view_items_pharmacy_pushButton</tabstop>
-  <tabstop>adress_lineEdit</tabstop>
-  <tabstop>square_lineEdit</tabstop>
-  <tabstop>Id_pharmacy_lineEdit</tabstop>
-  <tabstop>back_to_menu_login_pushButton_2</tabstop>
-  <tabstop>remove_pharmacy_item_pushButton</tabstop>
-  <tabstop>add_pharmac_item_pushButton</tabstop>
-  <tabstop>items_table</tabstop>
-  <tabstop>add_item_pushButton</tabstop>
-  <tabstop>item_quantity_lineEdit</tabstop>
-  <tabstop>back_to_view_pharmacy_pushButton</tabstop>
-  <tabstop>item_price_lineEdit</tabstop>
-  <tabstop>item_name_lineEdit</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>dateEdit</tabstop>
-  <tabstop>back_to_menu_items_pharmacy_pushButton</tabstop>
-  <tabstop>remove_pharmacy_item_pushButton_2</tabstop>
   <tabstop>name_pharmacy_item_lineEdit</tabstop>
+  <tabstop>remove_pharmacy_item_pushButton_2</tabstop>
+  <tabstop>back_to_menu_items_pharmacy_pushButton</tabstop>
+  <tabstop>Sell_button</tabstop>
+  <tabstop>Warehouse</tabstop>
+  <tabstop>Cancel_seller_menu</tabstop>
+  <tabstop>table_employees</tabstop>
+  <tabstop>add_employees_pushButton</tabstop>
+  <tabstop>delete_employees_pushButton</tabstop>
+  <tabstop>back_menu_admin_pushButton</tabstop>
+  <tabstop>items_table</tabstop>
+  <tabstop>add_pharmac_item_pushButton</tabstop>
+  <tabstop>remove_pharmacy_item_pushButton</tabstop>
+  <tabstop>back_to_view_menu_admin_pushButton_2</tabstop>
  </tabstops>
  <resources/>
  <connections/>

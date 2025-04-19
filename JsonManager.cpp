@@ -58,7 +58,6 @@ JsonManager::JsonManager() {
 const QList<User> &JsonManager::getEmployee() const {
     return employees;
 }
-
 const QList<Pharmacy> &JsonManager::getPharmacy() const{
     return pharmacies;
 }
@@ -149,6 +148,31 @@ void JsonManager::saveAllToJson() {
     file.close();
 }
 
+// Проверка логина и пароля
+QString JsonManager::validateUser(const QString &login, const QString &password) {
+    if (login.isEmpty() || password.isEmpty()) {
+        QMessageBox::warning(nullptr, "Ошибка", "Логин и пароль не могут быть пустыми");
+        return "";
+    }
+
+    QString hashedPassword = hashPassword(password);
+    qDebug() << "Введенный логин:" << login;
+    qDebug() << "Введенный пароль:" << password;
+    qDebug() << "Хешированный пароль:" << hashedPassword;
+    qDebug() << "Пользователи в employees" << employees.size();
+
+    for (const User &user : employees) {
+        if (user.getLogin() == login && user.getPassword() == hashedPassword) {
+            return UserRoleHelper::toString(user.getRole());
+        }
+    }
+
+    QMessageBox::warning(nullptr, "Ошибка", "Такого пользователя не существует");
+    return "";
+}
+
+
+//_______СОТРУДНИКИ_______
 // Добавление пользователя
 void JsonManager::addEmployee(const QString &_role, const QString &_login, const QString &_password,
                               const QString &_fullName, const QString &_email) {
@@ -220,39 +244,21 @@ QList<User> JsonManager::searchEmployee(const QString &_role, const QString &_lo
     }
     return result;
 }
+//________________________
 
-// Проверка логина и пароля
-QString JsonManager::validateUser(const QString &login, const QString &password) {
-    if (login.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(nullptr, "Ошибка", "Логин и пароль не могут быть пустыми");
-        return "";
-    }
 
-    QString hashedPassword = hashPassword(password);
-    qDebug() << "Введенный логин:" << login;
-    qDebug() << "Введенный пароль:" << password;
-    qDebug() << "Хешированный пароль:" << hashedPassword;
-    qDebug() << "Пользователи в employees" << employees.size();
-
-    for (const User &user : employees) {
-        if (user.getLogin() == login && user.getPassword() == hashedPassword) {
-            return UserRoleHelper::toString(user.getRole());
-        }
-    }
-
-    QMessageBox::warning(nullptr, "Ошибка", "Такого пользователя не существует");
-    return "";
-}
-
+//_______АПТЕКИ_______
 // Добавление аптеки
 void JsonManager::addPharmacy(const Pharmacy &pharmacy) {
     for (const Pharmacy &ph : pharmacies) {
         if (ph.getId() == pharmacy.getId()) {
             qDebug() << "Ошибка: Аптека с ID" << pharmacy.getId() << "уже существует";
+            QMessageBox::warning(nullptr, "Ошибка", QString("Аптека с ID %1 уже существует").arg(pharmacy.getId()));
             return;
         }
     }
     pharmacies.append(pharmacy);
+    QMessageBox::information(nullptr,"Успешно", "Аптека успешно добавлена");
     saveAllToJson();
 }
 
@@ -261,11 +267,13 @@ void JsonManager::removePharmacy(int id) {
     for (int i = 0; i < pharmacies.size(); ++i) {
         if (pharmacies[i].getId() == id) {
             pharmacies.removeAt(i);
+            QMessageBox::information(nullptr, "Успешно","Аптека удалена");
             saveAllToJson();
             return;
         }
     }
     qDebug() << "Ошибка: Аптека с ID" << id << "не найдена";
+    QMessageBox::warning(nullptr, "Ошибка", QString("Аптека с ID %1 не найдена").arg(id));
 }
 
 // Поиск аптек
@@ -281,33 +289,40 @@ QList<Pharmacy> JsonManager::searchPharmacy(int id, const QString &address) {
     }
     return result;
 }
+//___________________
 
+//______ЛЕКАРСТВА______
 // Добавление медикамента
 void JsonManager::addMedicine(const PharmacyItem &item) {
     for (const PharmacyItem &med : medicines) {
         if (med.getTitle() == item.getTitle()) {
             qDebug() << "Ошибка: Медикамент" << item.getTitle() << "уже существует";
+            QMessageBox::warning(nullptr, "Ошибка", QString("Медикамент %1 уже существует").arg(item.getTitle()));
             return;
         }
     }
     medicines.append(item);
     saveAllToJson();
+    QMessageBox::information(nullptr, "Успешно", "Медикамент добавлен");
 }
 
 // Удаление медикамента
 void JsonManager::removeMedicine(const QString &title) {
     if (title.isEmpty()) {
         qDebug() << "Ошибка: Название медикамента не может быть пустым";
+
         return;
     }
     for (int i = 0; i < medicines.size(); ++i) {
         if (medicines[i].getTitle() == title) {
             medicines.removeAt(i);
             saveAllToJson();
+            QMessageBox::information(nullptr, "Успешно", QString("Лекарство %1 успешно удалено").arg(title));
             return;
         }
     }
     qDebug() << "Ошибка: Медикамент" << title << "не найден";
+    QMessageBox::warning(nullptr, "Ошибка", QString("Лекартсво %1 не найдено").arg(title));
 }
 
 // Поиск медикаментов
@@ -320,3 +335,4 @@ QList<PharmacyItem> JsonManager::searchMedicine(const QString &title) {
     }
     return result;
 }
+//_____________________

@@ -3,7 +3,7 @@
 
 // Конструктор: инициализирует аптеку с заданными параметрами
 Pharmacy::Pharmacy(int id, const QString& address, double size, int maxCapacity)
-    : address(address), size(size), maxCapacity(maxCapacity) {}
+    : id(id), address(address), size(size), maxCapacity(maxCapacity) {}
 
 // Геттеры
 int Pharmacy::getId() const {

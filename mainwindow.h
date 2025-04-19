@@ -44,11 +44,23 @@ private slots:
     void on_add_employee_pushButton_clicked();
     void on_remove_employees_Button_clicked();
 
+    void on_back_to_view_menu_admin_pushButton_2_clicked();
+
+    void on_remove_pharmacy_pushButton_2_clicked();
+
+    void on_back_to_view_pharmacy_pushButton_2_clicked();
+
+    void on_remove_pharmacy_pushButton_clicked();
+
+    void on_remove_pharmacy_item_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     JsonManager jsonManager; // Объект для работы с данными
 
     void loadEmployeesToTable();
+    void loadPharmacysToTable();
+    void loadMedecinesToTable();
 };
 
 #endif // MAINWINDOW_H

@@ -13,7 +13,11 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this); // Инициализация интерфейса
-    loadEmployeesToTable(); // Загрузка таблицы на старте
+
+    // Загрузка таблицы на старте
+    loadEmployeesToTable();
+    loadPharmacysToTable();
+    loadMedecinesToTable();
 }
 
 MainWindow::~MainWindow() {
@@ -59,7 +63,7 @@ void MainWindow::loadEmployeesToTable() {
         table->setItem(row, 3, new QTableWidgetItem(user.getRegistrationDate().toString("yyyy-MM-dd")));
         table->setItem(row, 4, new QTableWidgetItem(UserRoleHelper::toString(user.getRole())));
 
-        // (Опционально) Делаем ячейки нередактируемыми
+        // Делаем ячейки нередактируемыми
         for (int col = 0; col < 5; ++col) {
             if (table->item(row, col)) {
                 table->item(row, col)->setFlags(table->item(row, col)->flags() & ~Qt::ItemIsEditable);
@@ -74,8 +78,107 @@ void MainWindow::loadEmployeesToTable() {
     table->setSelectionBehavior(QAbstractItemView::SelectRows); // Выбираем целую строку
 }
 
+void MainWindow::loadPharmacysToTable(){
+    JsonManager json;
+    QTableWidget *table = ui->pharmacy_table;
 
+    // Очищаем таблицу
+    table->clearContents();
+    table->setRowCount(0);
 
+    // Устанавливаем количество столбцов
+    table->setColumnCount(4); // ID, Адрес, Размер, Вместимость
+
+    // Устанавливаем заголовки столбцов
+    table->setHorizontalHeaderLabels({
+        "ID",
+        "Адрес",
+        "Размер (кв.м.)",
+        "Вместимость"
+    });
+
+    // Получаем список аптек из JsonManager
+    const QList<Pharmacy> &pharmacies = json.getPharmacy(); // Исправлено на getPharmacies
+
+    // Устанавливаем количество строк
+    table->setRowCount(pharmacies.size());
+
+    // Заполняем таблицу
+    for (int row = 0; row < pharmacies.size(); ++row) {
+        const Pharmacy &pharmacy = pharmacies[row];
+
+        // Заполняем
+        table->setItem(row, 0, new QTableWidgetItem(QString::number(pharmacy.getId()))); // ID как строка
+        table->setItem(row, 1, new QTableWidgetItem(pharmacy.getAddress()));
+        table->setItem(row, 2, new QTableWidgetItem(QString::number(pharmacy.getSize(), 'f', 2))); // Размер с 2 знаками
+        table->setItem(row, 3, new QTableWidgetItem(QString::number(pharmacy.getMaxCapacity()))); // Вместимость как строка
+
+        // Ячейки нередактируемыми
+        for (int col = 0; col < 4; ++col) {
+            if (table->item(row, col)) {
+                table->item(row, col)->setFlags(table->item(row, col)->flags() & ~Qt::ItemIsEditable);
+            }
+        }
+    }
+
+    // Настраиваем таблицу
+    table->resizeColumnsToContents();
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
+
+void MainWindow::loadMedecinesToTable() {
+    JsonManager json;
+    QTableWidget *table = ui->items_table;
+
+    // Очищаем таблицу
+    table->clearContents();
+    table->setRowCount(0);
+
+    // Устанавливаем количество столбцов
+    table->setColumnCount(5); // Добавляем столбец для "Требуется рецепт"
+
+    // Устанавливаем заголовки столбцов
+    table->setHorizontalHeaderLabels({
+        "Название",
+        "Цена",
+        "Количество",
+        "Срок годности",
+        "Требуется рецепт"
+    });
+
+    // Получаем список медикаментов из JsonManager
+    const QList<PharmacyItem> &medicines = json.getMedicine(); // Предполагается, что метод называется getMedicines
+
+    // Устанавливаем количество строк
+    table->setRowCount(medicines.size());
+
+    // Заполняем таблицу данными
+    for (int row = 0; row < medicines.size(); ++row) {
+        const PharmacyItem &medicine = medicines[row];
+
+        // Заполняем ячейки
+        table->setItem(row, 0, new QTableWidgetItem(medicine.getTitle()));
+        table->setItem(row, 1, new QTableWidgetItem(QString::number(medicine.getPrice(), 'f', 2))); // Форматируем цену с 2 знаками после запятой
+        table->setItem(row, 2, new QTableWidgetItem(QString::number(medicine.getQuantity()))); // Количество как строка
+        table->setItem(row, 3, new QTableWidgetItem(medicine.getExpirationDate().toString("yyyy-MM-dd"))); // Дата в формате ГГГГ-ММ-ДД
+        table->setItem(row, 4, new QTableWidgetItem(medicine.isRecipeRequired() ? "Да" : "Нет")); // Требуется рецепт
+
+        // Делаем все ячейки нередактируемыми
+        for (int col = 0; col < 5; ++col) {
+            if (table->item(row, col)) {
+                table->item(row, col)->setFlags(table->item(row, col)->flags() & ~Qt::ItemIsEditable);
+            }
+        }
+    }
+
+    // Настраиваем таблицу
+    table->resizeColumnsToContents();
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
 // Обработчик кнопки авторизации
 void MainWindow::on_login_button_clicked() {
     QString login = ui->lineEdit_login->text().trimmed();
@@ -147,11 +250,14 @@ void MainWindow::on_back_to_menu_buyer_pushButton_clicked()
 }
 void MainWindow::on_back_to_view_pharmacy_pushButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(7);
+    ui->stackedWidget->setCurrentIndex(10);
+    loadMedecinesToTable();
 }
+// Переход в меню Аптек
 void MainWindow::on_back_to_view_items_pharmacy_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(7);
+    loadPharmacysToTable();
 }
 void MainWindow::on_Back_to_login_clicked()
 {
@@ -168,7 +274,7 @@ void MainWindow::on_back_to_view_employees_clicked()
 }
 void MainWindow::on_back_to_menu_items_pharmacy_pushButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(9);
+    ui->stackedWidget->setCurrentIndex(10);
 }
 void MainWindow::on_back_menu_admin_pushButton_clicked()
 {
@@ -196,44 +302,79 @@ void MainWindow::on_delete_employees_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
 }
+
+// Переход в ДОБАВЛЕНИЕ ЛЕКАРТСВА
 void MainWindow::on_add_pharmac_item_pushButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(10);
+    ui->stackedWidget->setCurrentIndex(11);
+    ui->dateEdit->setDate(QDate::currentDate());
 }
+
 void MainWindow::on_remove_pharmacy_item_pushButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(11);
+    ui->stackedWidget->setCurrentIndex(12);
 }
+
+// Переход в меню добавление аптеки
 void MainWindow::on_add_pharmacy_pushButton_2_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(8);
-}
-void MainWindow::on_Admin_pharmacy_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(7);
-}
-void MainWindow::on_Admin_Item_clicked()
 {
     ui->stackedWidget->setCurrentIndex(9);
 }
+
+// Переход в меню Аптек
+void MainWindow::on_Admin_pharmacy_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+    loadPharmacysToTable();
+}
+
+// Переход в меню Лекарств
+void MainWindow::on_Admin_Item_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(10);
+    loadMedecinesToTable();
+}
+// Добавление ЛЕКАРСТВА
 void MainWindow::on_add_item_pushButton_clicked()
 {
     QString name_pharmacy = ui->item_name_lineEdit->text().trimmed();
     double price_pharmacy = ui->item_price_lineEdit->text().toDouble();
     int quality_pharmacy = ui->item_quantity_lineEdit->text().toInt();
     bool recipe = ui->checkBox->isChecked();
-    QDate expirationDate = QDate::fromString(ui->dateEdit->text(), "dd-MM-yyyy");
+    QDate expirationDate = ui->dateEdit->date();
 
-    if(name_pharmacy.isEmpty() || price_pharmacy < 0 || quality_pharmacy < 0 || !expirationDate.isValid())
+    if(name_pharmacy.isEmpty() || price_pharmacy < 0 || quality_pharmacy < 0)
     {
-        QMessageBox::warning(this, "Ошибка", "Проверьте правильность введенных данных");
+        QMessageBox::warning(this, "Ошибка", "Поля не могут быть пустыми или отрицательными");
+    }
+    if (name_pharmacy.isEmpty()) {
+        QMessageBox::warning(this, "Ошибка", "Название медикамента не может быть пустым");
+        return;
+    }
+    if (!expirationDate.isValid()) {
+        QMessageBox::warning(this, "Ошибка", "Выберите корректную дату срока годности");
+        return;
+    }
+    if (expirationDate < QDate::currentDate()) {
+        QMessageBox::warning(this, "Ошибка", "Срок годности не может быть в прошлом");
+        return;
     }
 
     PharmacyItem item(name_pharmacy, price_pharmacy, recipe, expirationDate, quality_pharmacy);
 
     JsonManager json;
     json.addMedicine(item);
+
+    ui->item_name_lineEdit->clear();
+    ui->item_price_lineEdit->clear();
+    ui->item_quantity_lineEdit->clear();
+    ui->checkBox->setChecked(false);
+    ui->dateEdit->setDate(QDate::currentDate());
+
+    loadMedecinesToTable();
 }
+
+// Добавление АПТЕКИ
 void MainWindow::on_add_pharmacy_pushButton_clicked()
 {
     int id = ui->Id_pharmacy_lineEdit->text().toInt();
@@ -243,13 +384,18 @@ void MainWindow::on_add_pharmacy_pushButton_clicked()
 
     if(adress.isEmpty() || square < 1 || cout < 1)
     {
-        QMessageBox::warning(this, "Ошибка", "Проверьте данные");
+        QMessageBox::warning(this, "Ошибка", "Не все поля заполнены, заполните поля");
     }
 
     Pharmacy pharma(id, adress, square, cout);
 
     JsonManager json;
     json.addPharmacy(pharma);
+
+    ui->Id_pharmacy_lineEdit->clear();
+    ui->adress_lineEdit->clear();
+    ui->square_lineEdit->clear();
+    ui->countItems_lineEdit->clear();
 }
 void MainWindow::on_add_employee_pushButton_clicked()
 {
@@ -282,3 +428,45 @@ void MainWindow::on_remove_employees_Button_clicked()
     QMessageBox::information(nullptr, "Успешно", "Пользователь успешно удален");
     ui->remove_lineEdit->clear();
 }
+
+void MainWindow::on_back_to_view_menu_admin_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_remove_pharmacy_pushButton_2_clicked()
+{
+    JsonManager json;
+    int id = ui->removeID_lineEdit->text().toInt();
+
+    json.removePharmacy(id);
+    ui->removeID_lineEdit->clear();
+    loadPharmacysToTable();
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_back_to_view_pharmacy_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_remove_pharmacy_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(8);
+}
+
+
+void MainWindow::on_remove_pharmacy_item_pushButton_2_clicked()
+{
+    JsonManager json;
+    QString title_rm_medicine = ui->name_pharmacy_item_lineEdit->text();
+
+    json.removeMedicine(title_rm_medicine);
+
+    ui->name_pharmacy_item_lineEdit->clear();
+    loadMedecinesToTable();
+}
+

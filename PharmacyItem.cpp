@@ -2,7 +2,7 @@
 #include <QDebug>
 
 // Конструктор: инициализирует медикамент с заданными параметрами
-PharmacyItem::PharmacyItem(const QString& title, double price, bool recipe, const QDate& expiration_date, int quantity)
+PharmacyItem::PharmacyItem(const QString& title, double price, bool recipe, const QDate &expiration_date, int quantity)
     : title(title), price(price), recipe(recipe), expiration_date(expiration_date), quantity(quantity) {}
 
 // Геттеры
