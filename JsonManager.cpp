@@ -65,6 +65,40 @@ const QList<PharmacyItem> &JsonManager::getMedicine() const{
     return medicines;
 }
 
+bool JsonManager::makePurchase(const QString &medicineTitle, int quantity){
+
+    for (PharmacyItem &item : medicines) {
+        if (item.getTitle() == medicineTitle) {
+            // Проверяем, достаточно ли медикамента
+            if (item.getQuantity() < quantity) {
+                QMessageBox::warning(nullptr, "Ошибка", QString("Недостаточно медикамента %1. Доступно: %2").arg(medicineTitle).arg(item.getQuantity()));
+                return false;
+            }
+            if (quantity <= 0) {
+                QMessageBox::warning(nullptr, "Ошибка", "Количество должно быть положительным");
+                return false;
+            }
+
+            // Уменьшаем количество
+            item.setQuantity(item.getQuantity() - quantity);
+
+            if (item.getQuantity() == 0) {
+                removeMedicine(medicineTitle);
+                qDebug() << "Медикамент" << medicineTitle << "удалён, так как количество стало 0";
+            }
+            // Сохраняем изменения в JSON
+            saveAllToJson();
+
+            QMessageBox::information(nullptr, "Успешно", QString("Куплено %1 шт. медикамента %2").arg(quantity).arg(medicineTitle));
+            return true;
+        }
+    }
+
+    // Медикамент не найден
+    QMessageBox::warning(nullptr, "Ошибка", QString("Медикамент %1 не найден").arg(medicineTitle));
+    return false;
+}
+
 // Хеширование пароля
 QString JsonManager::hashPassword(const QString &password) {
     QByteArray hashed = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);

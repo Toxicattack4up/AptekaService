@@ -34,6 +34,9 @@ private:
 public:
     JsonManager(); // Конструктор, загружающий данные при запуске
 
+    // Метод для совершения покупки: уменьшает количество медикамента
+    bool makePurchase(const QString &medicineTitle, int quantity);
+
     // Геттеры для передачи данный в таблицы
     const QList<User> &getEmployee() const;
     const QList<Pharmacy> &getPharmacy() const;

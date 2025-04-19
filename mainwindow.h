@@ -54,13 +54,23 @@ private slots:
 
     void on_remove_pharmacy_item_pushButton_2_clicked();
 
+    void on_Buy_pharmacy_item_pushButton_clicked();
+
+    void on_buy_pushButton_clicked();
+
+    void on_back_to_view_buys_menu_pushButton_clicked();
+
+    void on_buy_pharmacy_item_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     JsonManager jsonManager; // Объект для работы с данными
 
     void loadEmployeesToTable();
     void loadPharmacysToTable();
-    void loadMedecinesToTable();
+    void loadMedicinesToTable();
+    void loadBuyesToTable();
+    void loadMedicinesToComboBox();
 };
 
 #endif // MAINWINDOW_H

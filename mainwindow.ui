@@ -24,9 +24,9 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>6</number>
       </property>
-      <widget class="QWidget" name="page_login">
+      <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Welcome">
@@ -135,7 +135,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_admin_menu">
+      <widget class="QWidget" name="admin_menu">
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Administrator_menu">
@@ -192,17 +192,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_view_employees">
+      <widget class="QWidget" name="view_employees">
        <layout class="QGridLayout" name="gridLayout_13">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_employees">
-          <item row="2" column="1">
-           <widget class="QPushButton" name="delete_employees_pushButton">
-            <property name="text">
-             <string>Удалить</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
            <widget class="QPushButton" name="back_menu_admin_pushButton">
             <property name="text">
@@ -217,17 +210,31 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="delete_employees_pushButton">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0" colspan="3">
            <widget class="QTableWidget" name="table_employees"/>
+          </item>
+          <item row="0" column="3">
+           <widget class="QScrollBar" name="verticalScrollBar_3">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_add_employee">
+      <widget class="QWidget" name="add_employee">
        <layout class="QGridLayout" name="gridLayout_12">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="Admin_menu_add_employee">
+         <layout class="QGridLayout" name="add_employee_2">
           <item row="5" column="1">
            <widget class="QPushButton" name="add_employee_pushButton">
             <property name="text">
@@ -358,7 +365,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_remove_employees">
+      <widget class="QWidget" name="remove_employees">
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_remove_emoloyees">
@@ -397,7 +404,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_buyer_menu">
+      <widget class="QWidget" name="sell_menu">
        <layout class="QGridLayout" name="gridLayout_15">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Buyer_menu">
@@ -419,32 +426,25 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="buye_items_menu">
+      <widget class="QWidget" name="view_medicine_items_for_buy">
        <layout class="QGridLayout" name="gridLayout_16">
         <item row="0" column="1">
          <layout class="QGridLayout" name="Buy_items_menu">
           <item row="3" column="0">
            <widget class="QPushButton" name="back_to_menu_buyer_pushButton">
             <property name="text">
-             <string>Назад</string>
+             <string>Выход</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QScrollBar" name="pharmacy_items_verticalScrollBar">
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
+          <item row="3" column="1">
            <widget class="QPushButton" name="buy_pharmacy_item_pushButton">
             <property name="text">
              <string>Купить</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
+          <item row="0" column="0" colspan="2">
            <widget class="QTableWidget" name="table_pharmacy_items">
             <row/>
             <row/>
@@ -475,7 +475,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_view_pharmacy">
+      <widget class="QWidget" name="view_pharmacy">
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_pharmacy">
@@ -519,11 +519,18 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="3">
+           <widget class="QScrollBar" name="verticalScrollBar_2">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_remove_pharmacy">
+      <widget class="QWidget" name="remove_pharmacy">
        <layout class="QGridLayout" name="gridLayout_19">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Remove_pharmacy">
@@ -562,7 +569,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_add_pharmacy">
+      <widget class="QWidget" name="add_pharmacy">
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Admin_menu_add_pharmacy">
@@ -652,21 +659,14 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_view_items_pharmacy">
+      <widget class="QWidget" name="view_medicine_items">
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu_2">
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QPushButton" name="remove_pharmacy_item_pushButton">
             <property name="text">
              <string>Удалить</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="add_pharmac_item_pushButton">
-            <property name="text">
-             <string>Добавить</string>
             </property>
            </widget>
           </item>
@@ -699,10 +699,24 @@
             </column>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="2">
+           <widget class="QPushButton" name="add_pharmac_item_pushButton">
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
            <widget class="QPushButton" name="back_to_view_menu_admin_pushButton_2">
             <property name="text">
              <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QScrollBar" name="verticalScrollBar">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -710,7 +724,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_add_items">
+      <widget class="QWidget" name="add_items">
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="1">
          <layout class="QGridLayout" name="Admin_menu_add_item">
@@ -819,7 +833,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_remove_pharmacy_item">
+      <widget class="QWidget" name="remove_medicine_item">
        <layout class="QGridLayout" name="gridLayout_14">
         <item row="0" column="0">
          <layout class="QGridLayout" name="remove_pharmacy_item">
@@ -858,7 +872,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_seller_menu">
+      <widget class="QWidget" name="seller_menu">
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu">
@@ -887,14 +901,49 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="buy_medicine_item_menu">
        <layout class="QGridLayout" name="gridLayout_17">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_2"/>
+         <layout class="QGridLayout" name="buy_medicine_menu">
+          <item row="1" column="0">
+           <widget class="QLabel" name="quantity_label">
+            <property name="text">
+             <string>Введите колличество:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="buy_comboBox"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="comboBoxlabel">
+            <property name="text">
+             <string>Выберите лекарство:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="back_to_view_buys_menu_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="buy_pushButton">
+            <property name="text">
+             <string>Купить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="quantity_spinBox"/>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_registration">
+      <widget class="QWidget" name="registration_buyer">
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="1" column="0">
          <layout class="QGridLayout" name="Registration">
@@ -907,7 +956,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Выход</string>
+             <string>Назад</string>
             </property>
            </widget>
           </item>
@@ -1009,7 +1058,6 @@
   <tabstop>add_pharmacy_pushButton_2</tabstop>
   <tabstop>remove_pharmacy_pushButton</tabstop>
   <tabstop>back_to_admin_menu_pushButton</tabstop>
-  <tabstop>buy_pharmacy_item_pushButton</tabstop>
   <tabstop>back_to_menu_buyer_pushButton</tabstop>
   <tabstop>table_pharmacy_items</tabstop>
   <tabstop>role_comboBox_employee</tabstop>
