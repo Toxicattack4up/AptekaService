@@ -17,6 +17,20 @@ JsonManager::JsonManager() {
         return;
     }
 
+    // Загружаем пользователей
+    QJsonArray usersArray = json["Users"].toArray();
+    for (const QJsonValue &value : usersArray) {
+        QJsonObject obj = value.toObject();
+        User user;
+        user.setLogin(obj["login"].toString());
+        user.setPassword(obj["password"].toString());
+        user.setFullName(obj["fullName"].toString());
+        user.setEmail(obj["email"].toString());
+        user.setRegistrationDate(QDateTime::fromString(obj["registrationDate"].toString(), Qt::ISODate));
+        user.setRole(UserRoleHelper::fromString(obj["role"].toString())); // Предполагается, что есть метод для конвертации строки в UserRole
+        employees.append(user);
+    }
+
     // Загружаем аптеки
     QJsonArray pharmaciesArray = json["Pharmacies"].toArray();
     for (const QJsonValue &value : pharmaciesArray) {
@@ -200,6 +214,7 @@ QString JsonManager::validateUser(const QString &login, const QString &password)
     qDebug() << "Введенный логин:" << login;
     qDebug() << "Введенный пароль:" << password;
     qDebug() << "Хешированный пароль:" << hashedPassword;
+    qDebug() << "Пользователи в employees" << employees.size();
 
     for (const User &user : employees) {
         if (user.getLogin() == login && user.getPassword() == hashedPassword) {
