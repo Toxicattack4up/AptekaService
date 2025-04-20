@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>13</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -816,12 +816,12 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>3</hour>
+              <hour>21</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
               <month>4</month>
-              <day>15</day>
+              <day>14</day>
              </datetime>
             </property>
             <property name="calendarPopup">

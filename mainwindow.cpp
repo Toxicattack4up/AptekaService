@@ -342,7 +342,9 @@ void MainWindow::on_Admin_users_clicked() {
     loadEmployeesToTable();
 }
 
-void MainWindow::on_add_employees_pushButton_clicked() {
+void MainWindow::on_add_employees_pushButton_clicked()
+{
+
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -353,6 +355,10 @@ void MainWindow::on_delete_employees_pushButton_clicked() {
 void MainWindow::on_add_pharmac_item_pushButton_clicked() {
     ui->stackedWidget->setCurrentIndex(11);
     ui->dateEdit->setDate(QDate::currentDate());
+    ui->Id_pharmacy_lineEdit->clear();
+    ui->adress_lineEdit->clear();
+    ui->square_lineEdit->clear();
+    ui->countItems_lineEdit->clear();
 }
 
 void MainWindow::on_remove_pharmacy_item_pushButton_clicked() {
@@ -361,6 +367,10 @@ void MainWindow::on_remove_pharmacy_item_pushButton_clicked() {
 
 void MainWindow::on_add_pharmacy_pushButton_2_clicked() {
     ui->stackedWidget->setCurrentIndex(9);
+    ui->Id_pharmacy_lineEdit->clear();
+    ui->adress_lineEdit->clear();
+    ui->square_lineEdit->clear();
+    ui->countItems_lineEdit->clear();
 }
 
 void MainWindow::on_Admin_pharmacy_clicked() {
