@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>589</width>
-    <height>290</height>
+    <height>260</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>13</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -876,26 +876,22 @@
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu">
-          <item row="0" column="0">
+          <item row="2" column="0">
+           <widget class="QPushButton" name="Cancel_seller_menu">
+            <property name="text">
+             <string>Выход</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
            <widget class="QPushButton" name="Sell_button">
             <property name="text">
              <string>Сделать продажу</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="Warehouse">
-            <property name="text">
-             <string>Просмотрел наличие на складе</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QPushButton" name="Cancel_seller_menu">
-            <property name="text">
-             <string>Выход</string>
-            </property>
-           </widget>
+          <item row="0" column="0" colspan="2">
+           <widget class="QTableWidget" name="seller_tableWidget"/>
           </item>
          </layout>
         </item>
@@ -1048,6 +1044,48 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="sell_menu_2">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="sell_medicine_menu">
+          <item row="1" column="0">
+           <widget class="QLabel" name="sell_quantity_label">
+            <property name="text">
+             <string>Введите колличество:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="sell_comboBox"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="sell_comboBox_label">
+            <property name="text">
+             <string>Выберите лекарство:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="back_to_seller_menu_pushButton">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="sell_pushButton">
+            <property name="text">
+             <string>Продать</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="sell_quantity_spinBox"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -1105,8 +1143,6 @@
   <tabstop>name_pharmacy_item_lineEdit</tabstop>
   <tabstop>remove_pharmacy_item_pushButton_2</tabstop>
   <tabstop>back_to_menu_items_pharmacy_pushButton</tabstop>
-  <tabstop>Sell_button</tabstop>
-  <tabstop>Warehouse</tabstop>
   <tabstop>Cancel_seller_menu</tabstop>
   <tabstop>table_employees</tabstop>
   <tabstop>add_employees_pushButton</tabstop>

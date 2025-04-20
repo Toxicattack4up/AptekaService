@@ -43,34 +43,31 @@ private slots:
     void on_add_pharmacy_pushButton_clicked();
     void on_add_employee_pushButton_clicked();
     void on_remove_employees_Button_clicked();
-
     void on_back_to_view_menu_admin_pushButton_2_clicked();
-
     void on_remove_pharmacy_pushButton_2_clicked();
-
     void on_back_to_view_pharmacy_pushButton_2_clicked();
-
     void on_remove_pharmacy_pushButton_clicked();
-
     void on_remove_pharmacy_item_pushButton_2_clicked();
-
     void on_Buy_pharmacy_item_pushButton_clicked();
-
     void on_buy_pushButton_clicked();
-
     void on_back_to_view_buys_menu_pushButton_clicked();
-
     void on_buy_pharmacy_item_pushButton_clicked();
+    void on_Cancel_seller_menu_clicked();
+    void on_back_to_seller_menu_pushButton_clicked();
+    void on_Sell_button_clicked();
+    void on_sell_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     JsonManager jsonManager; // Объект для работы с данными
 
-    void loadEmployeesToTable();
-    void loadPharmacysToTable();
-    void loadMedicinesToTable();
-    void loadBuyesToTable();
-    void loadMedicinesToComboBox();
+    void loadEmployeesToTable(); // Загрузка таблицы пользователей
+    void loadPharmacysToTable(); // Загрузка таблицы аптек
+    void loadMedicinesToTable(); // Загрузка таблицы лекарств
+    void loadBuyesToTable(); // Загрузка таблицы лекарств для покупателя
+    void loadMedicinesToComboBox(); // Загрузка названий в меню покупки
+    void loadSellerToTable(); // Загрузка таблицы лекарств для продавца
+    void loadSellerToComboBox(); // Загрузка названий в меню продажи
 };
 
 #endif // MAINWINDOW_H

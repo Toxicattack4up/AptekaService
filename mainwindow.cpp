@@ -17,11 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
     loadMedicinesToTable();
     loadBuyesToTable();
     loadMedicinesToComboBox();
+    loadSellerToTable();
 
-    // Настройка QSpinBox
+    // Настройка QSpinBoxов
     ui->quantity_spinBox->setMinimum(1);
     ui->quantity_spinBox->setMaximum(1000);
     ui->quantity_spinBox->setValue(1);
+
+
 }
 
 MainWindow::~MainWindow() {
@@ -177,6 +180,51 @@ void MainWindow::loadMedicinesToComboBox() {
     }
 }
 
+void MainWindow::loadSellerToTable() {
+    QTableWidget *table = ui->seller_tableWidget;
+    table->clearContents();
+    table->setRowCount(0);
+    table->setColumnCount(5);
+    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Срок годности", "Требуется рецепт"});
+
+    const QList<PharmacyItem> &medicines = jsonManager.getMedicine();
+    table->setRowCount(medicines.size());
+
+    for (int row = 0; row < medicines.size(); ++row) {
+        const PharmacyItem &medicine = medicines[row];
+        table->setItem(row, 0, new QTableWidgetItem(medicine.getTitle()));
+        table->setItem(row, 1, new QTableWidgetItem(QString::number(medicine.getPrice(), 'f', 2)));
+        table->setItem(row, 2, new QTableWidgetItem(QString::number(medicine.getQuantity())));
+        table->setItem(row, 3, new QTableWidgetItem(medicine.getExpirationDate().toString("yyyy-MM-dd")));
+        table->setItem(row, 4, new QTableWidgetItem(medicine.isRecipeRequired() ? "Да" : "Нет"));
+
+        for (int col = 0; col < 5; ++col) {
+            if (table->item(row, col)) {
+                table->item(row, col)->setFlags(table->item(row, col)->flags() & ~Qt::ItemIsEditable);
+            }
+        }
+    }
+
+    table->resizeColumnsToContents();
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
+
+void MainWindow::loadSellerToComboBox() {
+    ui->sell_comboBox->clear();
+    const QList<PharmacyItem> &medicines = jsonManager.getMedicine();
+    for (const PharmacyItem &item : medicines) {
+        ui->sell_comboBox->addItem(item.getTitle());
+    }
+    if (medicines.isEmpty()) {
+        ui->sell_comboBox->addItem("Нет доступных медикаментов");
+        ui->sell_comboBox->setEnabled(false);
+    } else {
+        ui->sell_comboBox->setEnabled(true);
+    }
+}
+
 // АВТОРИЗАЦИЯ
 void MainWindow::on_login_button_clicked() {
     QString login = ui->lineEdit_login->text().trimmed();
@@ -192,6 +240,7 @@ void MainWindow::on_login_button_clicked() {
         loadEmployeesToTable();
         ui->stackedWidget->setCurrentIndex(1);
     } else if (role == "Продавец") {
+        loadSellerToTable();
         ui->stackedWidget->setCurrentIndex(13);
     } else if (role == "Покупатель") {
         loadBuyesToTable();
@@ -399,7 +448,6 @@ void MainWindow::on_add_employee_pushButton_clicked() {
     ui->password_lineEdit_employee->clear();
     ui->FIO_lineEdit_employee->clear();
     ui->email_lineEdit_employee->clear();
-    QMessageBox::information(this, "Успешно", "Сотрудник успешно добавлен");
 
     loadEmployeesToTable();
 }
@@ -445,6 +493,7 @@ void MainWindow::on_Buy_pharmacy_item_pushButton_clicked() {
     ui->stackedWidget->setCurrentIndex(6);
 }
 
+// Кнопка покупки
 void MainWindow::on_buy_pushButton_clicked() {
     QString name_medicine = ui->buy_comboBox->currentText().trimmed();
     if (name_medicine.isEmpty() || name_medicine == "Нет доступных медикаментов") {
@@ -462,6 +511,8 @@ void MainWindow::on_buy_pushButton_clicked() {
         loadMedicinesToTable();
         loadBuyesToTable();
         loadMedicinesToComboBox();
+        loadSellerToTable();
+        loadSellerToComboBox();
         ui->quantity_spinBox->setValue(1);
     }
 }
@@ -475,3 +526,48 @@ void MainWindow::on_buy_pharmacy_item_pushButton_clicked() {
     ui->quantity_spinBox->setValue(0);
     ui->stackedWidget->setCurrentIndex(14);
 }
+
+void MainWindow::on_Cancel_seller_menu_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+// Назад в меню продавца
+void MainWindow::on_back_to_seller_menu_pushButton_clicked()
+{
+    loadSellerToTable();
+    ui->stackedWidget->setCurrentIndex(13);
+}
+
+// Переход на страницу продажи
+void MainWindow::on_Sell_button_clicked()
+{
+    loadSellerToComboBox();
+    ui->stackedWidget->setCurrentIndex(16);
+}
+
+// Кнопка продажи лекарства
+void MainWindow::on_sell_pushButton_clicked()
+{
+    QString name_medicine = ui->sell_comboBox->currentText().trimmed();
+    if (name_medicine.isEmpty() || name_medicine == "Нет доступных медикаментов") {
+        QMessageBox::warning(this, "Ошибка", "Выберите медикамент для покупки");
+        return;
+    }
+
+    int quantity = ui->sell_quantity_spinBox->value();
+    if (quantity <= 0) {
+        QMessageBox::warning(this, "Ошибка", "Количество должно быть положительным");
+        return;
+    }
+
+    if (jsonManager.makePurchase(name_medicine, quantity)) {
+        loadMedicinesToTable();
+        loadBuyesToTable();
+        loadMedicinesToComboBox();
+        loadSellerToTable();
+        loadSellerToComboBox();
+        ui->sell_quantity_spinBox->setValue(1);
+    }
+}
+
