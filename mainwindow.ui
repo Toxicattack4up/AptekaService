@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>11</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -607,7 +607,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="Id_pharmacy_label">
             <property name="text">
-             <string>Число для рандомной генерации ID:</string>
+             <string>ID:</string>
             </property>
            </widget>
           </item>
