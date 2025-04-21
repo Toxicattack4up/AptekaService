@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     jsonManager = JsonManager();
+    //ui->stackedWidget->setCurrentIndex(0);
+
+
     // Загрузка таблиц и ComboBox на старте
     loadEmployeesToTable();
     loadPharmacysToTable();
