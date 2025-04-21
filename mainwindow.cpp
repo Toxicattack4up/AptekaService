@@ -353,12 +353,11 @@ void MainWindow::on_delete_employees_pushButton_clicked() {
 }
 
 void MainWindow::on_add_pharmac_item_pushButton_clicked() {
-    ui->stackedWidget->setCurrentIndex(11);
     ui->dateEdit->setDate(QDate::currentDate());
-    ui->Id_pharmacy_lineEdit->clear();
-    ui->adress_lineEdit->clear();
-    ui->square_lineEdit->clear();
-    ui->countItems_lineEdit->clear();
+    ui->item_name_lineEdit->clear();
+    ui->item_price_lineEdit->clear();
+    ui->item_quantity_lineEdit->clear();
+    ui->stackedWidget->setCurrentIndex(11);
 }
 
 void MainWindow::on_remove_pharmacy_item_pushButton_clicked() {
