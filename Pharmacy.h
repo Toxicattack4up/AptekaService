@@ -2,28 +2,24 @@
 #define PHARMACY_H
 
 #include <QString>
+#include <QDebug>
 
 class Pharmacy {
-private:
-    int id;                // Уникальный идентификатор аптеки
-    QString address;       // Адрес аптеки
-    double size;           // Размер аптеки в квадратных метрах
-    int maxCapacity;       // Максимальная вместимость лекарств
-
 public:
-    // Конструктор: создаёт аптеку с заданными параметрами
-    Pharmacy(int id, const QString& address, double size, int maxCapacity);
-
-    // Геттеры: возвращают значения полей
+    Pharmacy(int id = 0, const QString& address = "", double size = 0.0, int maxCapacity = 0);
     int getId() const;
     QString getAddress() const;
     double getSize() const;
     int getMaxCapacity() const;
+    void setAddress(const QString& newAddress);
+    void setSize(double newSize);
+    void setMaxCapacity(int newMaxCapacity);
 
-    // Сеттеры: устанавливают новые значения с проверкой корректности
-    void setAddress(const QString& address);
-    void setSize(double size);
-    void setMaxCapacity(int maxCapacity);
+private:
+    int id;
+    QString address;
+    double size;
+    int maxCapacity;
 };
 
 #endif // PHARMACY_H

@@ -1,11 +1,9 @@
 #include "PharmacyItem.h"
 #include <QDebug>
 
-// Конструктор: инициализирует медикамент с заданными параметрами
 PharmacyItem::PharmacyItem(const QString& title, double price, bool recipe, const QDate &expiration_date, int quantity)
-    : title(title), price(price), recipe(recipe), expiration_date(expiration_date), quantity(quantity) {}
+    : title(title), price(price), recipe(recipe), expiration_date(expiration_date), quantity(quantity), pharmacyId(0) {}
 
-// Геттеры
 QString PharmacyItem::getTitle() const {
     return title;
 }
@@ -26,11 +24,10 @@ int PharmacyItem::getQuantity() const {
     return quantity;
 }
 
-// Сеттеры с проверками
 void PharmacyItem::setTitle(const QString& newTitle) {
     if (newTitle.isEmpty()) {
         qDebug() << "Ошибка: Название лекарства не может быть пустым!";
-        return; // Не устанавливаем пустое название
+        return;
     }
     title = newTitle;
 }
@@ -38,7 +35,7 @@ void PharmacyItem::setTitle(const QString& newTitle) {
 void PharmacyItem::setPrice(double newPrice) {
     if (newPrice < 0) {
         qDebug() << "Ошибка: Цена не может быть отрицательной!";
-        return; // Не устанавливаем отрицательную цену
+        return;
     }
     price = newPrice;
 }
@@ -54,7 +51,11 @@ void PharmacyItem::setExpirationDate(const QDate& newExpirationDate) {
 void PharmacyItem::setQuantity(int newQuantity) {
     if (newQuantity < 0) {
         qDebug() << "Ошибка: Количество не может быть отрицательным!";
-        return; // Не устанавливаем отрицательное количество
+        return;
     }
     quantity = newQuantity;
+}
+
+bool PharmacyItem::operator==(const PharmacyItem &other) const {
+    return title == other.title && pharmacyId == other.pharmacyId;
 }

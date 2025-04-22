@@ -3,23 +3,27 @@
 
 #include <QMainWindow>
 #include "JsonManager.h"
+#include "Pharmacy.h"
+#include "PharmacyItem.h"
+#include "User.h"
+#include "UserRoleHelper.h"
 
-namespace Ui {
-class MainWindow;
-}
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
-    void on_login_button_clicked();       // Обработчик кнопки авторизации
-    void on_registr_button_clicked();     // Переход на страницу регистрации
-    void on_cancelToMain_Button_clicked(); // Возврат на главную страницу
-    void on_Registration_Button_clicked(); // Завершение регистрации
+    void on_login_button_clicked();
+    void on_registr_button_clicked();
+    void on_cancelToMain_Button_clicked();
+    void on_Registration_Button_clicked();
     void on_back_to_view_employee_pushButton_clicked();
     void on_back_to_menu_buyer_pushButton_clicked();
     void on_back_to_view_pharmacy_pushButton_clicked();
@@ -58,16 +62,18 @@ private slots:
     void on_sell_pushButton_clicked();
 
 private:
-    Ui::MainWindow *ui;
-    JsonManager jsonManager; // Объект для работы с данными
+    void loadEmployeesToTable();
+    void loadPharmacysToTable();
+    void loadMedicinesToTable();
+    void loadBuyesToTable();
+    void loadMedicinesToComboBox();
+    void loadSellerToTable();
+    void loadSellerToComboBox();
 
-    void loadEmployeesToTable(); // Загрузка таблицы пользователей
-    void loadPharmacysToTable(); // Загрузка таблицы аптек
-    void loadMedicinesToTable(); // Загрузка таблицы лекарств
-    void loadBuyesToTable(); // Загрузка таблицы лекарств для покупателя
-    void loadMedicinesToComboBox(); // Загрузка названий в меню покупки
-    void loadSellerToTable(); // Загрузка таблицы лекарств для продавца
-    void loadSellerToComboBox(); // Загрузка названий в меню продажи
+    Ui::MainWindow *ui;
+    JsonManager jsonManager;
+    QString currentUserLogin;
+    UserRole currentUserRole;
 };
 
 #endif // MAINWINDOW_H

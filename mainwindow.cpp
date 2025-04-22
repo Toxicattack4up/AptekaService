@@ -3,6 +3,7 @@
 #include "Pharmacy.h"
 #include "PharmacyItem.h"
 #include "JsonManager.h"
+#include "UserRoleHelper.h"
 #include "User.h"
 #include <QMessageBox>
 #include <QRegularExpression>
@@ -11,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     jsonManager = JsonManager();
-    //ui->stackedWidget->setCurrentIndex(0);
-
 
     // Загрузка таблиц и ComboBox на старте
     loadEmployeesToTable();
@@ -26,8 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->quantity_spinBox->setMinimum(1);
     ui->quantity_spinBox->setMaximum(1000);
     ui->quantity_spinBox->setValue(1);
-
-
+    ui->sell_quantity_spinBox->setMinimum(1);
+    ui->sell_quantity_spinBox->setMaximum(1000);
+    ui->sell_quantity_spinBox->setValue(1);
 }
 
 MainWindow::~MainWindow() {
@@ -237,6 +237,8 @@ void MainWindow::on_login_button_clicked() {
     if (role.isEmpty()) {
         return;
     }
+    currentUserLogin = login; // Сохраняем логин текущего пользователя
+    currentUserRole = UserRoleHelper::fromString(role); // Сохраняем роль
     loadBuyesToTable();
     QMessageBox::information(this, "Успех", "Вы успешно вошли!");
     if (role == "Администратор") {
@@ -347,7 +349,6 @@ void MainWindow::on_Admin_users_clicked() {
 
 void MainWindow::on_add_employees_pushButton_clicked()
 {
-
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -391,8 +392,9 @@ void MainWindow::on_add_item_pushButton_clicked() {
     int quality_pharmacy = ui->item_quantity_lineEdit->text().toInt();
     bool recipe = ui->checkBox->isChecked();
     QDate expirationDate = ui->dateEdit->date();
+    int pharmacyId = ui->Id_pharmacy_lineEdit->text().toInt(); // Предполагается, что поле существует
 
-    if (name_pharmacy.isEmpty() || price_pharmacy < 0 || quality_pharmacy < 0) {
+    if (name_pharmacy.isEmpty() || price_pharmacy < 0 || quality_pharmacy < 0 || pharmacyId <= 0) {
         QMessageBox::warning(this, "Ошибка", "Поля не могут быть пустыми или отрицательными");
         return;
     }
@@ -405,18 +407,28 @@ void MainWindow::on_add_item_pushButton_clicked() {
         return;
     }
 
+    // Проверка существования аптеки
+    QList<Pharmacy> pharmacies = jsonManager.searchPharmacy(pharmacyId, "");
+    if (pharmacies.isEmpty()) {
+        QMessageBox::warning(this, "Ошибка", QString("Аптека с ID %1 не найдена").arg(pharmacyId));
+        return;
+    }
+
     PharmacyItem item(name_pharmacy, price_pharmacy, recipe, expirationDate, quality_pharmacy);
-    jsonManager.addMedicine(item);
+    jsonManager.addMedicine(item, pharmacyId); // Исправлен вызов с двумя аргументами
 
     ui->item_name_lineEdit->clear();
     ui->item_price_lineEdit->clear();
     ui->item_quantity_lineEdit->clear();
+    ui->Id_pharmacy_lineEdit->clear();
     ui->checkBox->setChecked(false);
     ui->dateEdit->setDate(QDate::currentDate());
 
     loadMedicinesToTable();
-    loadBuyesToTable(); // Обновляем обе таблицы
-    loadMedicinesToComboBox(); // Обновляем ComboBox
+    loadBuyesToTable();
+    loadMedicinesToComboBox();
+    loadSellerToTable();
+    loadSellerToComboBox();
 }
 
 void MainWindow::on_add_pharmacy_pushButton_clicked() {
@@ -499,6 +511,8 @@ void MainWindow::on_remove_pharmacy_item_pushButton_2_clicked() {
     loadMedicinesToTable();
     loadBuyesToTable();
     loadMedicinesToComboBox();
+    loadSellerToTable();
+    loadSellerToComboBox();
 }
 
 void MainWindow::on_Buy_pharmacy_item_pushButton_clicked() {
@@ -519,13 +533,27 @@ void MainWindow::on_buy_pushButton_clicked() {
         return;
     }
 
-    if (jsonManager.makePurchase(name_medicine, quantity)) {
+    int pharmacyId = ui->Id_pharmacy_lineEdit->text().toInt(); // Предполагается, что поле существует
+    if (pharmacyId <= 0) {
+        QMessageBox::warning(this, "Ошибка", "Введите корректный ID аптеки");
+        return;
+    }
+
+    // Проверка существования аптеки
+    QList<Pharmacy> pharmacies = jsonManager.searchPharmacy(pharmacyId, "");
+    if (pharmacies.isEmpty()) {
+        QMessageBox::warning(this, "Ошибка", QString("Аптека с ID %1 не найдена").arg(pharmacyId));
+        return;
+    }
+
+    if (jsonManager.makePurchase(name_medicine, quantity, pharmacyId, currentUserLogin)) {
         loadMedicinesToTable();
         loadBuyesToTable();
         loadMedicinesToComboBox();
         loadSellerToTable();
         loadSellerToComboBox();
         ui->quantity_spinBox->setValue(1);
+        ui->Id_pharmacy_lineEdit->clear();
     }
 }
 
@@ -563,7 +591,7 @@ void MainWindow::on_sell_pushButton_clicked()
 {
     QString name_medicine = ui->sell_comboBox->currentText().trimmed();
     if (name_medicine.isEmpty() || name_medicine == "Нет доступных медикаментов") {
-        QMessageBox::warning(this, "Ошибка", "Выберите медикамент для покупки");
+        QMessageBox::warning(this, "Ошибка", "Выберите медикамент для продажи");
         return;
     }
 
@@ -573,13 +601,26 @@ void MainWindow::on_sell_pushButton_clicked()
         return;
     }
 
-    if (jsonManager.makePurchase(name_medicine, quantity)) {
+    int pharmacyId = ui->Id_pharmacy_lineEdit->text().toInt(); // Предполагается, что поле существует
+    if (pharmacyId <= 0) {
+        QMessageBox::warning(this, "Ошибка", "Введите корректный ID аптеки");
+        return;
+    }
+
+    // Проверка существования аптеки
+    QList<Pharmacy> pharmacies = jsonManager.searchPharmacy(pharmacyId, "");
+    if (pharmacies.isEmpty()) {
+        QMessageBox::warning(this, "Ошибка", QString("Аптека с ID %1 не найдена").arg(pharmacyId));
+        return;
+    }
+
+    if (jsonManager.makePurchase(name_medicine, quantity, pharmacyId, "")) {
         loadMedicinesToTable();
         loadBuyesToTable();
         loadMedicinesToComboBox();
         loadSellerToTable();
         loadSellerToComboBox();
         ui->sell_quantity_spinBox->setValue(1);
+        ui->Id_pharmacy_lineEdit->clear();
     }
 }
-
