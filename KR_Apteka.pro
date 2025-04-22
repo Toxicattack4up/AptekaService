@@ -18,6 +18,7 @@ SOURCES += \
     PharmacyItem.cpp \
     User.cpp \
     UserRoleHelper.cpp \
+    centralwarehouse.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -31,6 +32,7 @@ HEADERS += \
     PharmacyItem.h \
     User.h \
     UserRoleHelper.h \
+    centralwarehouse.h \
     mainwindow.h
 
 FORMS += \
