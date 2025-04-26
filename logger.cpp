@@ -1,18 +1,12 @@
 #include "logger.h"
-#include <QDebug>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QDir>
 
 Logger::Logger() {
-    QString fullPath = QCoreApplication::applicationDirPath() + "/logs.json";
-    logFile.setFileName(fullPath);
-    if (!logFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        qDebug() << "Error: Could not open logs.json for writing:" << logFile.errorString();
-    }
-}
-
-Logger::~Logger() {
-    if (logFile.isOpen()) {
-        logFile.close();
-    }
+    QDir().mkpath("."); // Убедимся, что директория существует
 }
 
 Logger& Logger::instance() {
@@ -20,32 +14,39 @@ Logger& Logger::instance() {
     return logger;
 }
 
-void Logger::log(const QString &category, const QString &message) {
-    QJsonDocument doc;
+void Logger::log(const QString& source, const QString& message) {
+    QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
+    QString logMessage = QString("[%1] %2: %3").arg(timestamp, source, message);
+    saveToJson(source, message);
+}
+
+void Logger::saveToJson(const QString& source, const QString& message) {
+    QFile file("logs.json");
     QJsonArray logsArray;
 
-    // Read existing logs
-    if (logFile.size() > 0) {
-        logFile.seek(0);
-        QByteArray fileData = logFile.readAll();
-        doc = QJsonDocument::fromJson(fileData);
-        if (doc.isArray()) {
+    // Читаем существующие логи
+    if (file.exists() && file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        if (!doc.isNull()) {
             logsArray = doc.array();
         }
+        file.close();
     }
 
-    // Create new log entry
-    QJsonObject logEntry;
-    logEntry["timestamp"] = QDateTime::currentDateTime().toString(Qt::ISODate);
-    logEntry["category"] = category;
-    logEntry["message"] = message;
-    logsArray.append(logEntry);
+    // Добавляем новый лог
+    QJsonObject logObj;
+    logObj["timestamp"] = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
+    logObj["source"] = source;
+    logObj["message"] = message;
+    logsArray.append(logObj);
 
-    // Write back to file
-    doc.setArray(logsArray);
-    logFile.seek(0);
-    logFile.resize(0);
-    logFile.write(doc.toJson(QJsonDocument::Indented));
-    logFile.flush();
-    qDebug() << QString("[%1] %2: %3").arg(logEntry["timestamp"].toString(), category, message);
+    // Сохраняем логи
+    if (file.open(QIODevice::WriteOnly)) {
+        QJsonDocument doc(logsArray);
+        file.write(doc.toJson(QJsonDocument::Indented));
+        file.close();
+    } else {
+        qWarning() << "Ошибка открытия logs.json для записи";
+    }
 }

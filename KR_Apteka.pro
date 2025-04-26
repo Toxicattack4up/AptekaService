@@ -19,6 +19,7 @@ SOURCES += \
     User.cpp \
     UserRoleHelper.cpp \
     centralwarehouse.cpp \
+    historymanager.cpp \
     logger.cpp \
     main.cpp \
     mainwindow.cpp
@@ -34,6 +35,7 @@ HEADERS += \
     User.h \
     UserRoleHelper.h \
     centralwarehouse.h \
+    historymanager.h \
     logger.h \
     mainwindow.h
 

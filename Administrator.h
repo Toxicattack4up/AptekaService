@@ -3,8 +3,9 @@
 
 #include "User.h"
 #include "JsonManager.h"
-#include "CentralWarehouse.h"
-#include <QList>
+#include "centralwarehouse.h"
+#include "Pharmacy.h"
+#include "PharmacyItem.h"
 
 class Administrator : public User {
 public:
@@ -26,6 +27,7 @@ public:
 private:
     JsonManager& jsonManager;
     CentralWarehouse& warehouse;
+    void showError(const QString& message);
 };
 
 #endif // ADMINISTRATOR_H

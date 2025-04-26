@@ -1,6 +1,6 @@
 #include "User.h"
-
 #include <QDebug>
+#include <QDate>
 
 User::User()
     : Role(UserRole::Unknown),
@@ -8,7 +8,7 @@ User::User()
     Password(""),
     FullName(""),
     Email(""),
-    RegistrationDate(QDateTime::currentDateTime()) {}
+    RegistrationDate(QDate::currentDate()) {}
 
 User::User(UserRole Role, const QString& Login, const QString& Password,
            const QString& FullName, const QString& Email)
@@ -17,7 +17,7 @@ User::User(UserRole Role, const QString& Login, const QString& Password,
     Password(Password),
     FullName(FullName),
     Email(Email),
-    RegistrationDate(QDateTime::currentDateTime()) {}
+    RegistrationDate(QDate::currentDate()) {}
 
 UserRole User::getRole() const {
     return Role;
@@ -39,7 +39,7 @@ QString User::getEmail() const {
     return Email;
 }
 
-QDateTime User::getRegistrationDate() const {
+QDate User::getRegistrationDate() const {
     return RegistrationDate;
 }
 
@@ -79,6 +79,6 @@ void User::setEmail(const QString& _email) {
     Email = _email;
 }
 
-void User::setRegistrationDate(const QDateTime& _registrationDate) {
+void User::setRegistrationDate(const QDate& _registrationDate) {
     RegistrationDate = _registrationDate;
 }

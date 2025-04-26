@@ -3,20 +3,19 @@
 
 #include <QMainWindow>
 #include "JsonManager.h"
-#include "Pharmacy.h"
-#include "PharmacyItem.h"
-#include "User.h"
-#include "UserRoleHelper.h"
+#include "centralwarehouse.h"
+#include "Administrator.h"
+#include "Courier.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -60,6 +59,7 @@ private slots:
     void on_back_to_seller_menu_pushButton_clicked();
     void on_Sell_button_clicked();
     void on_sell_pushButton_clicked();
+    void on_back_to_login_clicked();
 
 private:
     void loadEmployeesToTable();
@@ -69,9 +69,12 @@ private:
     void loadMedicinesToComboBox();
     void loadSellerToTable();
     void loadSellerToComboBox();
+    void loadWarehouseToTable(); // Метод для склада
+    void loadCourierToTable();  // Метод для курьера
 
     Ui::MainWindow *ui;
     JsonManager jsonManager;
+    CentralWarehouse warehouse;
     QString currentUserLogin;
     UserRole currentUserRole;
 };
