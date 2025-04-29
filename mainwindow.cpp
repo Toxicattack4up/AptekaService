@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Аптечная система");
     Logger::instance().log("MainWindow", "Приложение запущено");
 
+    ui->stackedWidget->setCurrentIndex(0);
     // Загрузка таблиц и ComboBox на старте
     loadEmployeesToTable();
     loadPharmacysToTable();
