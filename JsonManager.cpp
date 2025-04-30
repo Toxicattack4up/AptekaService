@@ -1,5 +1,6 @@
 #include "JsonManager.h"
 #include "logger.h"
+#include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -17,7 +18,7 @@ JsonManager::JsonManager() {
         }
     }
     if (!hasAdmin) {
-        addEmployee("Администратор", "admin", "admin123", "Admin User", "admin@example.com");
+        addEmployee("Администратор", "admin", "admin123", "Admin User", "admin@example.com", 0);
         Logger::instance().log("JsonManager", "Создана базовая учётная запись администратора");
     }
 }
@@ -271,10 +272,11 @@ QList<PharmacyItem> JsonManager::getWarehouseItems() const {
 
 // Добавление пользователя
 void JsonManager::addEmployee(const QString& role, const QString& login, const QString& password,
-                              const QString& fullName, const QString& email) {
+                              const QString& fullName, const QString& email, int pharmacyId) {
     // Проверка входных данных
     if (login.isEmpty() || password.isEmpty() || fullName.isEmpty() || email.isEmpty()) {
         Logger::instance().log("JsonManager", "Ошибка: Все поля должны быть заполнены");
+        QMessageBox::warning(nullptr, "Ошибка", "Все поля должны быть заполнены!");
         return;
     }
 
@@ -282,14 +284,50 @@ void JsonManager::addEmployee(const QString& role, const QString& login, const Q
     QRegularExpression emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$)");
     if (!emailRegex.match(email).hasMatch()) {
         Logger::instance().log("JsonManager", QString("Ошибка: Неверный формат email %1").arg(email));
+        QMessageBox::warning(nullptr, "Ошибка", "Неверный формат email!");
         return;
+    }
+
+    // Проверка для продавца: должна существовать аптека
+    if (role == "Продавец") {
+        if (pharmacyId == 0) {
+            Logger::instance().log("JsonManager", "Ошибка: Продавец должен быть привязан к аптеке");
+            QMessageBox::warning(nullptr, "Ошибка", "Выберите аптеку для продавца!");
+            return;
+        }
+        // Проверка существования аптеки
+        bool pharmacyExists = false;
+        for (const Pharmacy& pharmacy : pharmacies) {
+            if (pharmacy.getId() == pharmacyId) {
+                pharmacyExists = true;
+                break;
+            }
+        }
+        if (!pharmacyExists) {
+            Logger::instance().log("JsonManager", QString("Ошибка: Аптека ID %1 не существует").arg(pharmacyId));
+            QMessageBox::warning(nullptr, "Ошибка", QString("Аптека ID %1 не существует!").arg(pharmacyId));
+            return;
+        }
+    }
+
+    // Проверка на уникальность логина
+    for (const User& user : employees) {
+        if (user.getLogin() == login) {
+            Logger::instance().log("JsonManager", QString("Ошибка: Логин %1 уже занят").arg(login));
+            QMessageBox::warning(nullptr, "Ошибка", "Логин уже занят!");
+            return;
+        }
     }
 
     // Создание и добавление пользователя
     User employee(UserRoleHelper::fromString(role), login, password, fullName, email);
+    if (role == "Продавец") {
+        employee.setPharmacyId(pharmacyId);
+    }
     employees.append(employee);
     saveAllToJson();
-    Logger::instance().log("JsonManager", QString("Добавлен сотрудник %1 (%2)").arg(login).arg(role));
+    Logger::instance().log("JsonManager", QString("Добавлен сотрудник %1 (%2), аптека ID %3")
+                                              .arg(login).arg(role).arg(pharmacyId));
 }
 
 bool JsonManager::removeEmployee(const QString& login) {

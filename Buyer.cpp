@@ -43,7 +43,7 @@ bool Buyer::registerBuyer(const QString& login, const QString& password, const Q
         return false;
     }
 
-    jsonManager.addEmployee("Покупатель", trimmedLogin, trimmedPassword, trimmedFullName, trimmedEmail);
+    jsonManager.addEmployee("Покупатель", trimmedLogin, trimmedPassword, trimmedFullName, trimmedEmail, 0);
     Logger::instance().log("Buyer", QString("Покупатель %1 зарегистрирован").arg(trimmedLogin));
     return true;
 }

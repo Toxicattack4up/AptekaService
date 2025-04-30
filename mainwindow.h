@@ -60,6 +60,7 @@ private slots:
     void on_Sell_button_clicked();
     void on_sell_pushButton_clicked();
     void on_back_to_login_clicked();
+    void on_role_comboBox_employee_currentIndexChanged(const QString& role); // Слот для изменения роли
 
 private:
     void loadEmployeesToTable();
@@ -69,8 +70,9 @@ private:
     void loadMedicinesToComboBox();
     void loadSellerToTable();
     void loadSellerToComboBox();
-    void loadWarehouseToTable(); // Метод для склада
-    void loadCourierToTable();  // Метод для курьера
+    void loadWarehouseToTable();
+    void loadCourierToTable();
+    void initializeRoleComboBox(); // Инициализация ролей
 
     Ui::MainWindow *ui;
     JsonManager jsonManager;

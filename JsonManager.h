@@ -11,7 +11,7 @@ class JsonManager {
 public:
     JsonManager();
     void addEmployee(const QString& role, const QString& login, const QString& password,
-                     const QString& fullName, const QString& email);
+                     const QString& fullName, const QString& email, int pharmacyId = 0);
     bool removeEmployee(const QString& login);
     QList<User> getEmployee() const;
     void addMedicine(const PharmacyItem& item); // Новый метод без pharmacyId
