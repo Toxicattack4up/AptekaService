@@ -4,22 +4,19 @@
 #include <QMessageBox>
 
 // Конструктор администратора
-Administrator::Administrator(const QString& login, const QString& password, const QString& fullName,
-                             const QString& email, JsonManager& manager, CentralWarehouse& warehouse)
-    : User(UserRole::Administrator, login, password, fullName, email), jsonManager(manager), warehouse(warehouse) {
-    Logger::instance().log("Administrator", QString("Создан администратор %1").arg(login));
-}
-
-// Добавление нового пользователя (продавца или курьера)
 void Administrator::addUser(const QString& role, const QString& login, const QString& password,
-                            const QString& fullName, const QString& email) {
+                            const QString& fullName, const QString& email, int pharmacyId) {
+    // Проверка роли
     UserRole userRole = UserRoleHelper::fromString(role);
-    if (userRole == UserRole::Seller || userRole == UserRole::Courier) {
-        jsonManager.addEmployee(role, login, password, fullName, email);
-        Logger::instance().log("Administrator", QString("Добавлен пользователь %1 (%2)").arg(login).arg(role));
-    } else {
+    if (userRole != UserRole::Seller && userRole != UserRole::Courier) {
         showError("Ошибка: Администратор может создавать только продавцов или курьеров!");
+        return;
     }
+
+    // Делегируем добавление в JsonManager
+    jsonManager.addEmployee(role, login, password, fullName, email, pharmacyId);
+    Logger::instance().log("Administrator", QString("Добавлен пользователь %1 (%2), аптека ID %3")
+                                                .arg(login).arg(role).arg(pharmacyId));
 }
 
 // Удаление пользователя
@@ -127,4 +124,23 @@ QList<PharmacyItem> Administrator::searchMedicine(const QString& title) {
 void Administrator::showError(const QString& message) {
     QMessageBox::warning(nullptr, "Ошибка", message);
     Logger::instance().log("Administrator", message);
+}
+
+void Administrator::loadPharmaciesToComboBox(QComboBox* comboBox) {
+    // Очищаем ComboBox
+    comboBox->clear();
+
+    // Получаем список аптек
+    QList<Pharmacy> pharmacyList = jsonManager.getPharmacy();
+    if (pharmacyList.isEmpty()) {
+        comboBox->addItem("Нет доступных аптек");
+        comboBox->setEnabled(false); // Отключаем ComboBox, если аптек нет
+        Logger::instance().log("Administrator", "Нет аптек для загрузки в ComboBox");
+    } else {
+        for (const Pharmacy& pharmacy : pharmacyList) {
+            comboBox->addItem(QString::number(pharmacy.getId()));
+        }
+        comboBox->setEnabled(true);
+        Logger::instance().log("Administrator", QString("Загружено %1 аптек в ComboBox").arg(pharmacyList.size()));
+    }
 }

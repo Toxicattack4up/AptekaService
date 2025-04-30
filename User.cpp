@@ -8,7 +8,8 @@ User::User()
     Password(""),
     FullName(""),
     Email(""),
-    RegistrationDate(QDate::currentDate()) {}
+    RegistrationDate(QDate::currentDate()),
+    pharmacyId(0) {}
 
 User::User(UserRole Role, const QString& Login, const QString& Password,
            const QString& FullName, const QString& Email)
@@ -17,7 +18,8 @@ User::User(UserRole Role, const QString& Login, const QString& Password,
     Password(Password),
     FullName(FullName),
     Email(Email),
-    RegistrationDate(QDate::currentDate()) {}
+    RegistrationDate(QDate::currentDate()),
+    pharmacyId(0) {}
 
 UserRole User::getRole() const {
     return Role;
@@ -41,6 +43,10 @@ QString User::getEmail() const {
 
 QDate User::getRegistrationDate() const {
     return RegistrationDate;
+}
+
+int User::getPharmacyId() const {
+    return pharmacyId;
 }
 
 void User::setRole(UserRole _role) {
@@ -81,4 +87,12 @@ void User::setEmail(const QString& _email) {
 
 void User::setRegistrationDate(const QDate& _registrationDate) {
     RegistrationDate = _registrationDate;
+}
+
+void User::setPharmacyId(int id) {
+    if (id < 0) {
+        qDebug() << "Ошибка: ID аптеки не может быть отрицательным!";
+        return;
+    }
+    pharmacyId = id;
 }
