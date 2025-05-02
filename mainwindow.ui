@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -826,12 +826,12 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>12</hour>
+              <hour>21</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
               <month>4</month>
-              <day>14</day>
+              <day>13</day>
              </datetime>
             </property>
             <property name="calendarPopup">
@@ -1101,26 +1101,107 @@
         <item row="0" column="0">
          <layout class="QGridLayout" name="courier_menu">
           <item row="0" column="0" colspan="2">
-           <widget class="QTableWidget" name="view_medicine_item_warehouse"/>
+           <widget class="QLabel" name="info_warehouse_label">
+            <property name="text">
+             <string>Общий склад</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
           </item>
-          <item row="1" column="0">
+          <item row="1" column="0" colspan="2">
+           <widget class="QTableWidget" name="view_warehouse_item"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QScrollBar" name="view_warehouse_item_ScrollBar">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QLabel" name="info_pharmacy_label">
+            <property name="text">
+             <string>Аптеки</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QTableWidget" name="pharmacy_view_item_table">
+            <column>
+             <property name="text">
+              <string>ID</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Адрес</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Товаров</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Вместимость</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QScrollBar" name="pharmacyItem_verticalScrollBar">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="pharmacy_select_label">
+            <property name="text">
+             <string>Выберите аптеку:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QComboBox" name="pharmacy_select_comboBox"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="quantity_label">
+            <property name="text">
+             <string>Количество:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="transfer_quantity_spinBox">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
            <widget class="QPushButton" name="back_to_login">
             <property name="text">
              <string>Выход</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_2">
+          <item row="6" column="1">
+           <widget class="QPushButton" name="transfer_button">
             <property name="text">
-             <string>Сделать перемещение</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QScrollBar" name="view_medicine_item_warehouse_ScrollBar">
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <string>Переместить</string>
             </property>
            </widget>
           </item>
@@ -1205,6 +1286,12 @@
   <tabstop>add_pharmac_item_pushButton</tabstop>
   <tabstop>remove_pharmacy_item_pushButton</tabstop>
   <tabstop>back_to_view_menu_admin_pushButton_2</tabstop>
+  <tabstop>view_warehouse_item</tabstop>
+  <tabstop>pharmacy_view_item_table</tabstop>
+  <tabstop>pharmacy_select_comboBox</tabstop>
+  <tabstop>transfer_quantity_spinBox</tabstop>
+  <tabstop>transfer_button</tabstop>
+  <tabstop>back_to_login</tabstop>
  </tabstops>
  <resources/>
  <connections/>
