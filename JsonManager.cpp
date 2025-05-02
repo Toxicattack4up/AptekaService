@@ -7,7 +7,6 @@
 #include <QFile>
 #include <QDir>
 
-// Конструктор менеджера JSON
 JsonManager::JsonManager() {
     loadFromJson();
     bool hasAdmin = false;
@@ -23,7 +22,6 @@ JsonManager::JsonManager() {
     }
 }
 
-// Загрузка данных из JSON
 void JsonManager::loadFromJson() {
     QFile file("employees.json");
     if (!file.exists()) {
@@ -31,21 +29,17 @@ void JsonManager::loadFromJson() {
         saveAllToJson();
         return;
     }
-
     if (!file.open(QIODevice::ReadOnly)) {
         Logger::instance().log("JsonManager", "Ошибка открытия employees.json для чтения");
         return;
     }
-
     QByteArray data = file.readAll();
     file.close();
-
     QJsonDocument doc = QJsonDocument::fromJson(data);
     if (doc.isNull()) {
         Logger::instance().log("JsonManager", "Ошибка парсинга employees.json");
         return;
     }
-
     QJsonObject root = doc.object();
     QJsonArray employeesArray = root["employees"].toArray();
     employees.clear();
@@ -61,7 +55,6 @@ void JsonManager::loadFromJson() {
         user.setRegistrationDate(QDate::fromString(obj["registrationDate"].toString(), "yyyy-MM-dd"));
         employees.append(user);
     }
-
     QJsonArray medicinesArray = root["medicines"].toArray();
     medicines.clear();
     for (const QJsonValue& value : medicinesArray) {
@@ -76,7 +69,6 @@ void JsonManager::loadFromJson() {
         item.setPharmacyId(obj["pharmacyId"].toInt());
         medicines.append(item);
     }
-
     QJsonArray warehouseArray = root["warehouse"].toArray();
     warehouseItems.clear();
     for (const QJsonValue& value : warehouseArray) {
@@ -90,7 +82,6 @@ void JsonManager::loadFromJson() {
             );
         warehouseItems.append(item);
     }
-
     QJsonArray pharmaciesArray = root["pharmacies"].toArray();
     pharmacies.clear();
     for (const QJsonValue& value : pharmaciesArray) {
@@ -103,24 +94,20 @@ void JsonManager::loadFromJson() {
             );
         pharmacies.append(pharmacy);
     }
-
     QJsonObject balances = root["buyerBalances"].toObject();
     buyerBalances.clear();
     for (const QString& key : balances.keys()) {
         buyerBalances[key] = balances[key].toDouble();
     }
-
     QJsonObject revenues = root["pharmacyRevenues"].toObject();
     pharmacyRevenues.clear();
     for (const QString& key : revenues.keys()) {
         pharmacyRevenues[key.toInt()] = revenues[key].toDouble();
     }
-
     Logger::instance().log("JsonManager", QString("Загружено из employees.json: %1 сотрудников, %2 лекарств, %3 на складе, %4 аптек")
                                               .arg(employees.size()).arg(medicines.size()).arg(warehouseItems.size()).arg(pharmacies.size()));
 }
 
-// Сохранение данных в JSON
 void JsonManager::saveAllToJson() {
     QJsonObject root;
     QJsonArray employeesArray;
@@ -135,7 +122,6 @@ void JsonManager::saveAllToJson() {
         employeesArray.append(obj);
     }
     root["employees"] = employeesArray;
-
     QJsonArray medicinesArray;
     for (const PharmacyItem& item : medicines) {
         QJsonObject obj;
@@ -148,7 +134,6 @@ void JsonManager::saveAllToJson() {
         medicinesArray.append(obj);
     }
     root["medicines"] = medicinesArray;
-
     QJsonArray warehouseArray;
     for (const PharmacyItem& item : warehouseItems) {
         QJsonObject obj;
@@ -160,7 +145,6 @@ void JsonManager::saveAllToJson() {
         warehouseArray.append(obj);
     }
     root["warehouse"] = warehouseArray;
-
     QJsonArray pharmaciesArray;
     for (const Pharmacy& pharmacy : pharmacies) {
         QJsonObject obj;
@@ -171,19 +155,16 @@ void JsonManager::saveAllToJson() {
         pharmaciesArray.append(obj);
     }
     root["pharmacies"] = pharmaciesArray;
-
     QJsonObject balances;
     for (const QString& key : buyerBalances.keys()) {
         balances[key] = buyerBalances[key];
     }
     root["buyerBalances"] = balances;
-
     QJsonObject revenues;
     for (const int& key : pharmacyRevenues.keys()) {
         revenues[QString::number(key)] = pharmacyRevenues[key];
     }
     root["pharmacyRevenues"] = revenues;
-
     QJsonDocument doc(root);
     QFile file("employees.json");
     if (!file.open(QIODevice::WriteOnly)) {
@@ -195,7 +176,6 @@ void JsonManager::saveAllToJson() {
     Logger::instance().log("JsonManager", "Данные сохранены в employees.json");
 }
 
-// Добавление лекарства на склад
 void JsonManager::addMedicine(const PharmacyItem& item) {
     for (PharmacyItem& existing : warehouseItems) {
         if (existing.getTitle() == item.getTitle() &&
@@ -210,15 +190,13 @@ void JsonManager::addMedicine(const PharmacyItem& item) {
         }
     }
     PharmacyItem newItem = item;
-    newItem.setPharmacyId(0); // Склад не имеет pharmacyId
+    newItem.setPharmacyId(0);
     warehouseItems.append(newItem);
     saveAllToJson();
     Logger::instance().log("JsonManager", QString("Добавлено новое лекарство %1 на склад").arg(item.getTitle()));
 }
 
-// Перемещение лекарства со склада в аптеку
 bool JsonManager::moveMedicineToPharmacy(const QString& title, int quantity, int pharmacyId) {
-    // Проверка существования аптеки
     bool pharmacyExists = false;
     for (const Pharmacy& pharmacy : pharmacies) {
         if (pharmacy.getId() == pharmacyId) {
@@ -230,17 +208,12 @@ bool JsonManager::moveMedicineToPharmacy(const QString& title, int quantity, int
         Logger::instance().log("JsonManager", QString("Ошибка: Аптека ID %1 не найдена").arg(pharmacyId));
         return false;
     }
-
-    // Поиск лекарства на складе
     for (PharmacyItem& warehouseItem : warehouseItems) {
         if (warehouseItem.getTitle() == title && warehouseItem.getQuantity() >= quantity) {
-            // Уменьшаем количество на складе
             warehouseItem.setQuantity(warehouseItem.getQuantity() - quantity);
             if (warehouseItem.getQuantity() == 0) {
                 warehouseItems.removeOne(warehouseItem);
             }
-
-            // Добавляем в аптеку
             for (PharmacyItem& pharmacyItem : medicines) {
                 if (pharmacyItem.getTitle() == title && pharmacyItem.getPharmacyId() == pharmacyId) {
                     pharmacyItem.setQuantity(pharmacyItem.getQuantity() + quantity);
@@ -264,110 +237,39 @@ bool JsonManager::moveMedicineToPharmacy(const QString& title, int quantity, int
     return false;
 }
 
-// Получение списка лекарств на складе
-QList<PharmacyItem> JsonManager::getWarehouseItems() const {
-    Logger::instance().log("JsonManager", QString("Запрошен список лекарств на складе: %1").arg(warehouseItems.size()));
-    return warehouseItems;
-}
-
-// Добавление пользователя
-void JsonManager::addEmployee(const QString& role, const QString& login, const QString& password,
-                              const QString& fullName, const QString& email, int pharmacyId) {
-    // Проверка входных данных
-    if (login.isEmpty() || password.isEmpty() || fullName.isEmpty() || email.isEmpty()) {
-        Logger::instance().log("JsonManager", "Ошибка: Все поля должны быть заполнены");
-        QMessageBox::warning(nullptr, "Ошибка", "Все поля должны быть заполнены!");
-        return;
-    }
-
-    // Проверка формата email
-    QRegularExpression emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$)");
-    if (!emailRegex.match(email).hasMatch()) {
-        Logger::instance().log("JsonManager", QString("Ошибка: Неверный формат email %1").arg(email));
-        QMessageBox::warning(nullptr, "Ошибка", "Неверный формат email!");
-        return;
-    }
-
-    // Проверка для продавца: должна существовать аптека
-    if (role == "Продавец") {
-        if (pharmacyId == 0) {
-            Logger::instance().log("JsonManager", "Ошибка: Продавец должен быть привязан к аптеке");
-            QMessageBox::warning(nullptr, "Ошибка", "Выберите аптеку для продавца!");
-            return;
-        }
-        // Проверка существования аптеки
-        bool pharmacyExists = false;
-        for (const Pharmacy& pharmacy : pharmacies) {
-            if (pharmacy.getId() == pharmacyId) {
-                pharmacyExists = true;
-                break;
-            }
-        }
-        if (!pharmacyExists) {
-            Logger::instance().log("JsonManager", QString("Ошибка: Аптека ID %1 не существует").arg(pharmacyId));
-            QMessageBox::warning(nullptr, "Ошибка", QString("Аптека ID %1 не существует!").arg(pharmacyId));
-            return;
-        }
-    }
-
-    // Проверка на уникальность логина
-    for (const User& user : employees) {
-        if (user.getLogin() == login) {
-            Logger::instance().log("JsonManager", QString("Ошибка: Логин %1 уже занят").arg(login));
-            QMessageBox::warning(nullptr, "Ошибка", "Логин уже занят!");
-            return;
-        }
-    }
-
-    // Создание и добавление пользователя
-    User employee(UserRoleHelper::fromString(role), login, password, fullName, email);
-    if (role == "Продавец") {
-        employee.setPharmacyId(pharmacyId);
-    }
-    employees.append(employee);
-    saveAllToJson();
-    Logger::instance().log("JsonManager", QString("Добавлен сотрудник %1 (%2), аптека ID %3")
-                                              .arg(login).arg(role).arg(pharmacyId));
-}
-
-bool JsonManager::removeEmployee(const QString& login) {
-    if (login.isEmpty()) {
-        Logger::instance().log("JsonManager", "Ошибка: Логин не может быть пустым");
-        return false;
-    }
-    for (int i = 0; i < employees.size(); ++i) {
-        if (employees[i].getLogin() == login) {
-            employees.removeAt(i);
-            buyerBalances.remove(login);
-            saveAllToJson();
-            Logger::instance().log("JsonManager", QString("Удалён сотрудник %1").arg(login));
-            return true;
-        }
-    }
-    Logger::instance().log("JsonManager", QString("Ошибка: Сотрудник %1 не найден").arg(login));
-    return false;
-}
-
-QList<User> JsonManager::getEmployee() const {
-    Logger::instance().log("JsonManager", QString("Запрошен список сотрудников: %1").arg(employees.size()));
-    return employees;
-}
-
-bool JsonManager::removeMedicine(const QString& title) {
+bool JsonManager::removeMedicine(const QString& title, int pharmacyId) {
     if (title.isEmpty()) {
         Logger::instance().log("JsonManager", "Ошибка: Название лекарства не может быть пустым");
         return false;
     }
-    for (int i = 0; i < medicines.size(); ++i) {
-        if (medicines[i].getTitle() == title) {
-            int pharmacyId = medicines[i].getPharmacyId();
-            medicines.removeAt(i);
+    bool removed = false;
+    if (pharmacyId == 0) {
+        for (int i = warehouseItems.size() - 1; i >= 0; --i) {
+            if (warehouseItems[i].getTitle().compare(title, Qt::CaseInsensitive) == 0) {
+                warehouseItems.removeAt(i);
+                removed = true;
+            }
+        }
+        if (removed) {
             saveAllToJson();
-            Logger::instance().log("JsonManager", QString("Удалено лекарство %1 из аптеки %2").arg(title).arg(pharmacyId));
+            Logger::instance().log("JsonManager", QString("Удалено лекарство %1 со склада").arg(title));
             return true;
         }
+        Logger::instance().log("JsonManager", QString("Ошибка: Лекарство %1 не найдено на складе").arg(title));
+        return false;
     }
-    Logger::instance().log("JsonManager", QString("Ошибка: Лекарство %1 не найдено").arg(title));
+    for (int i = medicines.size() - 1; i >= 0; --i) {
+        if (medicines[i].getTitle().compare(title, Qt::CaseInsensitive) == 0 && medicines[i].getPharmacyId() == pharmacyId) {
+            medicines.removeAt(i);
+            removed = true;
+        }
+    }
+    if (removed) {
+        saveAllToJson();
+        Logger::instance().log("JsonManager", QString("Удалено лекарство %1 из аптеки %2").arg(title).arg(pharmacyId));
+        return true;
+    }
+    Logger::instance().log("JsonManager", QString("Ошибка: Лекарство %1 не найдено в аптеке %2").arg(title).arg(pharmacyId));
     return false;
 }
 
@@ -507,4 +409,81 @@ int JsonManager::getPharmacyStock(int pharmacyId) const {
     }
     Logger::instance().log("JsonManager", QString("Запрошен запас аптеки ID %1: %2 единиц").arg(pharmacyId).arg(total));
     return total;
+}
+
+QList<PharmacyItem> JsonManager::getWarehouseItems() const {
+    Logger::instance().log("JsonManager", QString("Запрошен список лекарств на складе: %1").arg(warehouseItems.size()));
+    return warehouseItems;
+}
+
+void JsonManager::addEmployee(const QString& role, const QString& login, const QString& password,
+                              const QString& fullName, const QString& email, int pharmacyId) {
+    if (login.isEmpty() || password.isEmpty() || fullName.isEmpty() || email.isEmpty()) {
+        Logger::instance().log("JsonManager", "Ошибка: Все поля должны быть заполнены");
+        QMessageBox::warning(nullptr, "Ошибка", "Все поля должны быть заполнены!");
+        return;
+    }
+    QRegularExpression emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$)");
+    if (!emailRegex.match(email).hasMatch()) {
+        Logger::instance().log("JsonManager", QString("Ошибка: Неверный формат email %1").arg(email));
+        QMessageBox::warning(nullptr, "Ошибка", "Неверный формат email!");
+        return;
+    }
+    if (role == "Продавец") {
+        if (pharmacyId == 0) {
+            Logger::instance().log("JsonManager", "Ошибка: Продавец должен быть привязан к аптеке");
+            QMessageBox::warning(nullptr, "Ошибка", "Выберите аптеку для продавца!");
+            return;
+        }
+        bool pharmacyExists = false;
+        for (const Pharmacy& pharmacy : pharmacies) {
+            if (pharmacy.getId() == pharmacyId) {
+                pharmacyExists = true;
+                break;
+            }
+        }
+        if (!pharmacyExists) {
+            Logger::instance().log("JsonManager", QString("Ошибка: Аптека ID %1 не существует").arg(pharmacyId));
+            QMessageBox::warning(nullptr, "Ошибка", QString("Аптека ID %1 не существует!").arg(pharmacyId));
+            return;
+        }
+    }
+    for (const User& user : employees) {
+        if (user.getLogin() == login) {
+            Logger::instance().log("JsonManager", QString("Ошибка: Логин %1 уже занят").arg(login));
+            QMessageBox::warning(nullptr, "Ошибка", "Логин уже занят!");
+            return;
+        }
+    }
+    User employee(UserRoleHelper::fromString(role), login, password, fullName, email);
+    if (role == "Продавец") {
+        employee.setPharmacyId(pharmacyId);
+    }
+    employees.append(employee);
+    saveAllToJson();
+    Logger::instance().log("JsonManager", QString("Добавлен сотрудник %1 (%2), аптека ID %3")
+                                              .arg(login).arg(role).arg(pharmacyId));
+}
+
+bool JsonManager::removeEmployee(const QString& login) {
+    if (login.isEmpty()) {
+        Logger::instance().log("JsonManager", "Ошибка: Логин не может быть пустым");
+        return false;
+    }
+    for (int i = 0; i < employees.size(); ++i) {
+        if (employees[i].getLogin() == login) {
+            employees.removeAt(i);
+            buyerBalances.remove(login);
+            saveAllToJson();
+            Logger::instance().log("JsonManager", QString("Удалён сотрудник %1").arg(login));
+            return true;
+        }
+    }
+    Logger::instance().log("JsonManager", QString("Ошибка: Сотрудник %1 не найден").arg(login));
+    return false;
+}
+
+QList<User> JsonManager::getEmployee() const {
+    Logger::instance().log("JsonManager", QString("Запрошен список сотрудников: %1").arg(employees.size()));
+    return employees;
 }

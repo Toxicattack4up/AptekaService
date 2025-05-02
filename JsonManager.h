@@ -14,9 +14,9 @@ public:
                      const QString& fullName, const QString& email, int pharmacyId = 0);
     bool removeEmployee(const QString& login);
     QList<User> getEmployee() const;
-    void addMedicine(const PharmacyItem& item); // Новый метод без pharmacyId
-    bool moveMedicineToPharmacy(const QString& title, int quantity, int pharmacyId); // Метод для курьера
-    bool removeMedicine(const QString& title);
+    void addMedicine(const PharmacyItem& item);
+    bool moveMedicineToPharmacy(const QString& title, int quantity, int pharmacyId);
+    bool removeMedicine(const QString& title, int pharmacyId = 0);
     bool removePharmacy(int id);
     void addPharmacy(const Pharmacy& pharmacy);
     QList<PharmacyItem> getMedicine() const;
@@ -29,14 +29,14 @@ public:
     QList<Pharmacy> searchPharmacy(int id, const QString& address);
     QList<User> searchEmployee(const QString& role, const QString& login, const QString& fullName, const QString& email);
     int getPharmacyStock(int pharmacyId) const;
-    QList<PharmacyItem> getWarehouseItems() const; // Для получения списка лекарств на складе
+    QList<PharmacyItem> getWarehouseItems() const;
 
 private:
     void loadFromJson();
     void saveAllToJson();
     QList<User> employees;
-    QList<PharmacyItem> medicines; // Лекарства в аптеках
-    QList<PharmacyItem> warehouseItems; // Лекарства на складе
+    QList<PharmacyItem> medicines;
+    QList<PharmacyItem> warehouseItems;
     QList<Pharmacy> pharmacies;
     QMap<QString, double> buyerBalances;
     QMap<int, double> pharmacyRevenues;

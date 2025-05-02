@@ -62,6 +62,8 @@ private slots:
     void on_back_to_login_clicked();
     void on_role_comboBox_employee_currentIndexChanged(const QString& role); // Слот для изменения роли
 
+    void on_transfer_button_clicked();
+
 private:
     void loadEmployeesToTable();
     void loadPharmacysToTable();
@@ -73,6 +75,7 @@ private:
     void loadWarehouseToTable();
     void loadCourierToTable();
     void initializeRoleComboBox(); // Инициализация ролей
+    void loadPharmaciesToCourierTable();
 
     Ui::MainWindow *ui;
     JsonManager jsonManager;

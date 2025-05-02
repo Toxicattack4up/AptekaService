@@ -5,7 +5,7 @@
 #include "JsonManager.h"
 #include "UserRoleHelper.h"
 #include "User.h"
-#include "HistoryManager.h"
+#include "historymanager.h"
 #include <QMessageBox>
 #include <QRegularExpression>
 #include "logger.h"
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     loadMedicinesToComboBox();
     loadSellerToTable();
     loadSellerToComboBox();
-    loadWarehouseToTable(); // Загрузка таблицы склада
+    loadWarehouseToTable();
 
     // Настройка QSpinBoxов
     ui->quantity_spinBox->setMinimum(1);
@@ -58,9 +58,10 @@ MainWindow::MainWindow(QWidget *parent)
         } else if (index == 13) { // Страница продавца
             loadSellerToTable();
             Logger::instance().log("MainWindow", "Обновлена таблица продавца");
-        } else if (index == 5) { // Страница курьера
+        } else if (index == 17) { // Страница курьера
             loadCourierToTable();
-            Logger::instance().log("MainWindow", "Обновлена таблица курьера");
+            loadPharmaciesToCourierTable();
+            Logger::instance().log("MainWindow", "Обновлены таблицы курьера");
         }
     });
 }
@@ -108,17 +109,78 @@ void MainWindow::loadPharmacysToTable() {
     QTableWidget *table = ui->pharmacy_table;
     table->clearContents();
     table->setRowCount(0);
-    table->setColumnCount(4);
-    table->setHorizontalHeaderLabels({"ID", "Адрес", "Размер (кв.м.)", "Вместимость"});
+    table->setColumnCount(3);
+    table->setHorizontalHeaderLabels({"Адрес", "Размер", "Текущий запас"});
 
     const QList<Pharmacy> &pharmacies = jsonManager.getPharmacy();
     table->setRowCount(pharmacies.size());
 
+    if (pharmacies.isEmpty()) {
+        table->setRowCount(1);
+        table->setItem(0, 0, new QTableWidgetItem("Нет аптек"));
+        table->item(0, 0)->setFlags(table->item(0, 0)->flags() & ~Qt::ItemIsEditable);
+        table->resizeColumnsToContents();
+        Logger::instance().log("MainWindow", "Таблица аптек: нет аптек");
+        return;
+    }
+
     for (int row = 0; row < pharmacies.size(); ++row) {
         const Pharmacy &pharmacy = pharmacies[row];
+        table->setItem(row, 0, new QTableWidgetItem(pharmacy.getAddress()));
+        table->setItem(row, 1, new QTableWidgetItem(QString::number(pharmacy.getSize(), 'f', 2)));
+        table->setItem(row, 2, new QTableWidgetItem(QString::number(jsonManager.getPharmacyStock(pharmacy.getId()))));
+
+        for (int col = 0; col < 3; ++col) {
+            if (table->item(row, col)) {
+                table->item(row, col)->setFlags(table->item(row, col)->flags() & ~Qt::ItemIsEditable);
+            }
+        }
+    }
+
+    table->resizeColumnsToContents();
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->viewport()->update();
+    Logger::instance().log("MainWindow", QString("Таблица аптек загружена: %1 записей").arg(pharmacies.size()));
+}
+
+// loadPharmaciesToCourierTable: загрузка списка аптек для курьера
+void MainWindow::loadPharmaciesToCourierTable() {
+    QTableWidget *table = ui->pharmacy_view_item_table;
+    table->clearContents();
+    table->setRowCount(0);
+    table->setColumnCount(4);
+    table->setHorizontalHeaderLabels({"ID", "Адрес", "Товаров", "Вместимость"});
+
+    const QList<Pharmacy> &pharmacies = jsonManager.getPharmacy();
+    table->setRowCount(pharmacies.size());
+
+    if (pharmacies.isEmpty()) {
+        table->setRowCount(1);
+        table->setItem(0, 0, new QTableWidgetItem("Нет аптек"));
+        table->item(0, 0)->setFlags(table->item(0, 0)->flags() & ~Qt::ItemIsEditable);
+        table->resizeColumnsToContents();
+        ui->pharmacy_select_comboBox->clear();
+        ui->pharmacy_select_comboBox->addItem("Нет доступных аптек");
+        ui->transfer_button->setEnabled(false);
+        Logger::instance().log("MainWindow", "Таблица аптек курьера: нет аптек");
+        return;
+    }
+
+    // Заполнение ComboBox аптеками
+    ui->pharmacy_select_comboBox->clear();
+    for (const Pharmacy &pharmacy : pharmacies) {
+        ui->pharmacy_select_comboBox->addItem(QString::number(pharmacy.getId()));
+    }
+    ui->transfer_button->setEnabled(true);
+
+    for (int row = 0; row < pharmacies.size(); ++row) {
+        const Pharmacy &pharmacy = pharmacies[row];
+        int currentItems = jsonManager.getPharmacyStock(pharmacy.getId());
         table->setItem(row, 0, new QTableWidgetItem(QString::number(pharmacy.getId())));
         table->setItem(row, 1, new QTableWidgetItem(pharmacy.getAddress()));
-        table->setItem(row, 2, new QTableWidgetItem(QString::number(pharmacy.getSize(), 'f', 2)));
+        table->setItem(row, 2, new QTableWidgetItem(currentItems == 0 ? "Аптека пуста, добавьте лекарства" : QString::number(currentItems)));
         table->setItem(row, 3, new QTableWidgetItem(QString::number(pharmacy.getMaxCapacity())));
 
         for (int col = 0; col < 4; ++col) {
@@ -132,27 +194,36 @@ void MainWindow::loadPharmacysToTable() {
     table->horizontalHeader()->setStretchLastSection(true);
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    Logger::instance().log("MainWindow", QString("Таблица аптек загружена: %1 записей").arg(pharmacies.size()));
+    Logger::instance().log("MainWindow", QString("Таблица аптек курьера загружена: %1 записей").arg(pharmacies.size()));
 }
 
-// loadMedicinesToTable: загрузка списка лекарств в таблицу
+// loadMedicinesToTable: загрузка списка лекарств в таблицу (для администратора)
 void MainWindow::loadMedicinesToTable() {
     QTableWidget *table = ui->items_table;
     table->clearContents();
     table->setRowCount(0);
     table->setColumnCount(5);
-    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Срок годности", "Требуется рецепт"});
+    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Рецепт", "Срок годности"});
 
-    const QList<PharmacyItem> &medicines = jsonManager.getMedicine();
-    table->setRowCount(medicines.size());
+    const QList<PharmacyItem> &items = jsonManager.getWarehouseItems();
+    table->setRowCount(items.size());
 
-    for (int row = 0; row < medicines.size(); ++row) {
-        const PharmacyItem &medicine = medicines[row];
-        table->setItem(row, 0, new QTableWidgetItem(medicine.getTitle()));
-        table->setItem(row, 1, new QTableWidgetItem(QString::number(medicine.getPrice(), 'f', 2)));
-        table->setItem(row, 2, new QTableWidgetItem(QString::number(medicine.getQuantity())));
-        table->setItem(row, 3, new QTableWidgetItem(medicine.getExpirationDate().toString("yyyy-MM-dd")));
-        table->setItem(row, 4, new QTableWidgetItem(medicine.isRecipeRequired() ? "Да" : "Нет"));
+    if (items.isEmpty()) {
+        table->setRowCount(1);
+        table->setItem(0, 0, new QTableWidgetItem("Нет лекарств"));
+        table->item(0, 0)->setFlags(table->item(0, 0)->flags() & ~Qt::ItemIsEditable);
+        table->resizeColumnsToContents();
+        Logger::instance().log("MainWindow", "Таблица лекарств: нет лекарств");
+        return;
+    }
+
+    for (int row = 0; row < items.size(); ++row) {
+        const PharmacyItem &item = items[row];
+        table->setItem(row, 0, new QTableWidgetItem(item.getTitle()));
+        table->setItem(row, 1, new QTableWidgetItem(QString::number(item.getPrice(), 'f', 2)));
+        table->setItem(row, 2, new QTableWidgetItem(QString::number(item.getQuantity())));
+        table->setItem(row, 3, new QTableWidgetItem(item.isRecipeRequired() ? "Да" : "Нет"));
+        table->setItem(row, 4, new QTableWidgetItem(item.getExpirationDate().toString("yyyy-MM-dd")));
 
         for (int col = 0; col < 5; ++col) {
             if (table->item(row, col)) {
@@ -165,7 +236,8 @@ void MainWindow::loadMedicinesToTable() {
     table->horizontalHeader()->setStretchLastSection(true);
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    Logger::instance().log("MainWindow", QString("Таблица лекарств загружена: %1 записей").arg(medicines.size()));
+    table->viewport()->update();
+    Logger::instance().log("MainWindow", QString("Таблица лекарств загружена: %1 записей").arg(items.size()));
 }
 
 // loadBuyesToTable: загрузка списка лекарств для покупок
@@ -274,22 +346,31 @@ void MainWindow::loadSellerToComboBox() {
 
 // loadWarehouseToTable: загрузка таблицы общего склада
 void MainWindow::loadWarehouseToTable() {
-    QTableWidget *table = ui->view_medicine_item_warehouse;
+    QTableWidget *table = ui->view_warehouse_item;
     table->clearContents();
     table->setRowCount(0);
     table->setColumnCount(5);
-    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Срок годности", "Требуется рецепт"});
+    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Рецепт", "Срок годности"});
 
-    const QList<PharmacyItem> &items = warehouse.getMedicines();
+    const QList<PharmacyItem> &items = jsonManager.getWarehouseItems();
     table->setRowCount(items.size());
+
+    if (items.isEmpty()) {
+        table->setRowCount(1);
+        table->setItem(0, 0, new QTableWidgetItem("Нет лекарств"));
+        table->item(0, 0)->setFlags(table->item(0, 0)->flags() & ~Qt::ItemIsEditable);
+        table->resizeColumnsToContents();
+        Logger::instance().log("MainWindow", "Таблица лекарств: нет лекарств");
+        return;
+    }
 
     for (int row = 0; row < items.size(); ++row) {
         const PharmacyItem &item = items[row];
         table->setItem(row, 0, new QTableWidgetItem(item.getTitle()));
         table->setItem(row, 1, new QTableWidgetItem(QString::number(item.getPrice(), 'f', 2)));
         table->setItem(row, 2, new QTableWidgetItem(QString::number(item.getQuantity())));
-        table->setItem(row, 3, new QTableWidgetItem(item.getExpirationDate().toString("yyyy-MM-dd")));
-        table->setItem(row, 4, new QTableWidgetItem(item.isRecipeRequired() ? "Да" : "Нет"));
+        table->setItem(row, 3, new QTableWidgetItem(item.isRecipeRequired() ? "Да" : "Нет"));
+        table->setItem(row, 4, new QTableWidgetItem(item.getExpirationDate().toString("yyyy-MM-dd")));
 
         for (int col = 0; col < 5; ++col) {
             if (table->item(row, col)) {
@@ -302,27 +383,37 @@ void MainWindow::loadWarehouseToTable() {
     table->horizontalHeader()->setStretchLastSection(true);
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    Logger::instance().log("MainWindow", QString("Таблица склада загружена: %1 записей").arg(items.size()));
+    table->viewport()->update();
+    Logger::instance().log("MainWindow", QString("Таблица лекарств загружена: %1 записей").arg(items.size()));
 }
 
 // loadCourierToTable: загрузка таблицы для курьера
 void MainWindow::loadCourierToTable() {
-    QTableWidget *table = ui->view_medicine_item_warehouse;
+    QTableWidget *table = ui->view_warehouse_item;
     table->clearContents();
     table->setRowCount(0);
     table->setColumnCount(5);
-    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Срок годности", "Требуется рецепт"});
+    table->setHorizontalHeaderLabels({"Название", "Цена", "Количество", "Рецепт", "Срок годности"});
 
-    const QList<PharmacyItem> &items = warehouse.getMedicines();
+    const QList<PharmacyItem> &items = jsonManager.getWarehouseItems();
     table->setRowCount(items.size());
+
+    if (items.isEmpty()) {
+        table->setRowCount(1);
+        table->setItem(0, 0, new QTableWidgetItem("Нет лекарств"));
+        table->item(0, 0)->setFlags(table->item(0, 0)->flags() & ~Qt::ItemIsEditable);
+        table->resizeColumnsToContents();
+        Logger::instance().log("MainWindow", "Таблица курьера: нет лекарств");
+        return;
+    }
 
     for (int row = 0; row < items.size(); ++row) {
         const PharmacyItem &item = items[row];
         table->setItem(row, 0, new QTableWidgetItem(item.getTitle()));
         table->setItem(row, 1, new QTableWidgetItem(QString::number(item.getPrice(), 'f', 2)));
         table->setItem(row, 2, new QTableWidgetItem(QString::number(item.getQuantity())));
-        table->setItem(row, 3, new QTableWidgetItem(item.getExpirationDate().toString("yyyy-MM-dd")));
-        table->setItem(row, 4, new QTableWidgetItem(item.isRecipeRequired() ? "Да" : "Нет"));
+        table->setItem(row, 3, new QTableWidgetItem(item.isRecipeRequired() ? "Да" : "Нет"));
+        table->setItem(row, 4, new QTableWidgetItem(item.getExpirationDate().toString("yyyy-MM-dd")));
 
         for (int col = 0; col < 5; ++col) {
             if (table->item(row, col)) {
@@ -335,6 +426,7 @@ void MainWindow::loadCourierToTable() {
     table->horizontalHeader()->setStretchLastSection(true);
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->viewport()->update();
     Logger::instance().log("MainWindow", QString("Таблица курьера загружена: %1 записей").arg(items.size()));
 }
 
@@ -365,7 +457,7 @@ void MainWindow::on_login_button_clicked() {
         ui->stackedWidget->setCurrentIndex(6);
     } else if (role == "Курьер") {
         loadCourierToTable();
-        ui->stackedWidget->setCurrentIndex(5);
+        ui->stackedWidget->setCurrentIndex(17);
     } else {
         QMessageBox::warning(this, "Ошибка", "Неизвестная роль");
         Logger::instance().log("MainWindow", QString("Ошибка: неизвестная роль %1 для %2").arg(role).arg(login));
@@ -418,7 +510,7 @@ void MainWindow::on_cancelToMain_Button_clicked() {
 void MainWindow::on_back_to_view_employee_pushButton_clicked() {
     ui->stackedWidget->setCurrentIndex(2);
     ui->pharmacyID_comboBox->setVisible(false);
-    ui->pharmacyID_label->setVisible(false); // Скрываем метку
+    ui->pharmacyID_label->setVisible(false);
     initializeRoleComboBox();
     loadEmployeesToTable();
     Logger::instance().log("MainWindow", "Возврат к списку сотрудников");
@@ -431,8 +523,8 @@ void MainWindow::on_back_to_menu_buyer_pushButton_clicked() {
 
 // on_back_to_view_pharmacy_pushButton_clicked: переход к списку лекарств
 void MainWindow::on_back_to_view_pharmacy_pushButton_clicked() {
-    ui->stackedWidget->setCurrentIndex(10);
     loadMedicinesToTable();
+    ui->stackedWidget->setCurrentIndex(10);
 }
 
 // on_back_to_view_items_pharmacy_pushButton_clicked: возврат к списку аптек
@@ -489,7 +581,7 @@ void MainWindow::on_add_employees_pushButton_clicked() {
     initializeRoleComboBox();
     ui->stackedWidget->setCurrentIndex(3);
     ui->pharmacyID_comboBox->setVisible(ui->role_comboBox_employee->currentText() == "Продавец");
-    ui->pharmacyID_label->setVisible(ui->role_comboBox_employee->currentText() == "Продавец"); // Скрываем/показываем метку
+    ui->pharmacyID_label->setVisible(ui->role_comboBox_employee->currentText() == "Продавец");
 
     ui->pharmacyID_comboBox->clear();
     QList<Pharmacy> pharmacies = jsonManager.getPharmacy();
@@ -572,12 +664,12 @@ void MainWindow::on_add_item_pushButton_clicked() {
     }
     if (!expirationDate.isValid()) {
         QMessageBox::warning(this, "Ошибка", "Выберите корректную дату срока годности");
-        Logger::instance().log("MainWindow", "Ошибка добавления лекарства: некорректная дата срока годности");
+        Logger::instance().log("MainWindow", QString("Ошибка добавления лекарства: некорректная дата срока годности"));
         return;
     }
     if (expirationDate < QDate::currentDate()) {
         QMessageBox::warning(this, "Ошибка", "Срок годности не может быть в прошлом");
-        Logger::instance().log("MainWindow", "Ошибка добавления лекарства: срок годности в прошлом");
+        Logger::instance().log("MainWindow", QString("Ошибка добавления лекарства: срок годности в прошлом"));
         return;
     }
 
@@ -591,13 +683,17 @@ void MainWindow::on_add_item_pushButton_clicked() {
     ui->dateEdit->setDate(QDate::currentDate());
 
     loadMedicinesToTable();
+    loadWarehouseToTable();
     loadBuyesToTable();
     loadMedicinesToComboBox();
     loadSellerToTable();
     loadSellerToComboBox();
+    loadPharmacysToTable();
     Logger::instance().log("MainWindow", QString("Добавлено лекарство %1 на склад").arg(name_pharmacy));
     HistoryManager::instance().addOperation(currentUserLogin, "Добавление лекарства",
                                             QString("Добавлено %1 (%2 единиц) на склад").arg(name_pharmacy).arg(quality_pharmacy));
+
+    ui->stackedWidget->setCurrentIndex(10);
 }
 
 // on_add_pharmacy_pushButton_clicked: добавление новой аптеки
@@ -665,7 +761,7 @@ void MainWindow::on_add_employee_pushButton_clicked() {
         ui->FIO_lineEdit_employee->clear();
         ui->email_lineEdit_employee->clear();
         ui->pharmacyID_comboBox->setVisible(false);
-        ui->pharmacyID_label->setVisible(false); // Скрываем метку
+        ui->pharmacyID_label->setVisible(false);
         ui->stackedWidget->setCurrentIndex(2);
         loadEmployeesToTable();
         Logger::instance().log("MainWindow", QString("Сотрудник %1 добавлен").arg(login));
@@ -727,19 +823,29 @@ void MainWindow::on_remove_pharmacy_pushButton_clicked() {
 
 // on_remove_pharmacy_item_pushButton_2_clicked: удаление лекарства
 void MainWindow::on_remove_pharmacy_item_pushButton_2_clicked() {
-    QString title_rm_medicine = ui->name_pharmacy_item_lineEdit->text().trimmed();
-    if (jsonManager.removeMedicine(title_rm_medicine)) {
+    QString title = ui->name_pharmacy_item_lineEdit->text().trimmed();
+    if (title.isEmpty()) {
+        QMessageBox::warning(this, "Ошибка", "Введите название лекарства для удаления");
+        Logger::instance().log("MainWindow", "Ошибка удаления: пустое название");
+        return;
+    }
+
+    if (jsonManager.removeMedicine(title, 0)) {
         ui->name_pharmacy_item_lineEdit->clear();
         loadMedicinesToTable();
+        loadWarehouseToTable();
         loadBuyesToTable();
         loadMedicinesToComboBox();
         loadSellerToTable();
         loadSellerToComboBox();
-        QMessageBox::information(this, "Успех", "Лекарство успешно удалено");
-        Logger::instance().log("MainWindow", QString("Удалено лекарство %1").arg(title_rm_medicine));
+        loadPharmacysToTable();
+        Logger::instance().log("MainWindow", QString("Удалено лекарство %1 со склада").arg(title));
+        HistoryManager::instance().addOperation(currentUserLogin, "Удаление лекарства",
+                                                QString("Удалено %1 со склада").arg(title));
+        QMessageBox::information(this, "Успешно", QString("Лекарство %1 успешно удалено со склада").arg(title));
     } else {
-        QMessageBox::warning(this, "Ошибка", QString("Лекарство %1 не найдено").arg(title_rm_medicine));
-        Logger::instance().log("MainWindow", QString("Ошибка: Лекарство %1 не найдено").arg(title_rm_medicine));
+        QMessageBox::warning(this, "Ошибка", QString("Лекарство %1 не найдено на складе").arg(title));
+        Logger::instance().log("MainWindow", QString("Ошибка удаления: лекарство %1 не найдено").arg(title));
     }
 }
 
@@ -882,7 +988,106 @@ void MainWindow::initializeRoleComboBox() {
 void MainWindow::on_role_comboBox_employee_currentIndexChanged(const QString& role) {
     bool isSeller = (role == "Продавец");
     ui->pharmacyID_comboBox->setVisible(isSeller);
-    ui->pharmacyID_label->setVisible(isSeller); // Скрываем/показываем метку
+    ui->pharmacyID_label->setVisible(isSeller);
     ui->add_employee_pushButton->setEnabled(isSeller ? !jsonManager.getPharmacy().isEmpty() : true);
     Logger::instance().log("MainWindow", QString("Выбрана роль: %1").arg(role));
+}
+
+// on_transfer_button_clicked: перемещение лекарства в аптеку
+void MainWindow::on_transfer_button_clicked() {
+    // Проверка, выбрано ли лекарство в таблице
+    QTableWidget *warehouseTable = ui->view_warehouse_item;
+    QList<QTableWidgetItem *> selectedItems = warehouseTable->selectedItems();
+    if (selectedItems.isEmpty()) {
+        QMessageBox::warning(this, "Ошибка", "Выберите лекарство из таблицы склада!");
+        Logger::instance().log("MainWindow", "Ошибка перемещения: лекарство не выбрано");
+        return;
+    }
+
+    // Получение названия лекарства из выбранной строки
+    int row = warehouseTable->currentRow();
+    QString medicineTitle = warehouseTable->item(row, 0)->text();
+    if (medicineTitle == "Нет лекарств") {
+        QMessageBox::warning(this, "Ошибка", "Склад пуст, нет лекарств для перемещения!");
+        Logger::instance().log("MainWindow", "Ошибка перемещения: склад пуст");
+        return;
+    }
+
+    // Получение ID аптеки из ComboBox
+    QString pharmacyIdStr = ui->pharmacy_select_comboBox->currentText();
+    bool ok;
+    int pharmacyId = pharmacyIdStr.toInt(&ok);
+    if (!ok || pharmacyIdStr == "Нет доступных аптек") {
+        QMessageBox::warning(this, "Ошибка", "Выберите действительную аптеку!");
+        Logger::instance().log("MainWindow", "Ошибка перемещения: аптека не выбрана");
+        return;
+    }
+
+    // Получение количества для перемещения
+    int transferQuantity = ui->transfer_quantity_spinBox->value();
+
+    // Проверка наличия лекарства на складе
+    QList<PharmacyItem> warehouseItems = jsonManager.getWarehouseItems();
+    PharmacyItem *selectedItem = nullptr;
+    for (PharmacyItem &item : warehouseItems) {
+        if (item.getTitle() == medicineTitle) {
+            selectedItem = &item;
+            break;
+        }
+    }
+
+    if (!selectedItem || selectedItem->getQuantity() < transferQuantity) {
+        QMessageBox::warning(this, "Ошибка", QString("Недостаточно лекарства на складе! Доступно: %1")
+                                                       .arg(selectedItem ? selectedItem->getQuantity() : 0));
+        Logger::instance().log("MainWindow", QString("Ошибка перемещения: недостаточно лекарства %1 (требуется %2, доступно %3)")
+                                                 .arg(medicineTitle).arg(transferQuantity)
+                                                 .arg(selectedItem ? selectedItem->getQuantity() : 0));
+        return;
+    }
+
+    // Проверка вместимости аптеки
+    const QList<Pharmacy> &pharmacies = jsonManager.getPharmacy();
+    Pharmacy selectedPharmacy;
+    bool pharmacyFound = false;
+    for (const Pharmacy &pharmacy : pharmacies) {
+        if (pharmacy.getId() == pharmacyId) {
+            selectedPharmacy = pharmacy;
+            pharmacyFound = true;
+            break;
+        }
+    }
+
+    if (!pharmacyFound) {
+        QMessageBox::warning(this, "Ошибка", "Аптека не найдена!");
+        Logger::instance().log("MainWindow", QString("Ошибка перемещения: аптека ID %1 не найдена").arg(pharmacyId));
+        return;
+    }
+
+    int currentItems = jsonManager.getPharmacyStock(pharmacyId);
+    int maxCapacity = selectedPharmacy.getMaxCapacity();
+    if (currentItems + transferQuantity > maxCapacity) {
+        QMessageBox::warning(this, "Ошибка", QString("Аптека не может вместить столько лекарств! Осталось места: %1")
+                                                       .arg(maxCapacity - currentItems));
+        Logger::instance().log("MainWindow", QString("Ошибка перемещения: аптека ID %1 переполнена (требуется %2, доступно %3)")
+                                                 .arg(pharmacyId).arg(transferQuantity).arg(maxCapacity - currentItems));
+        return;
+    }
+
+    // Выполнение перемещения
+    bool success = jsonManager.moveMedicineToPharmacy(medicineTitle, transferQuantity, pharmacyId);
+    if (!success) {
+        QMessageBox::warning(this, "Ошибка", "Не удалось переместить лекарство! Проверьте наличие на складе или существование аптеки.");
+        Logger::instance().log("MainWindow", QString("Ошибка перемещения: не удалось переместить %1 единиц %2 в аптеку ID %3")
+                                                 .arg(transferQuantity).arg(medicineTitle).arg(pharmacyId));
+        return;
+    }
+
+    // Обновление таблиц
+    loadCourierToTable();
+    loadPharmaciesToCourierTable();
+
+    QMessageBox::information(this, "Успех", QString("Перемещено %1 единиц '%2' в аптеку ID %3")
+                                                     .arg(transferQuantity).arg(medicineTitle).arg(pharmacyId));
+    Logger::instance().log("MainWindow", QString("Успешное перемещение: %1 единиц '%2' в аптеку ID %3")
+                                             .arg(transferQuantity).arg(medicineTitle).arg(pharmacyId));
 }

@@ -43,3 +43,8 @@ void Pharmacy::setMaxCapacity(int newMaxCapacity) {
     }
     maxCapacity = newMaxCapacity;
 }
+
+double Pharmacy::getSquare() const
+{
+    return size;
+}

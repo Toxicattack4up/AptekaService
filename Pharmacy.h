@@ -10,6 +10,7 @@ public:
     int getId() const;
     QString getAddress() const;
     double getSize() const;
+    double getSquare() const;
     int getMaxCapacity() const;
     void setAddress(const QString& newAddress);
     void setSize(double newSize);
