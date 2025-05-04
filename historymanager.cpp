@@ -1,51 +1,47 @@
-#include "HistoryManager.h"
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QDir>
-
-HistoryManager::HistoryManager() {
-    QDir().mkpath("."); // Убедимся, что директория существует
-}
+#include "historymanager.h"
+#include <QDebug>
 
 HistoryManager& HistoryManager::instance() {
     static HistoryManager manager;
     return manager;
 }
 
-void HistoryManager::addOperation(const QString& userLogin, const QString& operation, const QString& details) {
-    saveToJson(userLogin, operation, details);
+void HistoryManager::addOperation(const QString& userLogin, const QString& action, const QString& details, int pharmacyId) {
+    Operation op;
+    op.userLogin = userLogin;
+    op.action = action;
+    op.details = details;
+    op.timestamp = QDateTime::currentDateTime();
+    op.pharmacyId = pharmacyId;
+    operations.append(op);
+    qDebug() << "Добавлена операция: " << action << "для аптеки ID" << pharmacyId;
 }
 
-void HistoryManager::saveToJson(const QString& userLogin, const QString& operation, const QString& details) {
-    QFile file("history.json");
-    QJsonArray historyArray;
-
-    // Читаем существующую историю
-    if (file.exists() && file.open(QIODevice::ReadOnly)) {
-        QByteArray data = file.readAll();
-        QJsonDocument doc = QJsonDocument::fromJson(data);
-        if (!doc.isNull()) {
-            historyArray = doc.array();
+QList<Operation> HistoryManager::getOperations(int pharmacyId) const {
+    if (pharmacyId == 0) {
+        return operations; // Для администратора возвращаем все операции
+    }
+    QList<Operation> filtered;
+    for (const Operation& op : operations) {
+        if (op.pharmacyId == pharmacyId) {
+            filtered.append(op);
         }
-        file.close();
     }
+    return filtered;
+}
 
-    // Добавляем новую операцию
-    QJsonObject opObj;
-    opObj["timestamp"] = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
-    opObj["userLogin"] = userLogin;
-    opObj["operation"] = operation;
-    opObj["details"] = details;
-    historyArray.append(opObj);
-
-    // Сохраняем историю
-    if (file.open(QIODevice::WriteOnly)) {
-        QJsonDocument doc(historyArray);
-        file.write(doc.toJson(QJsonDocument::Indented));
-        file.close();
-    } else {
-        qWarning() << "Ошибка открытия history.json для записи";
+QMap<QDate, int> HistoryManager::getSalesByDate(int pharmacyId) const {
+    QMap<QDate, int> salesByDate;
+    for (const Operation& op : operations) {
+        if (op.action == "Продажа" && (pharmacyId == 0 || op.pharmacyId == pharmacyId)) {
+            QDate date = op.timestamp.date();
+            salesByDate[date] += 1; // Подсчет количества продаж
+        }
     }
+    return salesByDate;
+}
+
+void HistoryManager::clearOperations() {
+    operations.clear();
+    qDebug() << "Список операций очищен";
 }

@@ -1,5 +1,6 @@
 #include "JsonManager.h"
 #include "logger.h"
+#include "historymanager.h"
 #include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -53,6 +54,7 @@ void JsonManager::loadFromJson() {
             obj["email"].toString()
             );
         user.setRegistrationDate(QDate::fromString(obj["registrationDate"].toString(), "yyyy-MM-dd"));
+        user.setPharmacyId(obj["pharmacyId"].toInt(0));
         employees.append(user);
     }
     QJsonArray medicinesArray = root["medicines"].toArray();
@@ -104,8 +106,21 @@ void JsonManager::loadFromJson() {
     for (const QString& key : revenues.keys()) {
         pharmacyRevenues[key.toInt()] = revenues[key].toDouble();
     }
-    Logger::instance().log("JsonManager", QString("Загружено из employees.json: %1 сотрудников, %2 лекарств, %3 на складе, %4 аптек")
-                                              .arg(employees.size()).arg(medicines.size()).arg(warehouseItems.size()).arg(pharmacies.size()));
+    QJsonArray operationsArray = root["operations"].toArray();
+    HistoryManager::instance().clearOperations();
+    for (const QJsonValue& value : operationsArray) {
+        QJsonObject obj = value.toObject();
+        Operation op;
+        op.userLogin = obj["userLogin"].toString();
+        op.action = obj["action"].toString();
+        op.details = obj["details"].toString();
+        op.timestamp = QDateTime::fromString(obj["timestamp"].toString(), "yyyy-MM-dd HH:mm:ss");
+        op.pharmacyId = obj["pharmacyId"].toInt(0);
+        HistoryManager::instance().addOperation(op.userLogin, op.action, op.details, op.pharmacyId);
+    }
+    Logger::instance().log("JsonManager", QString("Загружено из employees.json: %1 сотрудников, %2 лекарств, %3 на складе, %4 аптек, %5 операций")
+                                              .arg(employees.size()).arg(medicines.size()).arg(warehouseItems.size())
+                                              .arg(pharmacies.size()).arg(operationsArray.size()));
 }
 
 void JsonManager::saveAllToJson() {
@@ -119,6 +134,7 @@ void JsonManager::saveAllToJson() {
         obj["fullName"] = user.getFullName();
         obj["email"] = user.getEmail();
         obj["registrationDate"] = user.getRegistrationDate().toString("yyyy-MM-dd");
+        obj["pharmacyId"] = user.getPharmacyId();
         employeesArray.append(obj);
     }
     root["employees"] = employeesArray;
@@ -165,6 +181,17 @@ void JsonManager::saveAllToJson() {
         revenues[QString::number(key)] = pharmacyRevenues[key];
     }
     root["pharmacyRevenues"] = revenues;
+    QJsonArray operationsArray;
+    for (const Operation& op : HistoryManager::instance().getOperations(0)) {
+        QJsonObject obj;
+        obj["userLogin"] = op.userLogin;
+        obj["action"] = op.action;
+        obj["details"] = op.details;
+        obj["timestamp"] = op.timestamp.toString("yyyy-MM-dd HH:mm:ss");
+        obj["pharmacyId"] = op.pharmacyId;
+        operationsArray.append(obj);
+    }
+    root["operations"] = operationsArray;
     QJsonDocument doc(root);
     QFile file("employees.json");
     if (!file.open(QIODevice::WriteOnly)) {
@@ -350,6 +377,12 @@ bool JsonManager::makePurchase(const QString& medicineTitle, int quantity, int p
                 buyerBalances[buyerLogin] -= cost;
             }
             pharmacyRevenues[pharmacyId] += cost;
+            HistoryManager::instance().addOperation(
+                buyerLogin.isEmpty() ? "Продавец" : buyerLogin,
+                "Продажа",
+                QString("Куплено %1 (%2 единиц) за %3").arg(medicineTitle).arg(quantity).arg(cost),
+                pharmacyId
+                );
             saveAllToJson();
             Logger::instance().log("JsonManager", QString("Покупка: %1 купил %2 (%3 единиц) в аптеке %4")
                                                       .arg(buyerLogin.isEmpty() ? "Продавец" : buyerLogin)
