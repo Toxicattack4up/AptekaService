@@ -24,7 +24,6 @@ private slots:
     void on_cancelToMain_Button_clicked();
     void on_Registration_Button_clicked();
     void on_back_to_view_employee_pushButton_clicked();
-    void on_back_to_menu_buyer_pushButton_clicked();
     void on_back_to_view_pharmacy_pushButton_clicked();
     void on_back_to_view_items_pharmacy_pushButton_clicked();
     void on_Back_to_login_clicked();
@@ -32,7 +31,6 @@ private slots:
     void on_back_to_view_employees_clicked();
     void on_back_to_menu_items_pharmacy_pushButton_clicked();
     void on_back_menu_admin_pushButton_clicked();
-    void on_back_to_menu_login_pushButton_2_clicked();
     void on_back_to_admin_menu_pushButton_clicked();
     void on_Admin_users_clicked();
     void on_add_employees_pushButton_clicked();
@@ -51,30 +49,26 @@ private slots:
     void on_back_to_view_pharmacy_pushButton_2_clicked();
     void on_remove_pharmacy_pushButton_clicked();
     void on_remove_pharmacy_item_pushButton_2_clicked();
-    void on_Buy_pharmacy_item_pushButton_clicked();
+    void on_buy_pharmacy_item_pushButton_clicked();
     void on_buy_pushButton_clicked();
     void on_back_to_view_buys_menu_pushButton_clicked();
-    void on_buy_pharmacy_item_pushButton_clicked();
-    void on_Cancel_seller_menu_clicked();
-    void on_back_to_seller_menu_pushButton_clicked();
-    void on_Sell_button_clicked();
-    void on_sell_pushButton_clicked();
-    void on_back_to_login_clicked();
-    void on_role_comboBox_employee_currentIndexChanged(const QString& role); // Слот для изменения роли
-
+    void on_role_comboBox_employee_currentIndexChanged(const QString& role);
     void on_transfer_button_clicked();
+    void on_history_button_clicked();
+    void on_pharmacy_stock_button_clicked();
+    void on_sell_button_clicked();
+    void on_logout_button_clicked();
+
+    void on_back_to_login_clicked();
 
 private:
     void loadEmployeesToTable();
     void loadPharmacysToTable();
     void loadMedicinesToTable();
-    void loadBuyesToTable();
     void loadMedicinesToComboBox();
-    void loadSellerToTable();
-    void loadSellerToComboBox();
     void loadWarehouseToTable();
     void loadCourierToTable();
-    void initializeRoleComboBox(); // Инициализация ролей
+    void initializeRoleComboBox();
     void loadPharmaciesToCourierTable();
 
     Ui::MainWindow *ui;
@@ -82,6 +76,7 @@ private:
     CentralWarehouse warehouse;
     QString currentUserLogin;
     UserRole currentUserRole;
+    User currentUser;
 };
 
 #endif // MAINWINDOW_H
