@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -913,7 +913,7 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>12</hour>
+              <hour>6</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
@@ -1000,7 +1000,7 @@
         <item row="0" column="0">
          <layout class="QGridLayout" name="Seller_menu">
           <item row="0" column="0">
-           <widget class="QPushButton" name="history_button">
+           <widget class="QPushButton" name="history_button1">
             <property name="text">
              <string>История</string>
             </property>
@@ -1238,15 +1238,6 @@
        <layout class="QGridLayout" name="gridLayout_backpack">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Backpack_layout">
-          <item row="0" column="0">
-           <widget class="QTableWidget" name="backpack_table">
-            <column>
-             <property name="text">
-              <string>Название</string>
-             </property>
-            </column>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="back_to_buyer_menu_from_backpack_button">
             <property name="text">
@@ -1259,6 +1250,15 @@
             <property name="text">
              <string>Принять лекарство</string>
             </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QTableWidget" name="backpack_table">
+            <column>
+             <property name="text">
+              <string>Название</string>
+             </property>
+            </column>
            </widget>
           </item>
          </layout>
@@ -1300,18 +1300,32 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>lineEdit_login</tabstop>
-  <tabstop>lineEdit_pass</tabstop>
-  <tabstop>login_button</tabstop>
-  <tabstop>registr_button</tabstop>
-  <tabstop>Admin_users</tabstop>
-  <tabstop>Admin_pharmacy</tabstop>
-  <tabstop>Admin_Item</tabstop>
-  <tabstop>Back_to_login</tabstop>
+  <tabstop>add_to_backpack_button</tabstop>
+  <tabstop>back_to_pharmacy_selection_button</tabstop>
+  <tabstop>pharmacy_selection_table</tabstop>
+  <tabstop>select_pharmacy_button</tabstop>
+  <tabstop>back_to_buyer_menu_from_pharmacy_button</tabstop>
+  <tabstop>buy_comboBox</tabstop>
+  <tabstop>quantity_spinBox</tabstop>
+  <tabstop>buy_pushButton</tabstop>
+  <tabstop>back_to_view_buys_menu_pushButton</tabstop>
+  <tabstop>history_button1</tabstop>
+  <tabstop>pharmacy_stock_button</tabstop>
+  <tabstop>sell_button</tabstop>
+  <tabstop>logout_button</tabstop>
   <tabstop>table_employees</tabstop>
   <tabstop>add_employees_pushButton</tabstop>
   <tabstop>delete_employees_pushButton</tabstop>
   <tabstop>back_menu_admin_pushButton</tabstop>
+  <tabstop>items_table</tabstop>
+  <tabstop>add_pharmac_item_pushButton</tabstop>
+  <tabstop>remove_pharmacy_item_pushButton</tabstop>
+  <tabstop>back_to_view_menu_admin_pushButton_2</tabstop>
+  <tabstop>pharmacy_table</tabstop>
+  <tabstop>add_pharmacy_pushButton_2</tabstop>
+  <tabstop>remove_pharmacy_pushButton</tabstop>
+  <tabstop>back_to_admin_menu_pushButton</tabstop>
+  <tabstop>history_button1</tabstop>
   <tabstop>role_comboBox_employee</tabstop>
   <tabstop>login_lineEdit_employee</tabstop>
   <tabstop>password_lineEdit_employee</tabstop>
@@ -1320,45 +1334,6 @@
   <tabstop>pharmacyID_comboBox</tabstop>
   <tabstop>add_employee_pushButton</tabstop>
   <tabstop>back_to_view_employee_pushButton</tabstop>
-  <tabstop>remove_lineEdit</tabstop>
-  <tabstop>remove_employees_Button</tabstop>
-  <tabstop>back_to_view_employees</tabstop>
-  <tabstop>deposit_button</tabstop>
-  <tabstop>history_button</tabstop>
-  <tabstop>buy_medicine_button</tabstop>
-  <tabstop>backpack_button</tabstop>
-  <tabstop>back_to_menu_login_pushButton</tabstop>
-  <tabstop>phone_lineEdit</tabstop>
-  <tabstop>amount_lineEdit</tabstop>
-  <tabstop>deposit_confirm_button</tabstop>
-  <tabstop>back_to_buyer_menu_button</tabstop>
-  <tabstop>history_table</tabstop>
-  <tabstop>back_to_buyer_menu_from_history_button</tabstop>
-  <tabstop>pharmacy_selection_table</tabstop>
-  <tabstop>select_pharmacy_button</tabstop>
-  <tabstop>back_to_buyer_menu_from_pharmacy_button</tabstop>
-  <tabstop>medicine_selection_table</tabstop>
-  <tabstop>add_to_backpack_button</tabstop>
-  <tabstop>back_to_pharmacy_selection_button</tabstop>
-  <tabstop>backpack_table</tabstop>
-  <tabstop>accept_medicine_button</tabstop>
-  <tabstop>back_to_buyer_menu_from_backpack_button</tabstop>
-  <tabstop>pharmacy_table</tabstop>
-  <tabstop>add_pharmacy_pushButton_2</tabstop>
-  <tabstop>remove_pharmacy_pushButton</tabstop>
-  <tabstop>back_to_admin_menu_pushButton</tabstop>
-  <tabstop>removeID_lineEdit</tabstop>
-  <tabstop>remove_pharmacy_pushButton_2</tabstop>
-  <tabstop>back_to_view_pharmacy_pushButton_2</tabstop>
-  <tabstop>adress_lineEdit</tabstop>
-  <tabstop>square_lineEdit</tabstop>
-  <tabstop>countItems_lineEdit</tabstop>
-  <tabstop>add_pharmacy_pushButton</tabstop>
-  <tabstop>back_to_view_items_pharmacy_pushButton</tabstop>
-  <tabstop>items_table</tabstop>
-  <tabstop>add_pharmac_item_pushButton</tabstop>
-  <tabstop>remove_pharmacy_item_pushButton</tabstop>
-  <tabstop>back_to_view_menu_admin_pushButton_2</tabstop>
   <tabstop>item_name_lineEdit</tabstop>
   <tabstop>item_price_lineEdit</tabstop>
   <tabstop>item_quantity_lineEdit</tabstop>
@@ -1366,28 +1341,56 @@
   <tabstop>dateEdit</tabstop>
   <tabstop>add_item_pushButton</tabstop>
   <tabstop>back_to_view_pharmacy_pushButton</tabstop>
-  <tabstop>name_pharmacy_item_lineEdit</tabstop>
-  <tabstop>remove_pharmacy_item_pushButton_2</tabstop>
-  <tabstop>back_to_menu_items_pharmacy_pushButton</tabstop>
-  <tabstop>history_button</tabstop>
-  <tabstop>pharmacy_stock_button</tabstop>
-  <tabstop>sell_button</tabstop>
-  <tabstop>buy_comboBox</tabstop>
-  <tabstop>quantity_spinBox</tabstop>
-  <tabstop>back_to_view_buys_menu_pushButton</tabstop>
-  <tabstop>buy_pushButton</tabstop>
-  <tabstop>reglog_lineEdit</tabstop>
-  <tabstop>regpass_lineEdit</tabstop>
-  <tabstop>FIO_lineEdit</tabstop>
-  <tabstop>email_lineEdit</tabstop>
-  <tabstop>Registration_Button</tabstop>
-  <tabstop>cancelToMain_Button</tabstop>
+  <tabstop>Id_pharmacy_lineEdit</tabstop>
+  <tabstop>adress_lineEdit</tabstop>
+  <tabstop>square_lineEdit</tabstop>
+  <tabstop>countItems_lineEdit</tabstop>
+  <tabstop>add_pharmacy_pushButton</tabstop>
+  <tabstop>back_to_view_items_pharmacy_pushButton</tabstop>
+  <tabstop>Admin_users</tabstop>
+  <tabstop>Admin_pharmacy</tabstop>
+  <tabstop>Admin_Item</tabstop>
+  <tabstop>Back_to_login</tabstop>
+  <tabstop>backpack_table</tabstop>
+  <tabstop>accept_medicine_button</tabstop>
+  <tabstop>back_to_buyer_menu_from_backpack_button</tabstop>
+  <tabstop>deposit_button</tabstop>
+  <tabstop>history_button1</tabstop>
+  <tabstop>buy_medicine_button</tabstop>
+  <tabstop>backpack_button</tabstop>
+  <tabstop>back_to_menu_login_pushButton</tabstop>
   <tabstop>view_warehouse_item</tabstop>
   <tabstop>pharmacy_view_item_table</tabstop>
   <tabstop>pharmacy_select_comboBox</tabstop>
   <tabstop>transfer_quantity_spinBox</tabstop>
   <tabstop>transfer_button</tabstop>
   <tabstop>back_to_login</tabstop>
+  <tabstop>phone_lineEdit</tabstop>
+  <tabstop>amount_lineEdit</tabstop>
+  <tabstop>deposit_confirm_button</tabstop>
+  <tabstop>back_to_buyer_menu_button</tabstop>
+  <tabstop>lineEdit_login</tabstop>
+  <tabstop>lineEdit_pass</tabstop>
+  <tabstop>login_button</tabstop>
+  <tabstop>registr_button</tabstop>
+  <tabstop>history_table</tabstop>
+  <tabstop>back_to_buyer_menu_from_history_button</tabstop>
+  <tabstop>reglog_lineEdit</tabstop>
+  <tabstop>regpass_lineEdit</tabstop>
+  <tabstop>FIO_lineEdit</tabstop>
+  <tabstop>email_lineEdit</tabstop>
+  <tabstop>Registration_Button</tabstop>
+  <tabstop>cancelToMain_Button</tabstop>
+  <tabstop>remove_lineEdit</tabstop>
+  <tabstop>remove_employees_Button</tabstop>
+  <tabstop>back_to_view_employees</tabstop>
+  <tabstop>name_pharmacy_item_lineEdit</tabstop>
+  <tabstop>remove_pharmacy_item_pushButton_2</tabstop>
+  <tabstop>back_to_menu_items_pharmacy_pushButton</tabstop>
+  <tabstop>removeID_lineEdit</tabstop>
+  <tabstop>remove_pharmacy_pushButton_2</tabstop>
+  <tabstop>back_to_view_pharmacy_pushButton_2</tabstop>
+  <tabstop>medicine_selection_table</tabstop>
  </tabstops>
  <resources/>
  <connections/>
