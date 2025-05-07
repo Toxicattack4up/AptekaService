@@ -1,0 +1,111 @@
+{
+    "buyerBackpacks": {
+        "qwe": [
+            "таблетка"
+        ]
+    },
+    "buyerBalances": {
+        "": 0,
+        "qwe": 300
+    },
+    "buyerPurchaseHistory": {
+        "qwe": [
+            {
+                "amount": 100,
+                "medicineTitle": "таблетка",
+                "timestamp": "2025-05-07 19:34:08"
+            },
+            {
+                "amount": 100,
+                "medicineTitle": "таблетка",
+                "timestamp": "2025-05-07 19:34:13"
+            }
+        ]
+    },
+    "employees": [
+        {
+            "email": "admin@example.com",
+            "fullName": "Admin User",
+            "login": "admin",
+            "password": "admin123",
+            "pharmacyId": 0,
+            "registrationDate": "2025-05-07",
+            "role": "Администратор"
+        },
+        {
+            "email": "cura@mail.ru",
+            "fullName": "cura",
+            "login": "cura",
+            "password": "cura",
+            "pharmacyId": 0,
+            "registrationDate": "2025-05-07",
+            "role": "Курьер"
+        },
+        {
+            "email": "seller3@mail.ru",
+            "fullName": "seller3",
+            "login": "seller3",
+            "password": "seller",
+            "pharmacyId": 3,
+            "registrationDate": "2025-05-07",
+            "role": "Продавец"
+        },
+        {
+            "email": "seller33@mail.ru",
+            "fullName": "seller33",
+            "login": "seller33",
+            "password": "seller33",
+            "pharmacyId": 3,
+            "registrationDate": "2025-05-07",
+            "role": "Продавец"
+        },
+        {
+            "email": "qwe@mail.ru",
+            "fullName": "qwe",
+            "login": "qwe",
+            "password": "qweqweqwe",
+            "pharmacyId": 0,
+            "registrationDate": "2025-05-07",
+            "role": "Покупатель"
+        }
+    ],
+    "medicines": [
+        {
+            "expirationDate": "2025-05-31",
+            "pharmacyId": 3,
+            "price": 100,
+            "quantity": 27,
+            "recipeRequired": false,
+            "title": "таблетка"
+        }
+    ],
+    "pharmacies": [
+        {
+            "address": "Санкт-Петербург",
+            "id": 3,
+            "maxCapacity": 400,
+            "size": 125
+        }
+    ],
+    "pharmacyRevenues": {
+        "3": 2300
+    },
+    "warehouse": [
+        {
+            "expirationDate": "2025-05-31",
+            "pharmacyId": 0,
+            "price": 150,
+            "quantity": 500,
+            "recipeRequired": false,
+            "title": "парацетамол"
+        },
+        {
+            "expirationDate": "2025-05-31",
+            "pharmacyId": 0,
+            "price": 100,
+            "quantity": 950,
+            "recipeRequired": false,
+            "title": "таблетка"
+        }
+    ]
+}

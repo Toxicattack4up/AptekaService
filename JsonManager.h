@@ -1,22 +1,35 @@
 #ifndef JSONMANAGER_H
 #define JSONMANAGER_H
 
-#include <QList>
-#include <QMap>
 #include "User.h"
-#include "Pharmacy.h"
 #include "PharmacyItem.h"
+#include "Pharmacy.h"
+#include "centralwarehouse.h"
+#include <QList>
+#include <QString>
+#include <QMap>
+#include <QDateTime>
 
 class JsonManager {
 public:
+    struct Purchase {
+        QDateTime timestamp;
+        QString medicineTitle;
+        double amount;
+    };
+
     JsonManager();
-    void addEmployee(const QString& role, const QString& login, const QString& password,
-                     const QString& fullName, const QString& email, int pharmacyId = 0);
-    bool removeEmployee(const QString& login);
-    QList<User> getEmployee() const;
+    JsonManager(CentralWarehouse* warehouse); // Новый конструктор
+    void loadFromJson();
+    bool saveAllToJson();
+    void addToBackpack(const QString& login, const QString& medicineTitle);
+    void removeFromBackpack(const QString& login, const QString& medicineTitle);
+    QStringList getBackpack(const QString& login) const;
+    void setBuyerBalance(const QString& login, double balance);
+    QList<Purchase> getPurchaseHistory(const QString& login) const;
     void addMedicine(const PharmacyItem& item);
     bool moveMedicineToPharmacy(const QString& title, int quantity, int pharmacyId);
-    bool removeMedicine(const QString& title, int pharmacyId = 0);
+    bool removeMedicine(const QString& title, int pharmacyId);
     bool removePharmacy(int id);
     void addPharmacy(const Pharmacy& pharmacy);
     QList<PharmacyItem> getMedicine() const;
@@ -30,16 +43,21 @@ public:
     QList<User> searchEmployee(const QString& role, const QString& login, const QString& fullName, const QString& email);
     int getPharmacyStock(int pharmacyId) const;
     QList<PharmacyItem> getWarehouseItems() const;
+    void addEmployee(const QString& role, const QString& login, const QString& password,
+                     const QString& fullName, const QString& email, int pharmacyId);
+    bool removeEmployee(const QString& login);
+    QList<User> getEmployee() const;
 
 private:
-    void loadFromJson();
-    void saveAllToJson();
     QList<User> employees;
     QList<PharmacyItem> medicines;
     QList<PharmacyItem> warehouseItems;
     QList<Pharmacy> pharmacies;
     QMap<QString, double> buyerBalances;
     QMap<int, double> pharmacyRevenues;
+    QMap<QString, QStringList> buyerBackpacks;
+    QMap<QString, QList<Purchase>> buyerPurchaseHistory;
+    CentralWarehouse* centralWarehouse; // Указатель на CentralWarehouse
 };
 
 #endif // JSONMANAGER_H

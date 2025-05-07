@@ -2,10 +2,8 @@
 #include "logger.h"
 #include <QMessageBox>
 
-// Конструктор центрального склада
 CentralWarehouse::CentralWarehouse() {}
 
-// Добавление лекарства на склад
 void CentralWarehouse::addMedicine(const PharmacyItem &item) {
     if (item.getTitle().isEmpty()) {
         showError("Ошибка: Название лекарства не может быть пустым!");
@@ -20,20 +18,20 @@ void CentralWarehouse::addMedicine(const PharmacyItem &item) {
         return;
     }
 
-    for (PharmacyItem &existing : medicines) {
-        if (existing.getTitle() == item.getTitle()) {
+    for (PharmacyItem& existing : medicines) {
+        if (existing.getTitle() == item.getTitle() &&
+            existing.getPrice() == item.getPrice() &&
+            existing.isRecipeRequired() == item.isRecipeRequired() &&
+            existing.getExpirationDate() == item.getExpirationDate()) {
             existing.setQuantity(existing.getQuantity() + item.getQuantity());
-            Logger::instance().log("CentralWarehouse", QString("Добавлено %1 единиц %2 на склад (всего: %3)")
-                                                           .arg(item.getQuantity()).arg(item.getTitle()).arg(existing.getQuantity()));
+            Logger::instance().log("CentralWarehouse", QString("Добавлено %1 единиц %2").arg(item.getQuantity()).arg(item.getTitle()));
             return;
         }
     }
     medicines.append(item);
-    Logger::instance().log("CentralWarehouse", QString("Добавлено новое лекарство %1 (%2 единиц) на склад")
-                                                   .arg(item.getTitle()).arg(item.getQuantity()));
+    Logger::instance().log("CentralWarehouse", QString("Добавлено новое лекарство %1").arg(item.getTitle()));
 }
 
-// Перемещение лекарства в аптеку
 bool CentralWarehouse::transferMedicine(const QString &title, int quantity, int pharmacyId, int maxCapacity) {
     if (title.isEmpty()) {
         showError("Ошибка: Название лекарства не может быть пустым!");
@@ -79,13 +77,11 @@ bool CentralWarehouse::transferMedicine(const QString &title, int quantity, int 
     return false;
 }
 
-// Получение списка всех лекарств на складе
 QList<PharmacyItem> CentralWarehouse::getMedicines() const {
     Logger::instance().log("CentralWarehouse", QString("Запрошен список лекарств: %1 элементов").arg(medicines.size()));
     return medicines;
 }
 
-// Получение количества лекарства по названию
 int CentralWarehouse::getMedicineQuantity(const QString &title) const {
     for (const PharmacyItem &item : medicines) {
         if (item.getTitle() == title) {
@@ -97,7 +93,6 @@ int CentralWarehouse::getMedicineQuantity(const QString &title) const {
     return 0;
 }
 
-// Поиск лекарства по названию
 PharmacyItem CentralWarehouse::findMedicine(const QString &title) const {
     for (const PharmacyItem &item : medicines) {
         if (item.getTitle() == title) {
@@ -109,7 +104,31 @@ PharmacyItem CentralWarehouse::findMedicine(const QString &title) const {
     return PharmacyItem("", 0, false, QDate(), 0);
 }
 
-// Вывод ошибки пользователю
+void CentralWarehouse::removeMedicine(const QString& title, int quantity) {
+    for (int i = medicines.size() - 1; i >= 0; --i) {
+        if (medicines[i].getTitle().compare(title, Qt::CaseInsensitive) == 0) {
+            int currentQuantity = medicines[i].getQuantity();
+            if (currentQuantity <= quantity) {
+                quantity -= currentQuantity;
+                medicines.removeAt(i);
+                Logger::instance().log("CentralWarehouse", QString("Удалено %1 единиц %2").arg(currentQuantity).arg(title));
+            } else {
+                medicines[i].setQuantity(currentQuantity - quantity);
+                Logger::instance().log("CentralWarehouse", QString("Удалено %1 единиц %2").arg(quantity).arg(title));
+                return;
+            }
+        }
+    }
+    if (quantity > 0) {
+        Logger::instance().log("CentralWarehouse", QString("Ошибка: Не удалось удалить %1 единиц %2, недостаточно на складе").arg(quantity).arg(title));
+    }
+}
+
+void CentralWarehouse::clearMedicines() {
+    medicines.clear();
+    Logger::instance().log("CentralWarehouse", "Склад очищен");
+}
+
 void CentralWarehouse::showError(const QString& message) {
     QMessageBox::warning(nullptr, "Ошибка", message);
     Logger::instance().log("CentralWarehouse", message);

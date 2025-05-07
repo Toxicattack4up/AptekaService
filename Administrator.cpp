@@ -94,7 +94,7 @@ void Administrator::addMedicineToWarehouse(const PharmacyItem& item) {
 
 // Удаление лекарства из системы
 bool Administrator::removeMedicine(const QString& title) {
-    if (jsonManager.removeMedicine(title)) {
+    if (jsonManager.removeMedicine(title, 0)) {
         Logger::instance().log("Administrator", QString("Удалено лекарство %1").arg(title));
         return true;
     }
