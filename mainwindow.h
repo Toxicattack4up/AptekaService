@@ -61,6 +61,26 @@ private slots:
 
     void on_back_to_login_clicked();
 
+    void on_back_to_buyer_menu_from_backpack_button_clicked();
+
+    void on_deposit_button_clicked();
+
+    void on_buy_medicine_button_clicked();
+
+    void on_backpack_button_clicked();
+
+    void on_back_to_buyer_menu_button_clicked();
+
+    void on_back_to_buyer_menu_from_history_button_clicked();
+
+    void on_select_pharmacy_button_clicked();
+
+    void on_back_to_buyer_menu_from_pharmacy_button_clicked();
+
+    void on_back_to_pharmacy_selection_button_clicked();
+
+    void on_add_to_backpack_button_clicked();
+
 private:
     void loadEmployeesToTable();
     void loadPharmacysToTable();
