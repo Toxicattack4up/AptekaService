@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>13</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -385,7 +385,35 @@
        <layout class="QGridLayout" name="gridLayout_15">
         <item row="0" column="0">
          <layout class="QGridLayout" name="Buyer_menu">
-          <item row="0" column="0">
+          <item row="2" column="1">
+           <widget class="QPushButton" name="backpack_button">
+            <property name="text">
+             <string>Рюкзак</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="history_button">
+            <property name="text">
+             <string>История покупок</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="buy_medicine_button">
+            <property name="text">
+             <string>Купить лекарство</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="deposit_button">
+            <property name="text">
+             <string>Пополнить счет</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
            <widget class="QPushButton" name="back_to_menu_login_pushButton">
             <property name="text">
              <string>Выйти</string>
@@ -393,10 +421,92 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="Buy_pharmacy_item_pushButton">
-            <property name="text">
-             <string>Купить лекарство</string>
+           <widget class="QLCDNumber" name="money_lcd">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="money_label">
+            <property name="text">
+             <string>В данный момент на вашем счету:</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="select_pharmacy">
+       <layout class="QGridLayout" name="gridLayout_pharmacy">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Pharmacy_selection_layout">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_buyer_menu_from_pharmacy_button">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="select_pharmacy_button">
+            <property name="text">
+             <string>Выбрать</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QTableWidget" name="pharmacy_selection_table">
+            <column>
+             <property name="text">
+              <string>ID</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Адрес</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="select_medicine">
+       <layout class="QGridLayout" name="gridLayout_medicine">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Medicine_selection_layout">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_pharmacy_selection_button">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="add_to_backpack_button">
+            <property name="text">
+             <string>Купить</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QTableWidget" name="medicine_selection_table">
+            <column>
+             <property name="text">
+              <string>Название</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Цена</string>
+             </property>
+            </column>
            </widget>
           </item>
          </layout>
@@ -638,6 +748,105 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="courier_menu_warehouse">
+       <layout class="QGridLayout" name="gridLayout_20">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="courier_menu">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="info_warehouse_label">
+            <property name="text">
+             <string>Общий склад</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QTableWidget" name="view_warehouse_item"/>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QLabel" name="info_pharmacy_label">
+            <property name="text">
+             <string>Аптеки</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QTableWidget" name="pharmacy_view_item_table">
+            <column>
+             <property name="text">
+              <string>ID</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Адрес</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Товаров</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Вместимость</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="pharmacy_select_label">
+            <property name="text">
+             <string>Выберите аптеку:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QComboBox" name="pharmacy_select_comboBox"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="quantity_label">
+            <property name="text">
+             <string>Количество:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="transfer_quantity_spinBox">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QPushButton" name="back_to_login">
+            <property name="text">
+             <string>Выход</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QPushButton" name="transfer_button">
+            <property name="text">
+             <string>Переместить</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="add_items">
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="1">
@@ -704,7 +913,7 @@
            <widget class="QDateEdit" name="dateEdit">
             <property name="dateTime">
              <datetime>
-              <hour>18</hour>
+              <hour>12</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2025</year>
@@ -811,7 +1020,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
+          <item row="1" column="1">
            <widget class="QPushButton" name="logout_button">
             <property name="text">
              <string>Выход из аккаунта</string>
@@ -969,98 +1178,115 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="courier_menu_warehouse">
-       <layout class="QGridLayout" name="gridLayout_20">
+      <widget class="QWidget" name="deposit_menu">
+       <layout class="QGridLayout" name="gridLayout_deposit">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="courier_menu">
-          <item row="0" column="0" colspan="2">
-           <widget class="QLabel" name="info_warehouse_label">
+         <layout class="QGridLayout" name="Deposit_menu_layout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="phone_label">
             <property name="text">
-             <string>Общий склад</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignCenter</set>
+             <string>Введите номер телефона:</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="2">
-           <widget class="QTableWidget" name="view_warehouse_item"/>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <widget class="QLabel" name="info_pharmacy_label">
-            <property name="text">
-             <string>Аптеки</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignCenter</set>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="phone_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2">
-           <widget class="QTableWidget" name="pharmacy_view_item_table">
+          <item row="1" column="0">
+           <widget class="QLabel" name="amount_label">
+            <property name="text">
+             <string>Введите сумму:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="amount_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="back_to_buyer_menu_button">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="deposit_confirm_button">
+            <property name="text">
+             <string>Пополнить</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="backpack">
+       <layout class="QGridLayout" name="gridLayout_backpack">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="Backpack_layout">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="backpack_table">
             <column>
              <property name="text">
-              <string>ID</string>
+              <string>Название</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_buyer_menu_from_backpack_button">
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="accept_medicine_button">
+            <property name="text">
+             <string>Принять лекарство</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="purchase_history">
+       <layout class="QGridLayout" name="gridLayout_history">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="History_layout">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="history_table">
+            <column>
+             <property name="text">
+              <string>Дата и время</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Адрес</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Товаров</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Вместимость</string>
+              <string>Сумма</string>
              </property>
             </column>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="pharmacy_select_label">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="back_to_buyer_menu_from_history_button">
             <property name="text">
-             <string>Выберите аптеку:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QComboBox" name="pharmacy_select_comboBox"/>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="quantity_label">
-            <property name="text">
-             <string>Количество:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QSpinBox" name="transfer_quantity_spinBox">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-            <property name="value">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QPushButton" name="back_to_login">
-            <property name="text">
-             <string>Выход</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QPushButton" name="transfer_button">
-            <property name="text">
-             <string>Переместить</string>
+             <string>Назад</string>
             </property>
            </widget>
           </item>
@@ -1097,8 +1323,26 @@
   <tabstop>remove_lineEdit</tabstop>
   <tabstop>remove_employees_Button</tabstop>
   <tabstop>back_to_view_employees</tabstop>
+  <tabstop>deposit_button</tabstop>
+  <tabstop>history_button</tabstop>
+  <tabstop>buy_medicine_button</tabstop>
+  <tabstop>backpack_button</tabstop>
   <tabstop>back_to_menu_login_pushButton</tabstop>
-  <tabstop>Buy_pharmacy_item_pushButton</tabstop>
+  <tabstop>phone_lineEdit</tabstop>
+  <tabstop>amount_lineEdit</tabstop>
+  <tabstop>deposit_confirm_button</tabstop>
+  <tabstop>back_to_buyer_menu_button</tabstop>
+  <tabstop>history_table</tabstop>
+  <tabstop>back_to_buyer_menu_from_history_button</tabstop>
+  <tabstop>pharmacy_selection_table</tabstop>
+  <tabstop>select_pharmacy_button</tabstop>
+  <tabstop>back_to_buyer_menu_from_pharmacy_button</tabstop>
+  <tabstop>medicine_selection_table</tabstop>
+  <tabstop>add_to_backpack_button</tabstop>
+  <tabstop>back_to_pharmacy_selection_button</tabstop>
+  <tabstop>backpack_table</tabstop>
+  <tabstop>accept_medicine_button</tabstop>
+  <tabstop>back_to_buyer_menu_from_backpack_button</tabstop>
   <tabstop>pharmacy_table</tabstop>
   <tabstop>add_pharmacy_pushButton_2</tabstop>
   <tabstop>remove_pharmacy_pushButton</tabstop>
@@ -1128,7 +1372,6 @@
   <tabstop>history_button</tabstop>
   <tabstop>pharmacy_stock_button</tabstop>
   <tabstop>sell_button</tabstop>
-  <tabstop>logout_button</tabstop>
   <tabstop>buy_comboBox</tabstop>
   <tabstop>quantity_spinBox</tabstop>
   <tabstop>back_to_view_buys_menu_pushButton</tabstop>

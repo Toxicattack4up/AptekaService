@@ -1,0 +1,2422 @@
+[
+    {
+        "message": "Файл employees.json не найден, будет создан новый",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Данные сохранены в employees.json",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Данные сохранены в employees.json",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Добавлен сотрудник admin (Администратор), аптека ID 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Создана базовая учётная запись администратора",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:02"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:05"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:05"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:05"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:16:05"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:16:05"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:13"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:21"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:21"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:21"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:21"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:21"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:22"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:22"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:22"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:23"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:23"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:23"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:20:23"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:20:23"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:51"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:57"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:57"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:58"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:58"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:58"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:58"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:58"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:58"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:59"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:59"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:59"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:23:59"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:23:59"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:24:00"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:24"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:29"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:29"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:30"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:30"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:30"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:30"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:30"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:30"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:31"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:31"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:31"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:31"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:31"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:32"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:32"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:32"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:48:32"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:48:32"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 10:49:03"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:07:56"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:01"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:01"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:02"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:02"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:02"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:02"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:02"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:02"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:03"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:03"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:03"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:03"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:03"
+    },
+    {
+        "message": "Выбрана роль: ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:04"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:04"
+    },
+    {
+        "message": "Выбрана роль: Продавец",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:04"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:04"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:04"
+    },
+    {
+        "message": "Открыта форма добавления сотрудника",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:04"
+    },
+    {
+        "message": "Выбрана роль: Курьер",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:07"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Выбрана роль: ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Выбрана роль: Продавец",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Возврат к списку сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:08"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:11"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:11"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:11"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:11"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:11"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:12"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:12"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:12"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:12"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:12"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:15"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:15"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:15"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:15"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:15"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:22"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:26"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:26"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:27"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:27"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:27"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:27"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:27"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:27"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:28"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:28"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:38"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:38"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:38"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:08:38"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:08:38"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:15"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:20"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:21"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:21"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:21"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:21"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:21"
+    },
+    {
+        "message": "Выбрана роль: ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:22"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:22"
+    },
+    {
+        "message": "Выбрана роль: Продавец",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:22"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:22"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:22"
+    },
+    {
+        "message": "Открыта форма добавления сотрудника",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:22"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Выбрана роль: ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Выбрана роль: Продавец",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Возврат к списку сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:23"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:25"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:26"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:26"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:27"
+    },
+    {
+        "message": "Обновлен ComboBox продажи",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:27"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:28"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:28"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:34"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:34"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:34"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:35"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:35"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:54"
+    },
+    {
+        "message": "Обновлен ComboBox продажи",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:54"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:25:58"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:25:58"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:35"
+    },
+    {
+        "message": "Ошибка авторизации: неверный логин admin или пароль",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:40"
+    },
+    {
+        "message": "Ошибка авторизации: неверный логин admin",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:41"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:45"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:45"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:46"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:47"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:47"
+    },
+    {
+        "message": "Обновлена таблица лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:47"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:49"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:49"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:49"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:49"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:49"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:50"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:50"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:50"
+    },
+    {
+        "message": "Ошибка авторизации: неверный логин  или пароль",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:26:56"
+    },
+    {
+        "message": "Ошибка авторизации: неверный логин ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:26:56"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:03"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:04"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:04"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:09"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:09"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:09"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:09"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:09"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:11"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:11"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:13"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:13"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:16"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:16"
+    },
+    {
+        "message": "Обновлена таблица лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:16"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:17"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:17"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:17"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:27:17"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:27:17"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:18"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:24"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:24"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:25"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:25"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:25"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:25"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:26"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:26"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:28"
+    },
+    {
+        "message": "Обновлен ComboBox продажи",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:28"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:29"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:29"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:43:32"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:32"
+    },
+    {
+        "message": "Обновлена таблица лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:43:32"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:05"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:40"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:40"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:41"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:44"
+    },
+    {
+        "message": "Обновлен ComboBox продажи",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:44"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:45"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:45"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:45"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:45"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:45"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:46"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:46"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:48"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:48"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:49"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:49"
+    },
+    {
+        "message": "Обновлена таблица лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:49"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:50"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:50"
+    },
+    {
+        "message": "Обновлена таблица аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:50"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:44:50"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:44:50"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:16"
+    },
+    {
+        "message": "Успешная авторизация пользователя admin",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Пользователь admin (Администратор) авторизован",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:22"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:23"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:23"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:24"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:24"
+    },
+    {
+        "message": "Обновлена таблица лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:24"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:24"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:24"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:25"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:25"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:25"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:25"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:26"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:26"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:26"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:26"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:26"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:27"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:27"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:27"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:27"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:27"
+    },
+    {
+        "message": "Выбрана роль: ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:29"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:29"
+    },
+    {
+        "message": "Выбрана роль: Продавец",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:29"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:29"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:29"
+    },
+    {
+        "message": "Открыта форма добавления сотрудника",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:29"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Выбрана роль: ",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Выбрана роль: Продавец",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Возврат к списку сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Обновлена таблица сотрудников",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 11:45:30"
+    },
+    {
+        "message": "Загружено из employees.json: 1 сотрудников, 0 лекарств, 0 на складе, 0 аптек, 0 операций",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Приложение запущено",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Инициализирован role_comboBox_employee",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Запрошен список сотрудников: 1",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Таблица сотрудников загружена: 1 записей",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Запрошен список аптек: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Таблица аптек: нет аптек",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Таблица лекарств: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "ComboBox лекарств: пользователь не связан с аптекой",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Запрошен список лекарств на складе: 0",
+        "source": "JsonManager",
+        "timestamp": "2025-05-07 12:03:14"
+    },
+    {
+        "message": "Таблица склада: нет лекарств",
+        "source": "MainWindow",
+        "timestamp": "2025-05-07 12:03:14"
+    }
+]

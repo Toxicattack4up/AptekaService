@@ -1,0 +1,25 @@
+{
+    "buyerBalances": {
+    },
+    "employees": [
+        {
+            "email": "admin@example.com",
+            "fullName": "Admin User",
+            "login": "admin",
+            "password": "admin123",
+            "pharmacyId": 0,
+            "registrationDate": "2025-05-07",
+            "role": "Администратор"
+        }
+    ],
+    "medicines": [
+    ],
+    "operations": [
+    ],
+    "pharmacies": [
+    ],
+    "pharmacyRevenues": {
+    },
+    "warehouse": [
+    ]
+}

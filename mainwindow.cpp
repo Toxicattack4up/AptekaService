@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Аптечная система");
     Logger::instance().log("MainWindow", "Приложение запущено");
 
+    ui->stackedWidget->setCurrentIndex(0);
     // Инициализация ролей
     initializeRoleComboBox();
     // Подключение сигнала для изменения роли
@@ -378,12 +379,12 @@ void MainWindow::on_login_button_clicked() {
         loadEmployeesToTable();
         ui->stackedWidget->setCurrentIndex(1);
     } else if (role == "Продавец") {
-        ui->stackedWidget->setCurrentIndex(12);
+        ui->stackedWidget->setCurrentIndex(15);
     } else if (role == "Покупатель") {
         ui->stackedWidget->setCurrentIndex(5);
     } else if (role == "Курьер") {
         loadCourierToTable();
-        ui->stackedWidget->setCurrentIndex(15);
+        ui->stackedWidget->setCurrentIndex(12);
     } else {
         QMessageBox::warning(this, "Ошибка", "Неизвестная роль");
         Logger::instance().log("MainWindow", QString("Ошибка: неизвестная роль %1 для %2").arg(role).arg(login));
@@ -395,7 +396,7 @@ void MainWindow::on_login_button_clicked() {
 
 // переход к форме регистрации
 void MainWindow::on_registr_button_clicked() {
-    ui->stackedWidget->setCurrentIndex(14);
+    ui->stackedWidget->setCurrentIndex(17);
 }
 
 // регистрация нового покупателя
@@ -451,12 +452,12 @@ void MainWindow::on_back_to_view_buys_menu_pushButton_clicked() {
 // переход к списку лекарств
 void MainWindow::on_back_to_view_pharmacy_pushButton_clicked() {
     loadMedicinesToTable();
-    ui->stackedWidget->setCurrentIndex(9);
+    ui->stackedWidget->setCurrentIndex(11);
 }
 
 // возврат к списку аптек
 void MainWindow::on_back_to_view_items_pharmacy_pushButton_clicked() {
-    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget->setCurrentIndex(8);
     loadPharmacysToTable();
 }
 
@@ -478,7 +479,7 @@ void MainWindow::on_back_to_view_employees_clicked() {
 
 // возврат к списку лекарств
 void MainWindow::on_back_to_menu_items_pharmacy_pushButton_clicked() {
-    ui->stackedWidget->setCurrentIndex(9);
+    ui->stackedWidget->setCurrentIndex(11);
 }
 
 // возврат к меню администратора
@@ -531,17 +532,17 @@ void MainWindow::on_add_pharmac_item_pushButton_clicked() {
     ui->item_name_lineEdit->clear();
     ui->item_price_lineEdit->clear();
     ui->item_quantity_lineEdit->clear();
-    ui->stackedWidget->setCurrentIndex(10);
+    ui->stackedWidget->setCurrentIndex(13);
 }
 
 // переход к удалению лекарства
 void MainWindow::on_remove_pharmacy_item_pushButton_clicked() {
-    ui->stackedWidget->setCurrentIndex(11);
+    ui->stackedWidget->setCurrentIndex(14);
 }
 
 // переход к добавлению аптеки
 void MainWindow::on_add_pharmacy_pushButton_2_clicked() {
-    ui->stackedWidget->setCurrentIndex(8);
+    ui->stackedWidget->setCurrentIndex(10);
     ui->Id_pharmacy_lineEdit->clear();
     ui->adress_lineEdit->clear();
     ui->square_lineEdit->clear();
@@ -550,13 +551,13 @@ void MainWindow::on_add_pharmacy_pushButton_2_clicked() {
 
 // переход к управлению аптеками
 void MainWindow::on_Admin_pharmacy_clicked() {
-    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget->setCurrentIndex(8);
     loadPharmacysToTable();
 }
 
 // переход к управлению лекарствами
 void MainWindow::on_Admin_Item_clicked() {
-    ui->stackedWidget->setCurrentIndex(9);
+    ui->stackedWidget->setCurrentIndex(11);
     loadMedicinesToTable();
 }
 
@@ -719,13 +720,13 @@ void MainWindow::on_remove_pharmacy_pushButton_2_clicked() {
 
 // возврат к списку аптек
 void MainWindow::on_back_to_view_pharmacy_pushButton_2_clicked() {
-    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget->setCurrentIndex(8);
     loadPharmacysToTable();
 }
 
 // переход к удалению аптеки
 void MainWindow::on_remove_pharmacy_pushButton_clicked() {
-    ui->stackedWidget->setCurrentIndex(7);
+    ui->stackedWidget->setCurrentIndex(9);
 }
 
 // удаление лекарства
@@ -803,42 +804,48 @@ void MainWindow::on_buy_pushButton_clicked() {
     }
 }
 
-// отображение истории операций
-void MainWindow::on_history_button_clicked() {
-    int pharmacyId = currentUser.getPharmacyId();
-    if (pharmacyId <= 0 && currentUserRole != UserRoleHelper::fromString("Администратор")) {
-        QMessageBox::warning(this, "Ошибка", "У пользователя не указана аптека");
-        Logger::instance().log("MainWindow", "Ошибка: у пользователя не указана аптека");
-        return;
-    }
-    QString historyText = "История операций:\n";
-    const auto& operations = HistoryManager::instance().getOperations(pharmacyId);
-    if (operations.isEmpty()) {
-        historyText += "Нет записей.\n";
-    } else {
-        for (const auto& op : operations) {
-            historyText += QString("Пользователь: %1, Действие: %2, Детали: %3, Время: %4\n")
-                               .arg(op.userLogin)
-                               .arg(op.action)
-                               .arg(op.details)
-                               .arg(op.timestamp.toString("yyyy-MM-dd HH:mm:ss"));
-        }
-    }
-    // Статистика продаж по датам
-    historyText += "\nСтатистика продаж по датам:\n";
-    QMap<QDate, int> salesByDate = HistoryManager::instance().getSalesByDate(pharmacyId);
-    if (salesByDate.isEmpty()) {
-        historyText += "Нет продаж.\n";
-    } else {
-        for (auto it = salesByDate.constBegin(); it != salesByDate.constEnd(); ++it) {
-            historyText += QString("Дата: %1, Количество продаж: %2\n")
-                               .arg(it.key().toString("yyyy-MM-dd"))
-                               .arg(it.value());
-        }
-    }
-    QMessageBox::information(this, "История операций", historyText);
-    Logger::instance().log("MainWindow", "Отображена история операций");
+// переход в меню истории
+void MainWindow::on_history_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(20);
 }
+
+// отображение истории операций
+// void MainWindow::on_history_button_clicked() {
+//     int pharmacyId = currentUser.getPharmacyId();
+//     if (pharmacyId <= 0 && currentUserRole != UserRoleHelper::fromString("Администратор")) {
+//         QMessageBox::warning(this, "Ошибка", "У пользователя не указана аптека");
+//         Logger::instance().log("MainWindow", "Ошибка: у пользователя не указана аптека");
+//         return;
+//     }
+//     QString historyText = "История операций:\n";
+//     const auto& operations = HistoryManager::instance().getOperations(pharmacyId);
+//     if (operations.isEmpty()) {
+//         historyText += "Нет записей.\n";
+//     } else {
+//         for (const auto& op : operations) {
+//             historyText += QString("Пользователь: %1, Действие: %2, Детали: %3, Время: %4\n")
+//                                .arg(op.userLogin)
+//                                .arg(op.action)
+//                                .arg(op.details)
+//                                .arg(op.timestamp.toString("yyyy-MM-dd HH:mm:ss"));
+//         }
+//     }
+//     // Статистика продаж по датам
+//     historyText += "\nСтатистика продаж по датам:\n";
+//     QMap<QDate, int> salesByDate = HistoryManager::instance().getSalesByDate(pharmacyId);
+//     if (salesByDate.isEmpty()) {
+//         historyText += "Нет продаж.\n";
+//     } else {
+//         for (auto it = salesByDate.constBegin(); it != salesByDate.constEnd(); ++it) {
+//             historyText += QString("Дата: %1, Количество продаж: %2\n")
+//                                .arg(it.key().toString("yyyy-MM-dd"))
+//                                .arg(it.value());
+//         }
+//     }
+//     QMessageBox::information(this, "История операций", historyText);
+//     Logger::instance().log("MainWindow", "Отображена история операций");
+// }
 
 // отображение товаров на складе аптеки
 void MainWindow::on_pharmacy_stock_button_clicked() {
@@ -873,7 +880,7 @@ void MainWindow::on_pharmacy_stock_button_clicked() {
 void MainWindow::on_sell_button_clicked() {
     ui->quantity_spinBox->setValue(1);
     loadMedicinesToComboBox();
-    ui->stackedWidget->setCurrentIndex(13);
+    ui->stackedWidget->setCurrentIndex(16);
 }
 
 // выход на экран авторизации
@@ -1006,3 +1013,67 @@ void MainWindow::on_back_to_login_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
+
+// выход из меню рюкзака в главное меню покупателя
+void MainWindow::on_back_to_buyer_menu_from_backpack_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+// меню пополнения баланса
+void MainWindow::on_deposit_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(18);
+}
+
+// Меню покупки (выбора аптеки)
+void MainWindow::on_buy_medicine_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+}
+
+// переход в меню рюкзака
+void MainWindow::on_backpack_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(19);
+}
+
+// выход из меню пополнения в главное меню покупателя
+void MainWindow::on_back_to_buyer_menu_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+// выход из меню истории в главное меню покупателя
+void MainWindow::on_back_to_buyer_menu_from_history_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+// переход в меню покупки из меню выбора аптеки в которой покупаем
+void MainWindow::on_select_pharmacy_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+
+    // Добавить логику обновления таблица лекарств определенной аптеки по ее id
+}
+
+// выход из меню выбора аптеки в главное меню покупателя
+void MainWindow::on_back_to_buyer_menu_from_pharmacy_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+// выход из меню выбора лекарства для покупки в меню выбора аптеки
+void MainWindow::on_back_to_pharmacy_selection_button_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+}
+
+// кнопка совершения покупки покуптелем
+void MainWindow::on_add_to_backpack_button_clicked()
+{
+    // Добавить логику покупки, чтобы когда пользователь делает покупку в листах аптеки уменьшалось количество
+    // а в случае когда лекарство закончится, то обновить таблицу
+}
+
