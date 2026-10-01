@@ -72,3 +72,14 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+
+# Build trees and local data
+build/
+build-*/
+.qtc_clangd/
+*.user
+*.user.*
+data.json
+employees.json
+logs.json
+*.log
