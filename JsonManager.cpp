@@ -1,14 +1,25 @@
 #include "JsonManager.h"
+#include "PasswordUtil.h"
 #include "logger.h"
 #include "historymanager.h"
 #include "centralwarehouse.h"
-#include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFile>
 #include <QDir>
 #include <QFileInfo>
+#include <QStandardPaths>
+#include <QCoreApplication>
+
+namespace {
+QString dataFilePath()
+{
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir().mkpath(dir);
+    return dir + "/data.json";
+}
+}
 
 JsonManager::JsonManager() : centralWarehouse(nullptr) {
     loadFromJson();
@@ -41,7 +52,7 @@ JsonManager::JsonManager(CentralWarehouse* warehouse) : centralWarehouse(warehou
 }
 
 void JsonManager::loadFromJson() {
-    QFile file("data.json");
+    QFile file(dataFilePath());
     QFileInfo fileInfo(file);
     if (!file.exists()) {
         Logger::instance().log("JsonManager", "Файл data.json не найден, будет создан новый");
@@ -50,12 +61,10 @@ void JsonManager::loadFromJson() {
     }
     if (!fileInfo.isReadable()) {
         Logger::instance().log("JsonManager", "Ошибка: Нет прав на чтение файла data.json");
-        QMessageBox::critical(nullptr, "Ошибка", "Нет прав на чтение файла data.json!");
         return;
     }
     if (!file.open(QIODevice::ReadOnly)) {
         Logger::instance().log("JsonManager", QString("Ошибка открытия data.json для чтения: %1").arg(file.errorString()));
-        QMessageBox::critical(nullptr, "Ошибка", QString("Не удалось открыть data.json: %1").arg(file.errorString()));
         return;
     }
     QByteArray data = file.readAll();
@@ -68,7 +77,6 @@ void JsonManager::loadFromJson() {
     QJsonDocument doc = QJsonDocument::fromJson(data);
     if (doc.isNull()) {
         Logger::instance().log("JsonManager", "Ошибка парсинга data.json: некорректный JSON");
-        QMessageBox::critical(nullptr, "Ошибка", "Некорректный формат файла data.json!");
         return;
     }
     QJsonObject root = doc.object();
@@ -313,31 +321,27 @@ bool JsonManager::saveAllToJson() {
     root["buyerPurchaseHistory"] = histories;
 
     // Запись данных в файл
-    QFile file("data.json");
+    QFile file(dataFilePath());
     QFileInfo fileInfo(file);
     QDir dir = fileInfo.absoluteDir();
     if (!dir.exists()) {
         if (!dir.mkpath(".")) {
             Logger::instance().log("JsonManager", "Ошибка: Не удалось создать директорию для data.json");
-            QMessageBox::critical(nullptr, "Ошибка", "Не удалось создать директорию для data.json!");
             return false;
         }
     }
     if (!fileInfo.isWritable() && file.exists()) {
         Logger::instance().log("JsonManager", "Ошибка: Нет прав на запись в файл data.json");
-        QMessageBox::critical(nullptr, "Ошибка", "Нет прав на запись в файл data.json!");
         return false;
     }
     if (!file.open(QIODevice::WriteOnly)) {
         Logger::instance().log("JsonManager", QString("Не удалось открыть файл data.json для записи: %1").arg(file.errorString()));
-        QMessageBox::critical(nullptr, "Ошибка", QString("Не удалось открыть data.json: %1").arg(file.errorString()));
         return false;
     }
 
     QJsonDocument doc(root);
     if (file.write(doc.toJson()) == -1) {
         Logger::instance().log("JsonManager", QString("Ошибка при записи данных в файл data.json: %1").arg(file.errorString()));
-        QMessageBox::critical(nullptr, "Ошибка", QString("Ошибка записи в data.json: %1").arg(file.errorString()));
         file.close();
         return false;
     }
@@ -598,8 +602,12 @@ QList<Pharmacy> JsonManager::getPharmacy() const {
 }
 
 QString JsonManager::validateUser(const QString& login, const QString& password) {
-    for (const User& user : employees) {
-        if (user.getLogin() == login && user.getPassword() == password) {
+    for (User& user : employees) {
+        if (user.getLogin() == login && PasswordUtil::verifyPassword(password, user.getPassword())) {
+            if (!PasswordUtil::isHashed(user.getPassword())) {
+                user.setPassword(PasswordUtil::hashPassword(password));
+                saveAllToJson();
+            }
             Logger::instance().log("JsonManager", QString("Успешная авторизация пользователя %1").arg(login));
             return UserRoleHelper::toString(user.getRole());
         }
@@ -742,19 +750,16 @@ void JsonManager::addEmployee(const QString& role, const QString& login, const Q
                               const QString& fullName, const QString& email, int pharmacyId) {
     if (login.isEmpty() || password.isEmpty() || fullName.isEmpty() || email.isEmpty()) {
         Logger::instance().log("JsonManager", "Ошибка: Все поля должны быть заполнены");
-        QMessageBox::warning(nullptr, "Ошибка", "Все поля должны быть заполнены!");
         return;
     }
     QRegularExpression emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$)");
     if (!emailRegex.match(email).hasMatch()) {
         Logger::instance().log("JsonManager", QString("Ошибка: Неверный формат email %1").arg(email));
-        QMessageBox::warning(nullptr, "Ошибка", "Неверный формат email!");
         return;
     }
     if (role == "Продавец") {
         if (pharmacyId == 0) {
             Logger::instance().log("JsonManager", "Ошибка: Продавец должен быть привязан к аптеке");
-            QMessageBox::warning(nullptr, "Ошибка", "Выберите аптеку для продавца!");
             return;
         }
         bool pharmacyExists = false;
@@ -766,14 +771,12 @@ void JsonManager::addEmployee(const QString& role, const QString& login, const Q
         }
         if (!pharmacyExists) {
             Logger::instance().log("JsonManager", QString("Ошибка: Аптека ID %1 не существует").arg(pharmacyId));
-            QMessageBox::warning(nullptr, "Ошибка", QString("Аптека ID %1 не существует!").arg(pharmacyId));
             return;
         }
     }
     for (const User& user : employees) {
         if (user.getLogin() == login) {
             Logger::instance().log("JsonManager", QString("Ошибка: Логин %1 уже занят").arg(login));
-            QMessageBox::warning(nullptr, "Ошибка", "Логин уже занят!");
             return;
         }
     }

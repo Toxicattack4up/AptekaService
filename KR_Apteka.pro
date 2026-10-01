@@ -17,6 +17,7 @@ SOURCES += \
     Pharmacy.cpp \
     PharmacyItem.cpp \
     User.cpp \
+    PasswordUtil.cpp \
     UserRoleHelper.cpp \
     centralwarehouse.cpp \
     historymanager.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     Pharmacy.h \
     PharmacyItem.h \
     User.h \
+    PasswordUtil.h \
     UserRoleHelper.h \
     centralwarehouse.h \
     historymanager.h \

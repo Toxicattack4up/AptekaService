@@ -1,4 +1,5 @@
 #include "User.h"
+#include "PasswordUtil.h"
 #include <QDebug>
 #include <QDate>
 
@@ -17,7 +18,7 @@ User::User(UserRole Role, const QString& Login, const QString& Password,
            const QString& FullName, const QString& Email)
     : Role(Role),
     Login(Login),
-    Password(Password),
+    Password(PasswordUtil::isHashed(Password) ? Password : PasswordUtil::hashPassword(Password)),
     FullName(FullName),
     Email(Email),
     RegistrationDate(QDate::currentDate()),
@@ -74,11 +75,11 @@ void User::setLogin(const QString& _login) {
 
 // Установка пароля: изменяет пароль с проверкой длины
 void User::setPassword(const QString& _Password) {
-    if (_Password.length() < 8) {
+    if (_Password.length() < 8 && !PasswordUtil::isHashed(_Password)) {
         qDebug() << "Ошибка: Пароль должен быть не менее 8 символов!";
         return;
     }
-    Password = _Password;
+    Password = PasswordUtil::isHashed(_Password) ? _Password : PasswordUtil::hashPassword(_Password);
 }
 
 // Установка полного имени: изменяет ФИО с проверкой
