@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.7.3"
+          modules: "qtbase"
+          cache: true
+      - name: Build with qmake
+        run: |
+          qmake KR_Apteka.pro
+          make -j$(nproc)
+      - name: Build PasswordUtil tests
+        working-directory: tests
+        run: |
+          qmake PasswordUtilTest.pro
+          make -j$(nproc)
+          ./PasswordUtilTest
